@@ -20,5 +20,37 @@ public class ChiTietGioHang {
         this.donGia = donGia;
     }
 
+    public String getMaGioHang() {
+        return maGioHang;
+    }
+
+    public void setMaGioHang(String maTK) {
+        this.maGioHang = maTK;
+    }
+
+    public String getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public int getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(int donGia) {
+        this.donGia = donGia;
+    }
+
     
 }
