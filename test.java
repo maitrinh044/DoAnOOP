@@ -1,6 +1,5 @@
 
 import java.util.Scanner;
-import java.io.*;
 
 public class test {
     DanhSachTaiKhoan listTaiKhoan = new DanhSachTaiKhoan();
@@ -210,14 +209,8 @@ public class test {
     }
     public static void main(String[] args) {
         test abc = new test();
-        abc.listTaiKhoan.nhapDSTK();
+        
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("input\\taikhoan.txt"));
-            int a = abc.listTaiKhoan.getSoLuongTK();
-            writer.write(String.valueOf((a)));
-            writer.close();
-        } catch (IOException e) {
-        }
+        abc.listTaiKhoan.xuatDSTK();
     }
 }

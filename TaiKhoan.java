@@ -1,13 +1,14 @@
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Scanner;
 
-public class TaiKhoan {
+public class TaiKhoan implements Serializable {
     private String maTK;
     private String matKhau;
     private Date ngayTao;
-    private String tinhTrangTK;
+    private int tinhTrangTK;
     private int maQuyen;
-    Scanner inp = new Scanner(System.in);
+    transient Scanner inp = new Scanner(System.in);
 
     public TaiKhoan()
     {
@@ -15,17 +16,17 @@ public class TaiKhoan {
         matKhau = "";
         long millis = System.currentTimeMillis();
         ngayTao = new java.sql.Date(millis);
-        tinhTrangTK = "";
+        tinhTrangTK = 1;
         maQuyen = 2;
     }
 
-    public TaiKhoan(String maTK, String matKhau, String tinhTrangTK, int maQuyen)
+    public TaiKhoan(String maTK, String matKhau, int tinhTrangTK, int maQuyen)
     {
         this.maTK = maTK;
         this.matKhau = matKhau;
         long millis = System.currentTimeMillis();
         ngayTao = new java.sql.Date(millis);
-        this.tinhTrangTK = tinhTrangTK;
+        this.tinhTrangTK = 1;
         this.maQuyen = maQuyen;
     }
 
@@ -55,12 +56,12 @@ public class TaiKhoan {
         return ngayTao;
     }
 
-    public String getTinhTrangTK() {
+    public int getTinhTrangTK() {
         return tinhTrangTK;
     }
 
-    public void setTinhTrangTK() {
-        this.tinhTrangTK = "Da Kich Hoat";
+    public void setTinhTrangTK(int st) {
+        this.tinhTrangTK = st;
     }
 
     public int getMaQuyen() {
@@ -85,7 +86,7 @@ public class TaiKhoan {
     {
         setMaTK();
         setMatKhau();
-        setTinhTrangTK();
+        setTinhTrangTK(1);
     }
 
     public void xuatThongTinTaiKhoan()

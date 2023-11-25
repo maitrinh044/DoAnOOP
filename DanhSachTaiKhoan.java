@@ -1,27 +1,80 @@
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
-import java.util.Scanner;
+
 
 public class DanhSachTaiKhoan {
-    private int soluongTK;
+    private int soluongTK = 0;
     private TaiKhoan arrTK[];
-    Scanner inp = new Scanner(System.in);
+
+    public void ghiFile()
+    {
+        try {
+            FileOutputStream fos = new FileOutputStream("input/TaiKhoan.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            
+            for (int i=0 ; i<soluongTK; i++)
+            {
+                oos.writeObject(arrTK[i]);
+            }
+            
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void docFile(FileInputStream fis)
+    {
+        try {
+            arrTK = new TaiKhoan[0];            
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            while (fis.available() > 0)
+            {
+                TaiKhoan a = new TaiKhoan();
+                a = (TaiKhoan) ois.readObject();
+                themTaiKhoan(a);
+            }
+            ois.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public DanhSachTaiKhoan()
     {
-        soluongTK = 0;
-    }
+        try {
+            FileInputStream fis = new FileInputStream("input/TaiKhoan.txt");
+            if (fis.available() > 0) {
+                docFile(fis);
+            }
+            else {  
+                soluongTK = 1;
+                arrTK = new TaiKhoan[1];
+                arrTK[0] = new TaiKhoan("000", "000000", 1, 0);
+                ghiFile();
+            }
+            fis.close();
 
-    public void nhapDSTK()
-    {
-        System.out.print("Nhap so luong tai khoan: ");
-        soluongTK = inp.nextInt();
-        arrTK = new TaiKhoan[soluongTK];
-        for (int i=0; i<soluongTK; i++)
-        {
-            arrTK[i] = new TaiKhoan();
-            arrTK[i].nhapTaiKhoan();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
+
     }
 
     public int getSoLuongTK()
@@ -35,14 +88,13 @@ public class DanhSachTaiKhoan {
         for (int i=0; i<soluongTK; i++)
         {
             arrTK[i].xuatThongTinTaiKhoan();
-        }
+        } 
     }
 
     public void themTaiKhoan(TaiKhoan a)
     {
         arrTK = Arrays.copyOf(arrTK, ++soluongTK);
         arrTK[soluongTK-1]=a;
-        soluongTK++;
     }
 
     public void xoaTaiKhoan(String maTK)
@@ -71,10 +123,4 @@ public class DanhSachTaiKhoan {
         return false;
     }
 
-    public static void main(String[] args) {
-        DanhSachTaiKhoan a = new DanhSachTaiKhoan();
-        a.nhapDSTK();
-        if (a.ktraTaiKhoan("1", "111111") == true)
-            System.out.println("ok");
-    }
 }
