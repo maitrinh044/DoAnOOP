@@ -37,7 +37,7 @@ public class DanhSachCTDonHang implements QuanLiDS {
         try {
             FileInputStream fis = new FileInputStream("./input/ChiTietDonHang.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("./input/ChiTietDonHang.txt");
             } else {
                 soLuong = 1;
                 DS_CTDH = new ChiTietDonHang[soLuong];
@@ -51,8 +51,9 @@ public class DanhSachCTDonHang implements QuanLiDS {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream(name);
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (true) {
                 try {

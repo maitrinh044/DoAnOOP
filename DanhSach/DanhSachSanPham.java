@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhThu {
+public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhThu, File {
     private static int soLuong;
     private static SanPham[] arrSP;
 
@@ -23,7 +23,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhTh
         try {
             FileInputStream fis = new FileInputStream("./input/SanPham.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("./input/SanPham.txt");
                 fis.close();
             } else {
                 soLuong = 10;
@@ -49,6 +49,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhTh
     }
 
     // ghi danh sách vào file DanhSachSanPham
+    @Override
     public void ghiFile() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./input/SanPham.txt"))) {
             for (int i = 0; i < soLuong; i++) {
@@ -62,8 +63,10 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhTh
     }
 
     // đọc danh sách từ file DanhSachSanPham
-    public void docFile(FileInputStream fis) {
+    @Override
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream(name);
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (true) {
                 try {
@@ -169,7 +172,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhTh
                     arr[c - 1] = arrSP[i];
                 }
             }
-            if (arr == null)
+            if (arr.length == 0)
                 return null;
             else
                 return arr;

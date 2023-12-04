@@ -12,11 +12,12 @@ import java.util.Scanner;
 import KiemTra.KiemTra;
 import main.*;
 
-public class DanhSachTaiKhoan implements QuanLiDS {
+public class DanhSachTaiKhoan implements QuanLiDS, File {
     private int soluongTK = 0;
     private TaiKhoan arrTK[];
     transient Scanner inp = new Scanner(System.in);
 
+    @Override
     public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("input/TaiKhoan.txt");
@@ -35,8 +36,10 @@ public class DanhSachTaiKhoan implements QuanLiDS {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    @Override
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream(name);
             arrTK = new TaiKhoan[0];
             ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -58,7 +61,7 @@ public class DanhSachTaiKhoan implements QuanLiDS {
         try {
             FileInputStream fis = new FileInputStream("input/TaiKhoan.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("input/TaiKhoan.txt");
             } else {
                 soluongTK = 1;
                 arrTK = new TaiKhoan[1];

@@ -13,11 +13,12 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DanhSachKhuyenMai implements QuanLiDS, ThongKeSoLuong {
+public class DanhSachKhuyenMai implements QuanLiDS, ThongKeSoLuong, File {
     private int soKM;
     private KhuyenMai DS_KhuyenMai[];
     transient Scanner inp = new Scanner(System.in);
 
+    @Override
     public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("input/KhuyenMai.txt");
@@ -35,8 +36,9 @@ public class DanhSachKhuyenMai implements QuanLiDS, ThongKeSoLuong {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream(name);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             while (true) {
@@ -65,7 +67,7 @@ public class DanhSachKhuyenMai implements QuanLiDS, ThongKeSoLuong {
         try {
             FileInputStream fis = new FileInputStream("input/KhuyenMai.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("input/KhuyenMai.txt");
             } else {
                 soKM = 1;
                 DS_KhuyenMai = new KhuyenMai[soKM];

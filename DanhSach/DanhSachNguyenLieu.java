@@ -11,7 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachNguyenLieu implements QuanLiDS, ThongKeSoLuong {
+public class DanhSachNguyenLieu implements QuanLiDS, ThongKeSoLuong, File {
     private static int soLuongNL;
     private static NguyenLieu[] arrNL;
 
@@ -25,7 +25,7 @@ public class DanhSachNguyenLieu implements QuanLiDS, ThongKeSoLuong {
         try {
             FileInputStream fis = new FileInputStream("./input/NguyenLieu.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("./input/NguyenLieu.txt");
                 fis.close();
             } else {
                 auto();
@@ -38,8 +38,9 @@ public class DanhSachNguyenLieu implements QuanLiDS, ThongKeSoLuong {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream("./input/NguyenLieu.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
                 themNguyenLieu((NguyenLieu) ois.readObject());

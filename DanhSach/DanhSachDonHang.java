@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachDonHang implements QuanLiDS, ThongKeDoanhThu {
+public class DanhSachDonHang implements QuanLiDS, ThongKeDoanhThu, File {
     private int soDH;
     private DonHang[] DS_DonHang;
     KiemTra kiemTra = new KiemTra();
@@ -23,7 +23,7 @@ public class DanhSachDonHang implements QuanLiDS, ThongKeDoanhThu {
         try {
             FileInputStream fis = new FileInputStream("./input/DonHang.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("./input/DonHang.txt");
             } else {
                 soDH = 1;
                 DS_DonHang = new DonHang[soDH];
@@ -43,8 +43,9 @@ public class DanhSachDonHang implements QuanLiDS, ThongKeDoanhThu {
         soDH++;
     }
 
-    public void docFile(FileInputStream fis) {
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream(name);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             while (true) {

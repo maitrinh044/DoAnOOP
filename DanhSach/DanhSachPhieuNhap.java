@@ -11,7 +11,7 @@ import java.util.Arrays;
 import main.*;
 import KiemTra.KiemTra;
 
-public class DanhSachPhieuNhap implements QuanLiDS {
+public class DanhSachPhieuNhap implements QuanLiDS, File {
     private static int soluongPN;
     private static PhieuNhap[] arrPN;
 
@@ -21,7 +21,7 @@ public class DanhSachPhieuNhap implements QuanLiDS {
         try {
             FileInputStream fis = new FileInputStream("./input/PhieuNhap.txt");
             if (fis.available() > 0) {
-                docFile(fis);
+                docFile("./input/PhieuNhap.txt");
                 fis.close();
             }
         } catch (FileNotFoundException e) {
@@ -31,8 +31,10 @@ public class DanhSachPhieuNhap implements QuanLiDS {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    @Override
+    public void docFile(String name) {
         try {
+            FileInputStream fis = new FileInputStream("./input/PhieuNhap.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
                 themPhieuNhap((PhieuNhap) ois.readObject());
@@ -45,6 +47,7 @@ public class DanhSachPhieuNhap implements QuanLiDS {
         }
     }
 
+    @Override
     public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/PhieuNhap.txt");
