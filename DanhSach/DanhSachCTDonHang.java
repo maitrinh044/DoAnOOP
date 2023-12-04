@@ -4,9 +4,7 @@ import KiemTra.KiemTra;
 import main.*;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class DanhSachCTDonHang implements QuanLiDS {
     private static int soLuong;

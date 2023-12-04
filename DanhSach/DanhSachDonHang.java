@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachDonHang implements QuanLiDS {
+public class DanhSachDonHang implements QuanLiDS, ThongKeDoanhThu {
     private int soDH;
     private DonHang[] DS_DonHang;
     KiemTra kiemTra = new KiemTra();
@@ -307,4 +307,15 @@ public class DanhSachDonHang implements QuanLiDS {
         }
     }
 
+    @Override
+    public double doanhThu(int opt) {
+        // Tổng tiền các đơn hàng
+        double tmp = 0;
+        if (opt == 0) {
+            for (int i = 0; i < soDH; i++) {
+                tmp += DS_DonHang[i].tongTienHoaDon();
+            }
+        }
+        return tmp;
+    }
 }

@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong {
+public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong, ThongKeDoanhThu {
     private static int soLuong;
     private static SanPham[] arrSP;
 
@@ -315,6 +315,30 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong {
                 }
             }
             tmp = soThucUong;
+        }
+        return tmp;
+    }
+
+    @Override
+    public double doanhThu(int opt) {
+        double tmp = 0;
+        double dtsp = 0, dtta = 0, dttu = 0;
+        if (opt == 0) {
+            tmp = 0;
+        } else if (opt == 1) {
+            for (int i = 0; i < soLuong; i++) {
+                if (arrSP[i] instanceof ThucAn) {
+                    dtta += arrSP[i].getDonGia();
+                }
+            }
+            tmp = dtta;
+        } else if (opt == 2) {
+            for (int i = 0; i < soLuong; i++) {
+                if (arrSP[i] instanceof ThucUong) {
+                    dttu += arrSP[i].getDonGia();
+                }
+            }
+            tmp = dttu;
         }
         return tmp;
     }
