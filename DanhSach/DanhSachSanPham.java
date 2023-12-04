@@ -159,17 +159,17 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
         return null;
     }
 
-    public SanPham[] timKiemSanPhamTheoPham(String tenSP) {
+    public static SanPham[] timKiemSanPhamTheoPham(String tenSP) {
         if (soLuong == 0 ) {
             return null;
         }
         else {
-            int c=0;
             SanPham[] arr = new SanPham[0];
-            for (int i=0; i<soLuong; i++) {
+            for (int i=0, c=0; i<soLuong; i++) {
                 if (arrSP[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) == true) {
                     c++;
                     arr = Arrays.copyOf(arr, c);
+                    arr[c-1] = arrSP[i];
                 } 
             }
             if (arr == null) return null;

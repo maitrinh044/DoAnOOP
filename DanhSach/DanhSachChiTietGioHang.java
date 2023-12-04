@@ -8,7 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import KiemTra.KiemTra;
 import main.ChiTietGioHang;
+import main.SanPham;
 
 public class DanhSachChiTietGioHang {
     private static ArrayList<ChiTietGioHang> arrCTGioHang;
@@ -68,7 +70,6 @@ public class DanhSachChiTietGioHang {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static ArrayList<ChiTietGioHang> timKiemCTGioHang(String maGioHang)
@@ -87,6 +88,14 @@ public class DanhSachChiTietGioHang {
         else return null;
     }
 
+    public ChiTietGioHang timKiemChiTietGioHangTheoMaSPMaGH(String maGH, String maSP) {
+        for (ChiTietGioHang i : arrCTGioHang) {
+                if ((i.getMaGioHang()).equals(maGH) == true && i.getMaSP().equals(maSP) == true)
+                    return i;
+            }
+        return null;
+    }
+
     public void themCTGioHang(ChiTietGioHang ct)
     {
         arrCTGioHang.add(ct);
@@ -94,9 +103,17 @@ public class DanhSachChiTietGioHang {
 
     public void themCTGioHang(String maGH, String maSP)
     {
+        if (timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP)!=null) {
+            System.out.print("Nhập số lượng: ");
+            int c = KiemTra.kiemTraSoNguyenDuong();
+            timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP).setSoLuong(timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP).getSoLuong()+c);
+        }
+        else {
         ChiTietGioHang ct = new ChiTietGioHang(maGH, maSP, 0, DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).getDonGia());
         ct.setSoLuong();
+
         arrCTGioHang.add(ct);
+        }
     }
 
     public static void xoaCTGioHang(ChiTietGioHang ct)
