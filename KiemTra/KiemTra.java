@@ -74,11 +74,11 @@ public class KiemTra {
         while(true) {
             dauVao = sc.nextLine();
             dauVao = dauVao.trim().toUpperCase();
-            if(!dauVao.isEmpty() && dauVao.matches("(TA|TU)" + "[0-9]{3}")) {
+            if(!dauVao.isEmpty() && dauVao.matches("(SP)" + "[0-9]{3}")) {
                 return dauVao;
             }
             else {
-                System.out.println("Nhập sai định dạng mã sản phẩm: TA___ hoặc TU___. Ví dụ: TA001");
+                System.out.println("Nhập sai định dạng mã sản phẩm: SP___. Ví dụ: SP001");
             }
             System.out.print("Mời nhập lại: ");
         }

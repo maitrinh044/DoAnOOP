@@ -100,6 +100,7 @@ public class run {
         TaiKhoan a = new TaiKhoan();
         a.nhapTaiKhoanKH();
         listTaiKhoan.themTaiKhoan(a);
+        listTaiKhoan.ghiFile();
         System.out.println("Đăng kí tài khoản thành công. Vui lòng đăng nhập!\n");
         dangNhap();
     }
@@ -107,8 +108,8 @@ public class run {
     public void menuKhachHang(TaiKhoan a)
     {            
         int opt;
-        String tieptuc, input;
-        SanPham sp;
+        String tieptuc, input, tieptuc1;
+        SanPham[] sp;
         do {
             System.out.println();
             System.out.println("Các thao tác: ");
@@ -128,15 +129,16 @@ public class run {
                 case 1:
                     System.out.print("Nhập tên hoặc mã sản phẩm muốn tìm kiếm: ");
                     input = KiemTra.kiemTraNhapChuoi();
-                    sp = DanhSachSanPham.timKiemSanPhamTheoMaSP(input);
-                    if (sp != null) {
-                        sp.xuatSanPham();
+                    if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) != null) {
+                        DanhSachSanPham.timKiemSanPhamTheoMaSP(input).xuatSanPham();
                         break;
                     }
                     else {
-                        sp = DanhSachSanPham.timKiemSanPhamTheoTenSP(input);
+                        sp = DanhSachSanPham.timKiemSanPhamTheoPham(input);
                         if (sp != null) {
-                            sp.xuatSanPham();
+                            for (int i=0; i<sp.length; i++) {
+                                sp[i].xuatSanPham();
+                            }
                             break;
                         }
                         else {
@@ -156,15 +158,20 @@ public class run {
                     break;
                 case 5:
                     listSanPham.xuatDSSP();
-                    System.out.print("Nhập mã sản phẩm bạn muốn thêm: ");
-                    input = KiemTra.kiemTraNhapMaSP();
-                    if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) == null) {
-                        System.out.println("Không tồn tại sản phẩm. Quay lại.");
+                    do {
+                        System.out.print("Nhập mã sản phẩm bạn muốn thêm: ");
+                        input = KiemTra.kiemTraNhapMaSP();
+                        if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) == null) {
+                            System.out.println("Không tồn tại sản phẩm.");
+                        }
+                        else {
+                            listCTietGioHang.themCTGioHang(a.getMaTK(), input);
+                        }
+                        DanhSachChiTietGioHang.ghiFile();
+                        System.out.print("Bạn có muốn tiếp tục mua hàng?(y/n): ");
+                        tieptuc1 = KiemTra.tiepTuc();
                     }
-                    else {
-                        listCTietGioHang.themCTGioHang(a.getMaTK(), input);
-                    }
-                    DanhSachChiTietGioHang.ghiFile();
+                    while (tieptuc1.equals("y"));
                     break;
                 case 6:
                     listTaiKhoan.timTaiKhoan(a.getMaTK()).setMatKhau();
