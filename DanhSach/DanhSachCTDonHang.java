@@ -5,41 +5,97 @@ import main.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class DanhSachCTDonHang {
-    private int soCTDonHangTiepTheo;
-    public List<ChiTietDonHang> DS_CTDonHang;
-    // KiemTra kiemTra = new KiemTra();
+public class DanhSachCTDonHang implements QuanLiDS {
+    private static int soLuong;
+    private static ChiTietDonHang[] DS_CTDH;
 
-    //Constructor
+    public DanhSachCTDonHang(int soLuong, ChiTietDonHang[] dS_CTDH) {
+        this.soLuong = soLuong;
+        DS_CTDH = dS_CTDH;
+    }
+
+    public static int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public static ChiTietDonHang[] getDS_CTDH() {
+        return DS_CTDH;
+    }
+
+    public void setDS_CTDH(ChiTietDonHang[] dS_CTDH) {
+        DS_CTDH = dS_CTDH;
+    }
+
     public DanhSachCTDonHang() {
-        soCTDonHangTiepTheo = 1;
-        this.DS_CTDonHang = new ArrayList<>();
-        docDanhSachCTDHTuFile("./input/ChiTietDonHang.txt");
+        soLuong = 0;
+        DS_CTDH = new ChiTietDonHang[soLuong];
+        try {
+            FileInputStream fis = new FileInputStream("./input/ChiTietDonHang.txt");
+            if (fis.available() > 0) {
+                docFile(fis);
+            } else {
+                soLuong = 1;
+                DS_CTDH = new ChiTietDonHang[soLuong];
+                DS_CTDH[0] = new ChiTietDonHang("DH001_1", "SP001", 10, "KM001");
+                ghiFile();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    //Getter - Setter
-    public int getSoCTDonHangTiepTheo() {
-        return soCTDonHangTiepTheo;
+    public void docFile(FileInputStream fis) {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            while (true) {
+                try {
+                    themDonHang((ChiTietDonHang) ois.readObject());
+                    ghiFile();
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setSoCTDonHangTiepTheo(int soCTDonHangTiepTheo) {
-        this.soCTDonHangTiepTheo = soCTDonHangTiepTheo;
+    public static void themDonHang(ChiTietDonHang tmp) {
+        DS_CTDH = Arrays.copyOf(DS_CTDH, soLuong + 1);
+        DS_CTDH[soLuong - 1] = tmp;
+        soLuong++;
     }
 
-    public List<ChiTietDonHang> getDS_CTDonHang() {
-        return DS_CTDonHang;
+    public void ghiFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream("./input/ChiTietDonHang.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            for (int i = 0; i < soLuong; i++) {
+                oos.writeObject(DS_CTDH[i]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setDS_CTDonHang(List<ChiTietDonHang> DS_CTDonHang) {
-        this.DS_CTDonHang = DS_CTDonHang;
-    }
-
-
-    //Start: Menu Quản lý danh sách chi tiết đơn hàng
-    public void quanLyDanhSachCTDH() {
-        while(true) {
+    @Override
+    public void quanLiDS() {
+        while (true) {
             System.out.println("=============== QUẢN LÝ DANH SÁCH CHI TIẾT ĐƠN HÀNG ===============");
             System.out.println("1. Thêm chi tiết đơn hàng");
             System.out.println("2. In danh sách chi tiết đơn hàng");
@@ -49,9 +105,9 @@ public class DanhSachCTDonHang {
             System.out.print("Nhập lựa chọn của bạn: ");
             int luaChon = KiemTra.kiemTraSoNguyenDuong();
 
-            switch(luaChon) {
+            switch (luaChon) {
                 case 1:
-                    
+                    themDonHang();
                     break;
                 case 2:
                     inDanhSachCTDH();
@@ -68,117 +124,56 @@ public class DanhSachCTDonHang {
 
             System.out.print("Bạn có muốn tiếp tục Quản lý danh sách chi tiết đơn hàng không? (y/n): ");
             String tiepTuc = KiemTra.tiepTuc();
-            if(tiepTuc.equalsIgnoreCase("n")) {
+            if (tiepTuc.equalsIgnoreCase("n")) {
                 System.out.println("Thoát khỏi Quản lý danh sách chi tiết đơn hàng...");
                 break;
             }
         }
-        ghiDanhSachCTDHVaoFile("./input/ChiTietDonHang");
     }
-    //End: Menu Quản lý danh sách chi tiết đơn hàng
 
+    public static void themDonHang() {
+        System.out.print("Nhập số lượng chi tiết đơn hàng cần nhập:");
+        int n = KiemTra.kiemTraNhapSoNguyen();
+        for (int i = 0; i < n; i++) {
+            System.out.println("Chi tiết đơn hàng thứ " + (i + 1));
+            ChiTietDonHang tmp = new ChiTietDonHang();
+            tmp.nhapThongTinCTDH();
+            themDonHang(tmp);
+        }
+    }
 
-    //1. Thêm chi tiết đơn hàng
-
-
-    //2. In danh sách chi tiết đơn hàng
     public void inDanhSachCTDH() {
-        if(DS_CTDonHang.isEmpty()) {
-            System.out.println("Danh sách chi tiết đơn hàng rỗng!");
-            return;
+        for (int i = 0; i < soLuong; i++) {
+            DS_CTDH[i].inCTDonHang();
         }
-
-        System.out.println("---------- DANH SÁCH CHI TIẾT ĐƠN HÀNG ----------");
-        for (ChiTietDonHang chiTietDonHang : DS_CTDonHang) {
-            chiTietDonHang.inCTDonHang();
-        }
-        System.out.println("-------------------------------------------------");
     }
 
-    //3. Tìm kiếm chi tiết đơn hàng
-    public ChiTietDonHang timKiemCTDH(String maCTDH) {
-        for (ChiTietDonHang chiTietDonHang : DS_CTDonHang) {
-            if(chiTietDonHang.getMaCTDH().equalsIgnoreCase(maCTDH)) {
-                return chiTietDonHang;
+    public static void timKiemCTDH() {
+        System.out.print("Nhập mã chi tiết đơn hàng cần tìm: ");
+        String madh = KiemTra.kiemTraNhapMaDH();
+        int check = 0;
+        for (ChiTietDonHang tmp : DS_CTDH) {
+            if (tmp.getMaCTDH().equalsIgnoreCase(madh)) {
+                check = 1;
+                tmp.inCTDonHang();
             }
         }
-        return null;
-    }
-
-    public void timKiemCTDH() {
-        System.out.print("Nhập mã chi tiết đơn hàng cần tìm kiếm: ");
-        String maCTDH = KiemTra.kiemTraNhapMaCTDH();
-        ChiTietDonHang chiTietDonHang = timKiemCTDH(maCTDH);
-
-        if(chiTietDonHang == null) {
-            System.out.println("Không tìm thấy chi tiết đơn hàng có mã " + maCTDH);
-        }
-        else {
-            System.out.println("---------- CHI TIẾT ĐƠN HÀNG CẦN TÌM KIẾM ----------");
-            chiTietDonHang.inCTDonHang();
-            System.out.println("-----------------------------------------------------");
+        if (check == 0) {
+            System.out.println("Không tìm thấy đơn hàng này.");
         }
     }
 
-    //4. Xóa một chi tiết đơn hàng
-    public void xoaMotCTDH() {
+    public static void xoaMotCTDH() {
         System.out.print("Nhập mã chi tiết đơn hàng cần xóa: ");
-        String maCTDH = KiemTra.kiemTraNhapMaCTDH();
-        ChiTietDonHang chiTietDonHang = timKiemCTDH(maCTDH);
-
-        if(chiTietDonHang == null) {
-            System.out.println("Không tìm thấy chi tiết đơn hàng có mã " + maCTDH);
-        }
-        else {
-            DS_CTDonHang.remove(chiTietDonHang);
-            System.out.println("Xóa thành công chi tiết đơn hàng có mã " + maCTDH);
-        }
-    }
-
-    //5. Ghi danh sách chi tiết đơn hàng vào file
-    public void ghiDanhSachCTDHVaoFile(String tenFile) {
-        try {
-            FileWriter fw = new FileWriter(tenFile);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            for (ChiTietDonHang chiTietDonHang : DS_CTDonHang) {
-                bw.write(chiTietDonHang.getMaCTDH() + "#" + chiTietDonHang.getMaSP() + "#" + chiTietDonHang.getSoLuong() + "#" + chiTietDonHang.getMaKM() + "#" + chiTietDonHang.thanhTien());
-                bw.newLine();
+        String madh = KiemTra.kiemTraNhapMaDH();
+        int newCount = soLuong - 1;
+        ChiTietDonHang[] newArr = new ChiTietDonHang[newCount];
+        for (int i = 0, j = 0; i < soLuong; i++) {
+            if (DS_CTDH[i].getMaCTDH().equals(madh)) {
+                newArr[j++] = DS_CTDH[i];
             }
-
-            bw.close();
-            fw.close();
         }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    //6. Đọc danh sách chi tiết đơn hàng từ file
-    public void docDanhSachCTDHTuFile(String tenFile) {
-        try {
-            DS_CTDonHang.clear();
-
-            FileReader fr = new FileReader(tenFile);
-            BufferedReader br = new BufferedReader(fr);
-
-            String data;
-            while((data = br.readLine()) != null) {
-                String[] arr = data.split("#");
-                ChiTietDonHang chiTietDonHang = new ChiTietDonHang();
-                chiTietDonHang.setMaCTDH(arr[0]);
-                chiTietDonHang.setMaSP(arr[1]);
-                chiTietDonHang.setSoLuong(Integer.parseInt(arr[2]));
-                chiTietDonHang.setMaKM(arr[3]);
-                DS_CTDonHang.add(chiTietDonHang);
-            }
-
-            br.close();
-            fr.close();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+        DS_CTDH = newArr;
+        soLuong = newCount;
     }
 }
