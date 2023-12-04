@@ -111,11 +111,11 @@ public class ChiTietCongThuc implements Serializable{
 
     public void xuatCTCT() {
         System.out.printf("%-20s");
-        System.out.printf("%-`10s%-20s%-10s%-15s", getMaCT(), toStringMaNL(), getSoLuong(), getDonViTinh());
+        System.out.printf("%-10s%-20s%-10s%-15s", getMaCT(), toStringMaNL(), getSoLuong(), getDonViTinh());
     }
 
     public void xuatCTCT1() {
-        System.out.printf("%-20s");
-        System.out.printf("%-`10s%-20s%-10s%-15s", getMaNL(), toStringMaNL(), getSoLuong(), getDonViTinh());
+        // System.out.printf("%-20s", "");
+        System.out.printf("%-10s%-20s%-10s%-15s\n", getMaNL(), toStringMaNL(), getSoLuong(), getDonViTinh());
     }
 }

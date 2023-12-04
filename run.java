@@ -8,12 +8,13 @@ public class run {
     DanhSachChiTietGioHang listCTietGioHang = new DanhSachChiTietGioHang();
     DanhSachGioHang listGioHang = new DanhSachGioHang();
     DanhSachCTDonHang listCTDonHang = new DanhSachCTDonHang();
-    DanhSachCTDonHang listDonHang = new DanhSachCTDonHang();
+    DanhSachDonHang listDonHang = new DanhSachDonHang();
     DanhSachNguyenLieu listNguyenLieu = new DanhSachNguyenLieu();
     DanhSachPhieuNhap listPhieuNhap = new DanhSachPhieuNhap();
     DanhSachChiTietPN listCTPhieuNhap = new DanhSachChiTietPN();
     DanhSachSanPham listSanPham = new DanhSachSanPham();
     DanhSachCongThuc listCongThuc = new DanhSachCongThuc();
+    DanhSachChiTietCongThuc lSachChiTietCongThuc = new DanhSachChiTietCongThuc();
     DanhSachNhaCungCap listNhaCungCap = new DanhSachNhaCungCap();
     DanhSachNhanVien listNhanVien = new DanhSachNhanVien();
     DanhSachKhachHang listKhachHang = new DanhSachKhachHang();
@@ -197,7 +198,7 @@ public class run {
     public void menuNhanVien(TaiKhoan a)
     {
         String input, tiepTuc;
-        SanPham sp;
+        SanPham[] sp;
         int opt;
         do {
             System.out.println();
@@ -219,27 +220,29 @@ public class run {
                 case 1:
                     System.out.print("Nhập tên hoặc mã sản phẩm muốn tìm kiếm: ");
                     input = KiemTra.kiemTraNhapChuoi();
-                    sp = DanhSachSanPham.timKiemSanPhamTheoMaSP(input);
-                    if (sp != null) {
-                        sp.xuatSanPham();
+                    if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) != null) {
+                        DanhSachSanPham.timKiemSanPhamTheoMaSP(input).xuatSanPham();
                         break;
                     }
                     else {
-                        sp = DanhSachSanPham.timKiemSanPhamTheoTenSP(input);
+                        sp = DanhSachSanPham.timKiemSanPhamTheoPham(input);
                         if (sp != null) {
-                            sp.xuatSanPham();
+                            for (int i=0; i<sp.length; i++) {
+                                sp[i].xuatSanPham();
+                            }
                             break;
                         }
                         else {
-                                System.out.println("Không có sản phẩm.");
+                            System.out.println("Không có sản phẩm.");
                         }
                     }
+                    
                     break;
                 case 2:
                     listSanPham.xuatDSSP();
                     break;
                 case 3:
-                    listDonHang.quanLyDanhSachCTDH();
+                    listDonHang.quanLiDS();
                     break;
                 case 4:
                     listPhieuNhap.quanLiDS();
@@ -304,7 +307,7 @@ public class run {
                     listKhuyenMai.quanLiDS();
                     break;
                 case 5:  
-                    listDonHang.quanLyDanhSachCTDH();
+                    listDonHang.quanLiDS();
                     break;
                 case 6:  
                     listCongThuc.quanLiDS();

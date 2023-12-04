@@ -153,12 +153,13 @@ public class DanhSachChiTietCongThuc {
         arrCTCT.add(a);
         a = new ChiTietCongThuc("CT001", "NL002", 20);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT001", "NL002", 20);
+        a = new ChiTietCongThuc("CT001", "NL004", 20);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT001", "NL002", 20);
+        a = new ChiTietCongThuc("CT001", "NL003", 20);
         arrCTCT.add(a);
         a = new ChiTietCongThuc("CT002", "NL002", 20);
-        arrCTCT.add(a);a = new ChiTietCongThuc("CT001", "NL002", 20);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT002", "NL004", 20);
         arrCTCT.add(a);
         a = new ChiTietCongThuc("CT003", "NL001", 3);
         arrCTCT.add(a);

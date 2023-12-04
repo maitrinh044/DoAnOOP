@@ -10,12 +10,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DanhSachDonHang implements QuanLiDS {
-    private int soDH;
+    public static int soDH;
     private DonHang[] DS_DonHang;
-    KiemTra kiemTra = new KiemTra();
 
     public DanhSachDonHang() {
         soDH = 0;
@@ -24,11 +24,6 @@ public class DanhSachDonHang implements QuanLiDS {
             FileInputStream fis = new FileInputStream("./input/DonHang.txt");
             if (fis.available() > 0) {
                 docFile(fis);
-            } else {
-                soDH = 1;
-                DS_DonHang = new DonHang[soDH];
-                DS_DonHang[0] = new DonHang("DH001", "NV001", "12/12/2023", "KH001");
-                ghiFile();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -37,11 +32,6 @@ public class DanhSachDonHang implements QuanLiDS {
         }
     }
 
-    public void themDonHang(DonHang tmp) {
-        DS_DonHang = Arrays.copyOf(DS_DonHang, soDH + 1);
-        DS_DonHang[soDH] = tmp;
-        soDH++;
-    }
 
     public void docFile(FileInputStream fis) {
         try {
@@ -95,6 +85,7 @@ public class DanhSachDonHang implements QuanLiDS {
     @Override
     public void quanLiDS() {
         DonHang tmp;
+        DonHang[] arr;
         String madh;
         while (true) {
             System.out.println("==================== QUẢN LÝ DANH SÁCH ĐƠN HÀNG ====================");
@@ -103,10 +94,6 @@ public class DanhSachDonHang implements QuanLiDS {
             System.out.println("\t\t\t3. Tìm kiếm đơn hàng theo mã đơn hàng.");
             System.out.println("\t\t\t4. Tìm kiếm (các) đơn hàng theo mã nhân viên.");
             System.out.println("\t\t\t5. Tìm kiếm (các) đơn hàng theo mã khách hàng.");
-            System.out.println("\t\t\t6. Cập nhật thông tin đơn hàng.");
-            System.out.println("\t\t\t7. Xóa một đơn hàng khỏi danh sách.");
-            System.out.println("\t\t\t8. Xóa tất cả đơn hàng trong danh sách.");
-            System.out.println("\t\t\t9. Tổng tiền hóa đơn của đơn hàng.");
             System.out.println("======================================================================");
 
             System.out.print("Nhập lựa chọn của bạn: ");
@@ -133,12 +120,14 @@ public class DanhSachDonHang implements QuanLiDS {
                 case 4:
                     System.out.print("Nhập mã nhân viên: ");
                     String manv = KiemTra.kiemTraNhapMaNV();
-                    tmp = timKiemDonHangTheoMaNV(manv);
-                    if (tmp != null) {
-                        tmp.inThongTinDonHang();
-
-                    } else {
-                        System.out.println("Không tìm thấy sản phẩm.");
+                    arr = timKiemDonHangTheoMaNV(manv);
+                    if (arr != null) {
+                        for (DonHang donHang : arr) {
+                            donHang.inThongTinDonHang();
+                        }
+                    } 
+                    else {
+                        System.out.println("Không có đơn hàng.");
                     }
                     break;
                 case 5:
@@ -151,28 +140,9 @@ public class DanhSachDonHang implements QuanLiDS {
                         System.out.println("Không tìm thấy sản phẩm.");
                     }
                     break;
-                case 6:
-                    System.out.print("Nhập mã đơn hàng: ");
-                    madh = KiemTra.kiemTraNhapMaDH();
-                    capNhatThongTinDonHang(madh);
-                    ghiFile();
-                    break;
-                case 7:
-                    System.out.print("Nhập mã đơn hàng: ");
-                    madh = KiemTra.kiemTraNhapMaDH();
-                    xoaMotDonHang(madh);
-                    ghiFile();
-                    break;
-                case 8:
-                    xoaTatCaDonHang();
-                    break;
-                case 9:
-                    System.out.print("Nhập mã đơn hàng: ");
-                    madh = KiemTra.kiemTraNhapMaDH();
-                    tongTien(madh);
-                    break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
+                    break;
             }
 
             // * Tiếp tục menu?
@@ -188,19 +158,28 @@ public class DanhSachDonHang implements QuanLiDS {
 
     // 1. Phương thức thêm đơn hàng vào danh sách
     public void themDonHang() {
-        System.out.print("Nhập số lượng đơn hàng muốn thêm: ");
-        int soLuong = KiemTra.kiemTraSoNguyenDuong();
+       DonHang a = new DonHang();
+       a.nhapThongTinDonHang();
+       DS_DonHang = Arrays.copyOf(DS_DonHang, ++soDH);
+       DS_DonHang[soDH-1] = a;
+       DanhSachCTDonHang.themNhieuChiTietDonHang(a.getMaDH());
+    }
 
-        for (int i = 0; i < soLuong; i++) {
-            System.out.println("Đơn hàng thứ " + (i + 1) + ":");
-            // System.out.print("Nhập mã nhân viên: ");
-            // String maNV = KiemTra.kiemTraNhapMaNV();
-            // System.out.print("Nhập mã khách hàng: ");
-            // String maKH = KiemTra.kiemTraNhapMaKH();
-            // DonHang donHang = new DonHang(maNV, maKH);
-            DonHang tmp = new DonHang();
-            tmp.nhapThongTinDonHang();
-            themDonHang(tmp);
+    public void themDonHang(DonHang tmp) {
+        DS_DonHang = Arrays.copyOf(DS_DonHang, soDH + 1);
+        DS_DonHang[soDH] = tmp;
+        soDH++;
+    }
+
+    public void themDHOnline(String maTK, String maGH) {
+        DonHang a = new DonHang();
+        a.setMaKH(maTK);
+        a.setMaNV("NV001");
+        themDonHang(a);
+        ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maGH);
+        for (ChiTietGioHang i : arrGH) {
+            ChiTietDonHang ctdh = new ChiTietDonHang(a.getMaDH(), i.getMaSP(), i.getSoLuong(), "");
+            DanhSachCTDonHang.themChiTietDonHang(ctdh);
         }
     }
 
@@ -225,38 +204,21 @@ public class DanhSachDonHang implements QuanLiDS {
     }
 
     // public DonHang timKiemDonHangTheoMaDH(String madh) {
-    // // System.out.print("Nhập mã đơn hàng cần tìm kiếm: ");
-    // // String maDH = KiemTra.kiemTraNhapMaDH();
-    // // for (DonHang donHang : DS_DonHang) {
-    // // if (donHang.getMaDH().equalsIgnoreCase(maDH)) {
-    // // System.out.println("Đơn hàng cần tìm kiếm là: ");
-    // // System.out.printf("|%-5s|%-20s|%-5s|%-5s|%-10s|\n",
-    // // "Mã ĐH", "Ngày lập đơn", "Mã NV", "Mã KH", "Tổng tiền");
-    // // donHang.inThongTinDonHang();
-    // // return;
-    // // }
-    // // }
-    // for(DonHang tmp : DS_DonHang){
-    // if(tmp.getMaDH().equalsIgnoreCase(madh)){
-    // return tmp;
-    // }
-    // }
-    // return null;
-    // }
-
-    // public DonHang timKiemDonHangTheoMaDH(String madh) {
     // return null;
     // }
 
     // 4. Phương thức tìm kiếm (các) đơn hàng theo mã nhân viên
-    public DonHang timKiemDonHangTheoMaNV(String manv) {
-
+    public DonHang[] timKiemDonHangTheoMaNV(String manv) {
+        DonHang[] arr = new DonHang[0];
+        int c=0;
         for (DonHang donHang : DS_DonHang) {
             if (donHang.getMaNV().equalsIgnoreCase(manv)) {
-                return donHang;
+                c++;
+                arr = Arrays.copyOf(arr, c);
+                arr[c-1] = donHang;
             }
         }
-
+        if (arr.length > 0) return arr;
         return null;
     }
 

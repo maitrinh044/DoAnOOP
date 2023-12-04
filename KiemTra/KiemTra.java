@@ -100,22 +100,6 @@ public class KiemTra {
         }
     }
 
-    public static String kiemTraNhapMaCTDH() {
-        String dauVao;
-        while(true) {
-            dauVao = sc.nextLine();
-            dauVao = dauVao.trim().toUpperCase();
-            if(!dauVao.isEmpty() && dauVao.matches("DH" + "[0-9]{3}" + "_" + "[0-9]{1,3}")) {
-                                                            //VÍ DỤ: DH001_1
-                return dauVao;
-            }
-            else {
-                System.out.println("Nhập sai định dạng mã chi tiết đơn hàng. Ví dụ: DH001_1");
-            }
-            System.out.print("Mời nhập lại: ");
-        }
-    }
-
     public static String kiemTraNhapMaKM() {
         String dauVao;
         while(true) {
