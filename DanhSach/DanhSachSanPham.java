@@ -172,7 +172,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                     arr[c-1] = arrSP[i];
                 } 
             }
-            if (arr == null) return null;
+            if (arr.length == 0) return null;
             else return arr;
         }
     }
