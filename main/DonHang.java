@@ -3,8 +3,6 @@ package main;
 import DanhSach.DanhSachCTDonHang;
 import KiemTra.KiemTra;
 
-import java.util.List;
-
 public class DonHang {
     private String maDH;
     private String ngayLapDon;

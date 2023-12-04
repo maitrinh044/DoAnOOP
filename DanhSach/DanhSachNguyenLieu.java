@@ -11,12 +11,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-
-public class DanhSachNguyenLieu implements QuanLiDS{
+public class DanhSachNguyenLieu implements QuanLiDS, ThongKeSoLuong {
     private static int soLuongNL;
     private static NguyenLieu[] arrNL;
 
-    public int getN(){
+    public int getN() {
         return soLuongNL;
     }
 
@@ -28,8 +27,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 auto();
                 ghiFile();
             }
@@ -58,7 +56,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
         try {
             FileOutputStream fos = new FileOutputStream("./input/NguyenLieu.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (int i=0; i<soLuongNL; i++) {
+            for (int i = 0; i < soLuongNL; i++) {
                 oos.writeObject(arrNL[i]);
             }
             oos.close();
@@ -88,7 +86,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
     public void themNhieuNguyenLieu() {
         System.out.print("Nhập số lượng nguyên liệu cần nhập: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i=0; i<c; i++) {
+        for (int i = 0; i < c; i++) {
             themNguyenLieu();
         }
     }
@@ -104,23 +102,25 @@ public class DanhSachNguyenLieu implements QuanLiDS{
             arrNL[i].xuatNguyenLieu();
         }
     }
+
     // thêm 1 nguyên liệu
     public void themNguyenLieu() {
         NguyenLieu a = new NguyenLieu();
         a.nhapNguyenLieu();
         arrNL = Arrays.copyOf(arrNL, ++soLuongNL);
-        arrNL[soLuongNL-1] = a;
+        arrNL[soLuongNL - 1] = a;
     }
-    public void themNguyenLieu(NguyenLieu a){
+
+    public void themNguyenLieu(NguyenLieu a) {
         arrNL = Arrays.copyOf(arrNL, ++soLuongNL);
-        arrNL[soLuongNL-1] = a;
+        arrNL[soLuongNL - 1] = a;
     }
 
     // xóa 1 nguyên liệu theo mã nguyên liệu
     public void xoaNguyenLieu(String maNL) {
         NguyenLieu[] arr = Arrays.copyOf(arrNL, soLuongNL);
-        arrNL = new NguyenLieu[soLuongNL-1];
-        for (int i=0, j=0; i<soLuongNL; i++) {
+        arrNL = new NguyenLieu[soLuongNL - 1];
+        for (int i = 0, j = 0; i < soLuongNL; i++) {
             if (arr[i].getMaNL().equals(maNL) == false) {
                 arrNL[j++] = arr[i];
             }
@@ -131,7 +131,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
     // tìm kiếm 1 nguyên liệu
     public static NguyenLieu timKiemNguyenLieu(String nguyenLieu) {
         if (soLuongNL != 0) {
-            for (int i=0; i<soLuongNL; i++) {
+            for (int i = 0; i < soLuongNL; i++) {
                 if (arrNL[i].getMaNL().equals(nguyenLieu) || arrNL[i].getTenNL().equals(nguyenLieu)) {
                     return arrNL[i];
                 }
@@ -141,8 +141,6 @@ public class DanhSachNguyenLieu implements QuanLiDS{
     }
 
     // sửa 1 nguyên liệu theo mã nguyên liệu
-    
-
 
     @Override
     public void quanLiDS() {
@@ -179,7 +177,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
                         System.out.println("Không tồn tại nguyên liệu. Thoát!");
                         break;
                     }
-                    xoaNguyenLieu(maNL);        
+                    xoaNguyenLieu(maNL);
                     System.out.println("Đã xóa nguyên liệu!");
                     break;
                 case 5:
@@ -187,20 +185,26 @@ public class DanhSachNguyenLieu implements QuanLiDS{
                     maNL = KiemTra.kiemTraNhapChuoi();
                     if (timKiemNguyenLieu(maNL) == null) {
                         System.out.println("Không tồn tại nguyên liệu.");
-                    }
-                    else {
+                    } else {
                         timKiemNguyenLieu(maNL).xuatNguyenLieu();
                     }
                     break;
                 case 6:
-                    
+
                 default:
                     break;
             }
 
-        } while (opt!=0);
+        } while (opt != 0);
 
     }
 
+    @Override
+    public long thongKeSoLuong(int opt) {
+        long tmp = 0;
+        if (opt == 0) {
+            tmp = soLuongNL;
+        }
+        return tmp;
+    }
 }
-

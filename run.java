@@ -19,8 +19,7 @@ public class run {
     DanhSachKhachHang listKhachHang = new DanhSachKhachHang();
     DanhSachKhuyenMai listKhuyenMai = new DanhSachKhuyenMai();
 
-    public void batDau()
-    {
+    public void batDau() {
         System.out.println("Chào mừng đến với...");
         System.out.println("Bạn đã có tài khoản? (1. Đăng nhập)");
         System.out.println("Bạn chưa có tài khoản? (2. Đăng kí tài khoản)");
@@ -36,11 +35,10 @@ public class run {
             default:
                 System.out.println("Lựa chọn không hợp lệ. Thoát!");
                 break;
-        }   
+        }
     }
 
-    public void dangNhap()
-    {
+    public void dangNhap() {
         TaiKhoan a;
         String maTk, matKhau;
         do {
@@ -50,8 +48,7 @@ public class run {
             matKhau = KiemTra.kiemTraNhapChuoi();
             a = listTaiKhoan.timTaiKhoan(maTk);
 
-            if ((a == null) || (matKhau.equals(a.getMatKhau()) == false) )
-            {
+            if ((a == null) || (matKhau.equals(a.getMatKhau()) == false)) {
                 System.out.println("Mã tài khoản hoặc mật khẩu không chính xác.");
                 System.out.println("1. Nhập lại.");
                 System.out.println("2. Thoát.");
@@ -59,7 +56,7 @@ public class run {
                 int choice = KiemTra.kiemTraNhapSoNguyen();
                 // inp.nextLine();
                 switch (choice) {
-                    case 1: 
+                    case 1:
                         break;
                     case 2:
                         return;
@@ -67,36 +64,37 @@ public class run {
                         System.out.println("Lựa chọn không hợp lệ.");
                         return;
                 }
-                    
+
             }
         } while (listTaiKhoan.ktraTaiKhoan(maTk, matKhau) == false);
-                    if (a.getTinhTrangTK() == 0) {
-                System.out.println("Tài khoản của bạn đã bị khóa. Không thể đăng nhập bằng tài khoản này.");
-                System.out.println("Nếu bạn muốn mở khóa tài khoản, vui lòng liên hệ mai trinh ngu để thực hiện mở khóa. Xin cảm ơn!");
-                return;
-            }
+        if (a.getTinhTrangTK() == 0) {
+            System.out.println("Tài khoản của bạn đã bị khóa. Không thể đăng nhập bằng tài khoản này.");
+            System.out.println(
+                    "Nếu bạn muốn mở khóa tài khoản, vui lòng liên hệ mai trinh ngu để thực hiện mở khóa. Xin cảm ơn!");
+            return;
+        }
         System.out.println();
-        System.out.println("===================================Đăng nhập thành công===================================");
+        System.out
+                .println("===================================Đăng nhập thành công===================================");
         System.out.println();
 
-            switch (a.getMaQuyen()) {
-                case 0:
-                    menuAdmin(a);
-                    break;
-                case 1:
-                    menuNhanVien(a);
-                    break;
-                case 2:
-                    menuKhachHang(a);
-                    break;
-                default:
-                    break;
-            }
-        
+        switch (a.getMaQuyen()) {
+            case 0:
+                menuAdmin(a);
+                break;
+            case 1:
+                menuNhanVien(a);
+                break;
+            case 2:
+                menuKhachHang(a);
+                break;
+            default:
+                break;
+        }
+
     }
 
-    public void dangKy()
-    {
+    public void dangKy() {
         TaiKhoan a = new TaiKhoan();
         a.nhapTaiKhoanKH();
         listTaiKhoan.themTaiKhoan(a);
@@ -105,8 +103,7 @@ public class run {
         dangNhap();
     }
 
-    public void menuKhachHang(TaiKhoan a)
-    {            
+    public void menuKhachHang(TaiKhoan a) {
         int opt;
         String tieptuc, input, tieptuc1;
         SanPham[] sp;
@@ -132,26 +129,24 @@ public class run {
                     if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) != null) {
                         DanhSachSanPham.timKiemSanPhamTheoMaSP(input).xuatSanPham();
                         break;
-                    }
-                    else {
+                    } else {
                         sp = DanhSachSanPham.timKiemSanPhamTheoPham(input);
                         if (sp != null) {
-                            for (int i=0; i<sp.length; i++) {
+                            for (int i = 0; i < sp.length; i++) {
                                 sp[i].xuatSanPham();
                             }
                             break;
-                        }
-                        else {
+                        } else {
                             System.out.println("Không có sản phẩm.");
                         }
                     }
-                    
+
                     break;
                 case 2:
                     listSanPham.xuatDSSP();
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
                     DanhSachGioHang.timKiemGioHang(a.getMaTK()).xuatGioHang();
@@ -163,15 +158,13 @@ public class run {
                         input = KiemTra.kiemTraNhapMaSP();
                         if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) == null) {
                             System.out.println("Không tồn tại sản phẩm.");
-                        }
-                        else {
+                        } else {
                             listCTietGioHang.themCTGioHang(a.getMaTK(), input);
                         }
                         DanhSachChiTietGioHang.ghiFile();
                         System.out.print("Bạn có muốn tiếp tục mua hàng?(y/n): ");
                         tieptuc1 = KiemTra.tiepTuc();
-                    }
-                    while (tieptuc1.equals("y"));
+                    } while (tieptuc1.equals("y"));
                     break;
                 case 6:
                     listTaiKhoan.timTaiKhoan(a.getMaTK()).setMatKhau();
@@ -189,13 +182,11 @@ public class run {
             }
             System.out.println("Bạn có muốn tiếp tục các thao tác trên khách hàng? (y/n)");
             System.out.print("Lựa chọn: ");
-            tieptuc = KiemTra.tiepTuc();    
-        }
-        while (tieptuc.equals("y"));
+            tieptuc = KiemTra.tiepTuc();
+        } while (tieptuc.equals("y"));
     }
 
-    public void menuNhanVien(TaiKhoan a)
-    {
+    public void menuNhanVien(TaiKhoan a) {
         String input, tiepTuc;
         SanPham sp;
         int opt;
@@ -223,15 +214,13 @@ public class run {
                     if (sp != null) {
                         sp.xuatSanPham();
                         break;
-                    }
-                    else {
+                    } else {
                         sp = DanhSachSanPham.timKiemSanPhamTheoTenSP(input);
                         if (sp != null) {
                             sp.xuatSanPham();
                             break;
-                        }
-                        else {
-                                System.out.println("Không có sản phẩm.");
+                        } else {
+                            System.out.println("Không có sản phẩm.");
                         }
                     }
                     break;
@@ -239,7 +228,8 @@ public class run {
                     listSanPham.xuatDSSP();
                     break;
                 case 3:
-                    listDonHang.quanLyDanhSachCTDH();
+                    listDonHang.quanLiDS();
+                    ;
                     break;
                 case 4:
                     listPhieuNhap.quanLiDS();
@@ -261,12 +251,10 @@ public class run {
             System.out.println("Bạn có muốn tiếp tục các thao tác trên nhân viên? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();
-        }
-        while (tiepTuc.equals("y"));
+        } while (tiepTuc.equals("y"));
     }
 
-    public void menuAdmin(TaiKhoan a)
-    {
+    public void menuAdmin(TaiKhoan a) {
         String tiepTuc;
         int opt;
         do {
@@ -287,51 +275,50 @@ public class run {
             System.out.print("Lựa chọn: ");
             opt = KiemTra.kiemTraNhapSoNguyen();
             System.out.println();
-            
+
             switch (opt) {
-                case 0:  
+                case 0:
                     break;
-                case 1:  
+                case 1:
                     listSanPham.quanLiDS();
                     break;
-                case 2:  
+                case 2:
                     listNguyenLieu.quanLiDS();
                     break;
-                case 3:  
+                case 3:
                     listPhieuNhap.quanLiDS();
                     break;
-                case 4:  
+                case 4:
                     listKhuyenMai.quanLiDS();
                     break;
-                case 5:  
-                    listDonHang.quanLyDanhSachCTDH();
+                case 5:
+                    listDonHang.quanLiDS();
                     break;
-                case 6:  
+                case 6:
                     listCongThuc.quanLiDS();
                     break;
-                case 7:  
+                case 7:
                     listKhachHang.quanLyKhachHang();
                     break;
-                case 8:  
+                case 8:
                     listPhieuNhap.quanLiDS();
                     break;
-                case 9:  
+                case 9:
                     listTaiKhoan.quanLiDS();
                     break;
-                case 10:  
+                case 10:
                     listNhanVien.quanLyNhanVien();
                     break;
-                case 11:  
+                case 11:
                     listNhaCungCap.quanLiDS();
                     break;
-                default:                
+                default:
                     System.out.println("Lựa chọn không hợp lệ.");
                     break;
             }
             System.out.println("Bạn có muốn tiếp tục các thao tác trên admin? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();
-        }
-        while (tiepTuc.equals("y"));
+        } while (tiepTuc.equals("y"));
     }
 }

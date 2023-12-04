@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DanhSachKhuyenMai implements QuanLiDS{
+public class DanhSachKhuyenMai implements QuanLiDS, ThongKeSoLuong {
     private int soKM;
     private KhuyenMai DS_KhuyenMai[];
     transient Scanner inp = new Scanner(System.in);
@@ -285,5 +285,14 @@ public class DanhSachKhuyenMai implements QuanLiDS{
             }
 
         } while (choice != 0);
+    }
+
+    @Override
+    public long thongKeSoLuong(int opt) {
+        long tmp = 0;
+        if (opt == 0) {
+            tmp = soKM;
+        }
+        return tmp;
     }
 }

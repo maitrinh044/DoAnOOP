@@ -12,8 +12,7 @@ import java.util.Scanner;
 import KiemTra.KiemTra;
 import main.*;
 
-
-public class DanhSachTaiKhoan implements QuanLiDS{
+public class DanhSachTaiKhoan implements QuanLiDS {
     private int soluongTK = 0;
     private TaiKhoan arrTK[];
     transient Scanner inp = new Scanner(System.in);
@@ -82,7 +81,8 @@ public class DanhSachTaiKhoan implements QuanLiDS{
 
     public void xuatDSTK() {
         System.out.println("Danh sách tài khoản");
-        System.out.printf("%-15s%-15s%-15s%-15s%-15s\n", "Ma Tai Khoan", "Mat khau", "Ngay Tao TK", "Quyen Han", "Tinh Trang TK");
+        System.out.printf("%-15s%-15s%-15s%-15s%-15s\n", "Ma Tai Khoan", "Mat khau", "Ngay Tao TK", "Quyen Han",
+                "Tinh Trang TK");
         for (int i = 0; i < soluongTK; i++) {
             arrTK[i].xuatThongTinTaiKhoan();
         }
@@ -99,7 +99,7 @@ public class DanhSachTaiKhoan implements QuanLiDS{
 
     public void xoaTaiKhoan(String maTK) {
         TaiKhoan[] tmp = Arrays.copyOf(arrTK, soluongTK);
-        arrTK = new TaiKhoan[soluongTK-1];
+        arrTK = new TaiKhoan[soluongTK - 1];
         for (int i = 0, j = 0; i < soluongTK; i++) {
             if (tmp[i].getMaTK().equals(maTK) == true) {
             } else {
@@ -155,10 +155,9 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                     if (timTaiKhoan(maTK) == null) {
                         System.out.println("Tài khoản không tồn tại.\n");
                         break;
-                    } 
-                    else 
+                    } else
                         timTaiKhoan(maTK).xuatThongTinTaiKhoan();
-                        System.out.println();
+                    System.out.println();
                     break;
                 case 3:
                     TaiKhoan a = new TaiKhoan();
@@ -166,24 +165,22 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                     themTaiKhoan(a);
                     System.out.println("Đã thêm tài khoản.\n");
                     ghiFile();
-                    
+
                     break;
                 case 4:
                     System.out.print("Nhập mã tài khoản muốn xóa: ");
                     maTK = KiemTra.kiemTraNhapChuoi();
                     if (timTaiKhoan(maTK) == null) {
                         System.out.println("Tài khoản không tồn tại.\n");
-                    } 
-                    else {
+                    } else {
                         System.out.println("Bạn có muốn xóa tài khoản?(1.Có\t2.Không)");
                         int choice;
                         choice = KiemTra.kiemTraNhapSoNguyen();
                         if (choice == 1) {
                             xoaTaiKhoan(maTK);
                             System.out.println("Đã xóa tài khoản.\n");
-                            
-                        }
-                        else if (choice == 2)
+
+                        } else if (choice == 2)
                             break;
                         else {
                             System.out.println("Lựa chọn không hợp lệ.");
@@ -197,8 +194,7 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                     maTK = KiemTra.kiemTraNhapChuoi();
                     if (timTaiKhoan(maTK) == null) {
                         System.out.println("Tài khoản không tồn tại.\n");
-                    } 
-                    else {
+                    } else {
                         timTaiKhoan(maTK).setTinhTrangTK(0);
                         System.out.println("Đã khóa tài khoản.\n");
                         ghiFile();
@@ -209,11 +205,9 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                     maTK = KiemTra.kiemTraNhapChuoi();
                     if (timTaiKhoan(maTK) == null) {
                         System.out.println("Tài khoản không tồn tại.\n");
-                    }
-                    else if (timTaiKhoan(maTK).getTinhTrangTK() == 1) {
+                    } else if (timTaiKhoan(maTK).getTinhTrangTK() == 1) {
                         System.out.println("Tài khoản không bị khóa.");
-                    }
-                    else {
+                    } else {
                         timTaiKhoan(maTK).setTinhTrangTK(1);
                         System.out.println("Đã mở khóa tài khoản.\n");
                         ghiFile();
@@ -228,4 +222,5 @@ public class DanhSachTaiKhoan implements QuanLiDS{
             tiepTuc = KiemTra.tiepTuc();
         } while (tiepTuc.equals("y"));
     }
+
 }

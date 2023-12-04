@@ -1,6 +1,6 @@
 package DanhSach;
 
 public interface ThongKeSoLuong {
-    long thongKeSoLuong();
+    public abstract long thongKeSoLuong(int opt);
 
 }
