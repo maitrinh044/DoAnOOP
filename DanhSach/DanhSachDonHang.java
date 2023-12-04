@@ -201,49 +201,8 @@ public class DanhSachDonHang {
 
     //6. Phương thức cập nhật thông tin đơn hàng
     public void capNhatThongTinDonHang() {
-        System.out.print("Nhập mã đơn hàng cần cập nhật: ");
-        String maDH = KiemTra.kiemTraNhapMaDH();
-        DonHang donHang = timKiemDonHangTheoMaDH(maDH);
-
-        if(donHang == null) {
-            System.out.println("Không tìm thấy đơn hàng nào có mã " + maDH);
-            return;
-        }
-
-        while(true) {
-            System.out.println("----------CẬP NHẬT THÔNG TIN ĐƠN HÀNG----------");
-            System.out.println("1. Ngày lập đơn");
-            System.out.println("2. Mã nhân viên");
-            System.out.println("3. Mã khách hàng");
-            System.out.println("-----------------------------------------------");
-            System.out.print("Nhập thông tin cần cập nhật: ");
-            int luaChon = KiemTra.kiemTraSoNguyenDuong();
-
-            switch(luaChon) {
-                case 1:
-                    System.out.print("Nhập ngày lập đơn mới: ");
-                    String ngaLapDonMoi = KiemTra.kiemTraNgayThangNam();
-                    //chuyển kiểu String sang kiểu Date
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        donHang.setNgayLapDon(dateFormat.parse(ngaLapDonMoi));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2:
-                    System.out.print("Nhập mã nhân viên mới: ");
-                    String maNVMoi = KiemTra.kiemTraNhapMaNV();
-                    donHang.setMaNV(maNVMoi);
-                    break;
-                case 3:
-                    System.out.print("Nhập mã khách hàng mới: ");
-                    String maKHMoi = KiemTra.kiemTraNhapMaKH();
-                    donHang.setMaKH(maKHMoi);
-                    break;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
-            }
+        
+    }
 
             // * Tiếp tục cập nhật?
             System.out.print("\nBạn có muốn tiếp tục cập nhật thông tin đơn hàng không? (y/n): ");
