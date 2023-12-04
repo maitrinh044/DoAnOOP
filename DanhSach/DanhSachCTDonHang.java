@@ -101,6 +101,7 @@ public class DanhSachCTDonHang implements QuanLiDS {
             System.out.println("2. In danh sách chi tiết đơn hàng");
             System.out.println("3. Tìm kiếm chi tiết đơn hàng");
             System.out.println("4. Xóa một chi tiết đơn hàng");
+            System.out.println("5.In thành tiền của chi tiết đơn hàng");
             System.out.println("===================================================================");
             System.out.print("Nhập lựa chọn của bạn: ");
             int luaChon = KiemTra.kiemTraSoNguyenDuong();
@@ -117,6 +118,9 @@ public class DanhSachCTDonHang implements QuanLiDS {
                     break;
                 case 4:
                     xoaMotCTDH();
+                    break;
+                case 5:
+                    thanhTien();
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại!");
@@ -150,7 +154,7 @@ public class DanhSachCTDonHang implements QuanLiDS {
 
     public static void timKiemCTDH() {
         System.out.print("Nhập mã chi tiết đơn hàng cần tìm: ");
-        String madh = KiemTra.kiemTraNhapMaDH();
+        String madh = KiemTra.kiemTraNhapMaCTDH();
         int check = 0;
         for (ChiTietDonHang tmp : DS_CTDH) {
             if (tmp.getMaCTDH().equalsIgnoreCase(madh)) {
@@ -165,7 +169,7 @@ public class DanhSachCTDonHang implements QuanLiDS {
 
     public static void xoaMotCTDH() {
         System.out.print("Nhập mã chi tiết đơn hàng cần xóa: ");
-        String madh = KiemTra.kiemTraNhapMaDH();
+        String madh = KiemTra.kiemTraNhapMaCTDH();
         int newCount = soLuong - 1;
         ChiTietDonHang[] newArr = new ChiTietDonHang[newCount];
         for (int i = 0, j = 0; i < soLuong; i++) {
@@ -175,5 +179,17 @@ public class DanhSachCTDonHang implements QuanLiDS {
         }
         DS_CTDH = newArr;
         soLuong = newCount;
+    }
+
+    public void thanhTien() {
+        System.out.print("Nhập mã chi tiết đơn hàng: ");
+        String mactdh = KiemTra.kiemTraNhapMaCTDH();
+        int i = 0;
+        for (ChiTietDonHang tmp : DS_CTDH) {
+            if (tmp.getMaCTDH().equals(mactdh)) {
+                System.out.println("Tổng tiền của chi tiết đơn hàng này là " + (i + 1));
+                i++;
+            }
+        }
     }
 }
