@@ -1,13 +1,16 @@
 package main;
 
-import DanhSach.DanhSachCTDonHang;
-import DanhSach.DanhSachDonHang;
 import KiemTra.KiemTra;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class DonHang {
+import DanhSach.DanhSachChiTietDonHang;
+import DanhSach.DanhSachChiTietGioHang;
+import DanhSach.DanhSachDonHang;
+
+public class DonHang implements Serializable{
     private String maDH;
     private Date ngayLapDon;
     private String maNV;
@@ -15,15 +18,15 @@ public class DonHang {
 
     // Constructor
     public DonHang() {
-        maDH = String.format("DH%03d", DanhSachDonHang.soDH);
+        maDH = String.format("DH%03d", DanhSachDonHang.soDH+1);
         long millis = System.currentTimeMillis();
         ngayLapDon = new Date(millis);
         maNV = "";
         maKH = "";
     }
 
-    public DonHang(String maDH, String maNV, String maKH) {
-        this.maDH = maDH;
+    public DonHang(String maNV, String maKH) {
+        maDH = String.format("DH%03d", DanhSachDonHang.soDH++);
         long millis = System.currentTimeMillis();
         ngayLapDon = new Date(millis);
         this.maNV = maNV;
@@ -37,11 +40,6 @@ public class DonHang {
 
     public void setMaDH(String maDH) {
         this.maDH = maDH;
-    }
-
-    public void setMaDH() {
-        System.out.print("Nhập mã đơn hàng: ");
-        maDH = KiemTra.kiemTraNhapMaDH();
     }
 
     public Date getNgayLapDon() {
@@ -76,7 +74,7 @@ public class DonHang {
 
     // Phương thức tính tổng tiền của 1 đơn hàng
     public int tongTienHoaDon() {
-        ArrayList<ChiTietDonHang> dsCTDH = DanhSachCTDonHang.timKiemCTDH(getMaDH());
+        ArrayList<ChiTietDonHang> dsCTDH = DanhSachChiTietDonHang.timKiemCTDH(getMaDH());
         int tongTien = 0;
         for (ChiTietDonHang ctDH : dsCTDH) {
             if (ctDH.getMaDH().equals(maDH)) {
@@ -86,14 +84,39 @@ public class DonHang {
         return tongTien;
     }
 
+    public int tongTienHoaDon(String maTK) {
+        ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
+        int tongTien = 0;
+        for (ChiTietGioHang ctDH : arrGH) {
+            tongTien = ctDH.getDonGia()*ctDH.getSoLuong();
+        }
+        return tongTien;
+    } 
+
     // Phương thức in thông tin đơn hàng
     public void inThongTinDonHang() {
-        System.out.printf("|%-5s|%-20s|%-5s|%-5s|%.2f\n",
+        ArrayList<ChiTietDonHang> arr = DanhSachChiTietDonHang.timKiemCTDH(maDH);
+        System.out.printf("%-15s%-20s%-10s%-10s%-10s\n",
                 maDH, ngayLapDon, maNV, maKH, tongTienHoaDon());
+        System.out.println();
+        for (ChiTietDonHang chiTietDonHang : arr) {
+            chiTietDonHang.inCTDonHang();
+        }
+        System.out.println("----------------------------------------------------------------------------------");
+    }
+
+    public void inThongTinDonHang(String maTK) {
+        ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
+
+        System.out.printf("|%-5s|%-20s|%-5s|%-5s|%-10s\n",
+                maDH, ngayLapDon, maNV, maKH, tongTienHoaDon(maTK));
+        for (ChiTietGioHang i : arrGH) {
+            ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), "");
+            ctdh.inCTDonHang();
+        }
     }
 
     public void nhapThongTinDonHang() {
-        setMaDH();
         setMaNV();
         setMaKH();
         System.out.println();
@@ -104,21 +127,17 @@ public class DonHang {
         do {
             System.out.println("Các thao tác: ");
             System.out.println("0.Thoát.");
-            System.out.println("1.Mã đơn hàng.");
-            System.out.println("2.Mã nhân viên.");
-            System.out.println("3.Mã khách hàng.");
+            System.out.println("1.Mã nhân viên.");
+            System.out.println("2.Mã khách hàng.");
             System.out.print("Lựa chọn: ");
             opt = KiemTra.kiemTraNhapSoNguyen();
             switch (opt) {
                 case 0:
                     break;
                 case 1:
-                    setMaDH();
-                    break;
-                case 2:
                     setMaNV();
                     break;
-                case 3:
+                case 2:
                     setMaKH();
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Thoát!");

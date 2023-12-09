@@ -1,5 +1,6 @@
 package KiemTra;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
@@ -100,6 +101,21 @@ public class KiemTra {
         }
     }
 
+    public static String kiemTraNhapMaDonGH() {
+        String dauVao;
+        while(true) {
+            dauVao = sc.nextLine();
+            dauVao = dauVao.trim().toUpperCase();
+            if(!dauVao.isEmpty() && dauVao.matches("DGH" + "[0-9]{3}")) {
+                return dauVao;
+            }
+            else {
+                System.out.println("Nhập sai định dạng mã đơn giao hàng: DGH___. Ví dụ: DGH001");
+            }
+            System.out.print("Mời nhập lại: ");
+        }
+    }
+
     public static String kiemTraNhapMaKM() {
         String dauVao;
         while(true) {
@@ -145,6 +161,35 @@ public class KiemTra {
         }
     }
     //End: ID CHECK
+
+    //Phương thức chuyển kiểu chuỗi ngày tháng năm thành kiểu dữ liệu Date
+    public static Date chuyenChuoiThanhDate(String ngayThangNam) {
+        SimpleDateFormat dinhDang = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return dinhDang.parse(ngayThangNam);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Date chuyenChuoiThanhDate() {
+        String dauVao = kiemTraNgayThangNam();
+        SimpleDateFormat dinhDang = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return dinhDang.parse(dauVao);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //Phương thức chuyển đổi kiểu dữ liệu Date thành kiểu chuỗi ngày tháng năm
+    public static String chuyenDateThanhChuoi(Date ngayThangNam) {
+        SimpleDateFormat dinhDang = new SimpleDateFormat("dd/MM/yyyy");
+        return dinhDang.format(ngayThangNam);
+    }
 
     public static String kiemTraNhapTen() {
         String dauVao;

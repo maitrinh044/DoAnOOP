@@ -23,7 +23,11 @@ public class DanhSachGioHang {
                 fis.close();
             }
             else {
-                arrGioHang = null;
+                for (TaiKhoan i : DanhSachTaiKhoan.arrTK) {
+                    if (i.getMaQuyen() == 2) {
+                        themGioHang(i.getMaTK());
+                    }
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -50,7 +54,7 @@ public class DanhSachGioHang {
         }
     }
 
-    public static void ghiFile()
+    public void ghiFile()
     {
         try {
             FileOutputStream fos = new FileOutputStream("./input/GioHang.txt");
@@ -69,6 +73,11 @@ public class DanhSachGioHang {
 
     }
 
+    public void themGioHang(String maTK) {
+        GioHang a = new GioHang(maTK);
+        themGioHang(a);
+    }
+
     public static void themGioHang(GioHang a)
     {
         if (arrGioHang == null) {
@@ -83,6 +92,10 @@ public class DanhSachGioHang {
 
     public static GioHang timKiemGioHang(String maGioHang) 
     {
+        if (arrGioHang.length == 0) {
+            System.out.println("null");
+            return null;
+        }
         for (int i=0; i<soLuongGioHang; i++)
         {
             if (arrGioHang[i].getMaGioHang().equals(maGioHang) == true)

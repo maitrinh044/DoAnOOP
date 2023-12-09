@@ -27,6 +27,7 @@ public class GioHang implements Serializable {
     }
 
     public void xuatGioHang() {
+
         if (DanhSachChiTietGioHang.getSoLuong() == 0) {
             System.out.println("Giỏ hàng của bạn đang trống.\n");
             return;
@@ -54,10 +55,35 @@ public class GioHang implements Serializable {
                 DanhSachChiTietGioHang.xoaCTGioHang(i);
             }
             System.out.println("Đã xóa toàn bộ sản phẩm.\n");
-            DanhSachChiTietGioHang.ghiFile();
-
         } else
             return;
     }
+    
+    public void xoaToanBoSP(String maTK) {
+        ArrayList<ChiTietGioHang> arrCTGioHang = DanhSachChiTietGioHang.timKiemCTGioHang(maGioHang);
+        for (ChiTietGioHang i : arrCTGioHang) {
+            DanhSachChiTietGioHang.xoaCTGioHang(i);
+        }
+    }
 
+    public void thayDoiSoLuongSanPham() {
+        ArrayList<ChiTietGioHang> arr = DanhSachChiTietGioHang.timKiemCTGioHang(maGioHang);
+        if (arr.isEmpty()) {
+            System.out.println("Giỏ hàng của bạn đang trống!");
+            return;
+        }
+        boolean flag = false;
+        System.out.print("Nhập mã sản phẩm muốn thay đổi: ");
+        String input = KiemTra.kiemTraNhapMaSP();
+        for (ChiTietGioHang chiTietGioHang : arr) {
+            if (chiTietGioHang.getMaSP().equalsIgnoreCase(input)) {
+                chiTietGioHang.setSoLuong();
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            System.out.println("Không tồn tại mã sản phẩm tương ứng.");
+        }
+    }
 }

@@ -50,7 +50,7 @@ public class DanhSachCongThuc implements QuanLiDS{
         }
     }
 
-    public static void ghiFile() {
+    public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/CongThuc.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -177,7 +177,6 @@ public class DanhSachCongThuc implements QuanLiDS{
                     System.out.println("Lựa chọn không hợp lệ. Thoát!");
                     break;
             }
-            ghiFile();
 
             System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
             System.out.print("Lựa chọn: ");

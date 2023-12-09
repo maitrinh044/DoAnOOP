@@ -1,8 +1,4 @@
-import java.util.Scanner;
-
-import DanhSach.DanhSachDonHang;
-import main.ChiTietDonHang;
-import main.DonHang;
+import DanhSach.run;
 
 public class Main {
     public static void main(String[] args) {

@@ -48,7 +48,7 @@ public class DanhSachChiTietPN {
         }
     }
 
-    public static void ghiFile() {
+    public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/ChiTietPhieuNhap.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);

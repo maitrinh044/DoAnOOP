@@ -155,8 +155,6 @@ public class DanhSachPhieuNhap implements QuanLiDS{
                 default:
                     break;
             }
-            ghiFile();
-            DanhSachChiTietPN.ghiFile();
             System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();

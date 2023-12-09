@@ -235,13 +235,11 @@ public class DanhSachKhuyenMai implements QuanLiDS{
                     a.nhapThongTinKhuyenMai();
                     themKhuyenMai(a);
                     System.out.println("Đã thêm!");
-                    ghiFile();
                     break;
                 case 2:
                     System.out.print("Nhập mã khuyến mãi cần xóa: ");
                     maKM = KiemTra.kiemTraNhapMaKM();
                     xoaMaKM(maKM);
-                    ghiFile();
                     System.out.println("Đã xóa!");
                     break;
                 case 3:
@@ -252,14 +250,12 @@ public class DanhSachKhuyenMai implements QuanLiDS{
                     break;
                 case 4:
                     xoaDanhSachKhuyenMai();
-                    ghiFile();
                     System.out.println("Đã xóa danh sách mã khuyến mãi.");
                     break;
                 case 5:
                     System.out.print("Nhập mã khuyến mãi cần sửa lại thông tin: ");
                     maKM = KiemTra.kiemTraNhapMaKM();
                     suaMaKM(maKM);
-                    ghiFile();
                     System.out.println("Đã cập nhật!");
                     break;
                 case 6:

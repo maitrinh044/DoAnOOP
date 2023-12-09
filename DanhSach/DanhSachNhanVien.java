@@ -322,11 +322,8 @@ public class DanhSachNhanVien {
     }
 
     //8. Phương thức ghi danh sách nhân viên vào file
-    public void ghiFile(String tenFile) {
-        if(DS_NhanVien.isEmpty()) {
-            System.out.println("Hiện không có nhân viên nào trong danh sách!");
-            return;
-        }
+    public void ghiFile() {
+        String tenFile = "./input/NhanVien.txt";
         try {
             FileWriter fw = new FileWriter(tenFile);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -345,8 +342,6 @@ public class DanhSachNhanVien {
 
             bw.close();
             fw.close();
-
-            System.out.println("Đã ghi danh sách nhân viên vào file thành công!");
         }
         catch(IOException e) {
             e.printStackTrace();

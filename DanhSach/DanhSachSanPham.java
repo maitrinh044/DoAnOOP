@@ -254,7 +254,6 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
             switch (luaChon) {
                 case 1:
                     themSanPham();
-                    ghiFile();
                     break;
                 case 2:
                     xuatDSSP();
@@ -275,17 +274,14 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                     System.out.print("Nhập mã sản phẩm mà bạn muốn cập nhật: ");
                     masp = KiemTra.kiemTraNhapChuoi();
                     capNhatThongTinSanPham(masp);
-                    ghiFile();
                     break;
                 case 6:
                     System.out.print("Nhập mã sản phẩm mà bạn muốn xóa: ");
                     masp = KiemTra.kiemTraNhapChuoi();
                     xoaSanPham(masp);
-                    ghiFile();
                     break;
                 case 7:
                     xoaDanhSachSanPham();
-                    ghiFile();
                     System.out.println("Đã xóa danh sách sản phẩm.");
                     break;
                 default:

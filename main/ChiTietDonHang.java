@@ -1,9 +1,11 @@
 package main;
 
+import java.io.Serializable;
+
 import DanhSach.DanhSachSanPham;
 import KiemTra.KiemTra;
 
-public class ChiTietDonHang {
+public class ChiTietDonHang implements Serializable{
     private String maDH;
     private String maSP;
     private int soLuong;
@@ -72,7 +74,7 @@ public class ChiTietDonHang {
     // MaDH, TenSP, SoLuong, DonGia, ThanhTien
     public void inCTDonHang() {
         SanPham sanPham = DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP);
-        System.out.printf("\t%30s\tSL: %d\tĐơn giá: %.2d\tThành tiền: %.2d\n", sanPham.getTenSP(),
+        System.out.printf("%5s %-20s SL: %-10sĐơn giá: %-10sThành tiền: %-10s\n", " ", sanPham.getTenSP(),
                 soLuong, sanPham.getDonGia(), thanhTien());
     }
 

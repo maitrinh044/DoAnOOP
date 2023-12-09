@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
-import java.util.Scanner;
 
 import KiemTra.KiemTra;
 import main.*;
@@ -15,8 +14,7 @@ import main.*;
 
 public class DanhSachTaiKhoan implements QuanLiDS{
     private int soluongTK = 0;
-    private TaiKhoan arrTK[];
-    transient Scanner inp = new Scanner(System.in);
+    protected static TaiKhoan arrTK[];
 
     public void ghiFile() {
         try {
@@ -80,7 +78,7 @@ public class DanhSachTaiKhoan implements QuanLiDS{
         return soluongTK;
     }
 
-    public void xuatDSTK() {
+    private void xuatDSTK() {
         System.out.println("Danh sách tài khoản");
         System.out.printf("%-15s%-15s%-15s%-15s%-15s\n", "Ma Tai Khoan", "Mat khau", "Ngay Tao TK", "Quyen Han", "Tinh Trang TK");
         for (int i = 0; i < soluongTK; i++) {
@@ -92,12 +90,20 @@ public class DanhSachTaiKhoan implements QuanLiDS{
     public void themTaiKhoan(TaiKhoan a) {
         arrTK = Arrays.copyOf(arrTK, ++soluongTK);
         arrTK[soluongTK - 1] = a;
-        GioHang gioHang = new GioHang(a.getMaTK());
-        DanhSachGioHang.themGioHang(gioHang);
-        DanhSachGioHang.ghiFile();
     }
 
-    public void xoaTaiKhoan(String maTK) {
+    private void themTaiKhoan() {
+        TaiKhoan a = new TaiKhoan();
+        a.nhapTaiKhoanAd();
+        arrTK = Arrays.copyOf(arrTK, ++soluongTK);
+        arrTK[soluongTK - 1] = a;
+        if (a.getMaQuyen() == 2) {
+            GioHang gioHang = new GioHang(a.getMaTK());
+            DanhSachGioHang.themGioHang(gioHang);
+        }
+    }
+
+    private void xoaTaiKhoan(String maTK) {
         TaiKhoan[] tmp = Arrays.copyOf(arrTK, soluongTK);
         arrTK = new TaiKhoan[soluongTK-1];
         for (int i = 0, j = 0; i < soluongTK; i++) {
@@ -126,13 +132,14 @@ public class DanhSachTaiKhoan implements QuanLiDS{
         return false;
     }
 
+
+
     @Override
     public void quanLiDS() {
         String tiepTuc;
         System.out.println("\n");
         do {
             System.out.println("Các thao tác: ");
-            System.out.println("0. Thoát.");
             System.out.println("1. Xem danh sách tài khoản.");
             System.out.println("2. Tìm kiếm tài khoản.");
             System.out.println("3. Thêm tài khoản.");
@@ -144,8 +151,7 @@ public class DanhSachTaiKhoan implements QuanLiDS{
             String maTK;
 
             switch (opt) {
-                case 0:
-                    break;
+                
                 case 1:
                     xuatDSTK();
                     break;
@@ -161,12 +167,8 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                         System.out.println();
                     break;
                 case 3:
-                    TaiKhoan a = new TaiKhoan();
-                    a.nhapTaiKhoanAd();
-                    themTaiKhoan(a);
+                    themTaiKhoan();
                     System.out.println("Đã thêm tài khoản.\n");
-                    ghiFile();
-                    
                     break;
                 case 4:
                     System.out.print("Nhập mã tài khoản muốn xóa: ");
@@ -190,7 +192,6 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                             break;
                         }
                     }
-                    ghiFile();
                     break;
                 case 5:
                     System.out.print("Nhập mã tài khoản muốn khóa: ");
@@ -216,7 +217,6 @@ public class DanhSachTaiKhoan implements QuanLiDS{
                     else {
                         timTaiKhoan(maTK).setTinhTrangTK(1);
                         System.out.println("Đã mở khóa tài khoản.\n");
-                        ghiFile();
                     }
                 default:
                     System.out.println("Lựa chọn không hợp lệ.\n");

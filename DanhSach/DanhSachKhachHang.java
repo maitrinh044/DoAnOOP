@@ -17,6 +17,17 @@ public class DanhSachKhachHang {
 
     public DanhSachKhachHang() {
         this.DS_KhachHang = new ArrayList<>();
+        try {
+            FileReader fr = new FileReader("./input/KhachHang.txt");
+            BufferedReader br = new BufferedReader(fr);
+            if (br.readLine() != null) {
+                docFile();
+            }
+            fr.close();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int soLuongKhachHang() {
@@ -38,8 +49,6 @@ public class DanhSachKhachHang {
             System.out.println("\t\t\t5. Cập nhật khách hàng dựa theo mã KH.");
             System.out.println("\t\t\t6. Xóa một khách hàng khỏi danh sách.");
             System.out.println("\t\t\t7. Xóa tất cả khách hàng có trong danh sách.");
-            System.out.println("\t\t\t8. Ghi danh sách khách hàng vào file.");
-            System.out.println("\t\t\t9. Đọc danh sách khách hàng từ file.");
             System.out.println("======================================================================");
 
             System.out.print("Nhập lựa chọn của bạn: ");
@@ -66,12 +75,6 @@ public class DanhSachKhachHang {
                     break;
                 case 7:
                     xoaTatCaKhachHang();
-                    break;
-                case 8:
-                    ghiDanhSachKhachHangVaoFile("DanhSachKhachHang.txt");
-                    break;
-                case 9:
-                    docDanhSachKhachHangTuFile("DanhSachKhachHang.txt");
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");
@@ -295,7 +298,8 @@ public class DanhSachKhachHang {
     }
 
     //8. Phương thức ghi danh sách khách hàng vào file
-    public void ghiDanhSachKhachHangVaoFile(String tenFile) {
+    public void ghiFile() {
+        String tenFile = "./input/KhachHang.txt";
         if(DS_KhachHang.isEmpty()) {
             System.out.println("Danh sách khách hàng đang rỗng!");
             return;
@@ -311,8 +315,6 @@ public class DanhSachKhachHang {
 
             bw.close();
             fw.close();
-
-            System.out.println("Đã ghi danh sách khách hàng vào file thành công!");
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -320,7 +322,8 @@ public class DanhSachKhachHang {
     }
 
     //9. Phương thức đọc danh sách khách hàng từ file
-    public void docDanhSachKhachHangTuFile(String tenFile) {
+    public void docFile() {
+        String tenFile = "./input/KhachHang.txt";
         try {
             DS_KhachHang.clear();
             FileReader fr = new FileReader(tenFile);
@@ -335,8 +338,6 @@ public class DanhSachKhachHang {
 
             br.close();
             fr.close();
-
-            System.out.println("Đã đọc danh sách khách hàng từ file thành công!");
         }
         catch(IOException e) {
             e.printStackTrace();

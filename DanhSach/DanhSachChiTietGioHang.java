@@ -9,8 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import KiemTra.KiemTra;
-import main.ChiTietGioHang;
-import main.SanPham;
+import main.*;
 
 public class DanhSachChiTietGioHang {
     private static ArrayList<ChiTietGioHang> arrCTGioHang;
@@ -54,7 +53,7 @@ public class DanhSachChiTietGioHang {
         
     }
 
-    public static void ghiFile()
+    public void ghiFile()
     {
         try {
             FileOutputStream fos = new FileOutputStream("./input/ChiTietGioHang.txt");
@@ -77,7 +76,7 @@ public class DanhSachChiTietGioHang {
         if (arrCTGioHang != null) {
             ArrayList<ChiTietGioHang> arr = new ArrayList<>();
             for (ChiTietGioHang i : arrCTGioHang) {
-                if ((i.getMaGioHang()).equals(maGioHang) == true)
+                if ((i.getMaGioHang()).equalsIgnoreCase(maGioHang) == true)
                     arr.add(i);
             }
             if (arr.size() > 0) {
@@ -90,7 +89,7 @@ public class DanhSachChiTietGioHang {
 
     public ChiTietGioHang timKiemChiTietGioHangTheoMaSPMaGH(String maGH, String maSP) {
         for (ChiTietGioHang i : arrCTGioHang) {
-                if ((i.getMaGioHang()).equals(maGH) == true && i.getMaSP().equals(maSP) == true)
+                if ((i.getMaGioHang()).equalsIgnoreCase(maGH) == true && i.getMaSP().equals(maSP) == true)
                     return i;
             }
         return null;

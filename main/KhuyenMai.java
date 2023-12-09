@@ -5,8 +5,6 @@ import KiemTra.KiemTra;
 import java.io.Serializable;
 
 public class KhuyenMai implements Serializable {
-    // KiemTra kt = new KiemTra();
-    // Scanner sc = new Scanner(System.in);
     private String maKM;
     private String maSP;
     private double giaTri;
