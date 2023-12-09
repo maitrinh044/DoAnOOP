@@ -12,8 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-
-public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
+public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong {
     private static int soLuong;
     private static SanPham[] arrSP;
 
@@ -26,8 +25,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 soLuong = 10;
                 arrSP = new SanPham[soLuong];
                 arrSP[0] = new ThucAn("SP001", "Burger Tôm", 40000, "Burger Tôm - disc", 100, "Món Chính");
@@ -42,7 +40,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                 arrSP[9] = new ThucUong("SP010", "Trà Đào", 40000, "Trà Đào - disc", 100, "Nhỏ");
 
                 ghiFile();
-            }            
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -89,7 +87,8 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
     }
 
     // 1. Thêm sản phẩm vào danh sách
-    public void themSanPham() {
+    @Override
+    public void them() {
         do {
             System.out.println("1. Thức ăn");
             System.out.println("2. Thức uống");
@@ -100,13 +99,13 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                     ThucAn ta = new ThucAn();
                     ta.nhapSanPham();
                     arrSP = Arrays.copyOf(arrSP, ++soLuong);
-                    arrSP[soLuong-1] = ta;
+                    arrSP[soLuong - 1] = ta;
                     return;
                 case 2:
                     ThucUong tu = new ThucUong();
                     tu.nhapSanPham();
                     arrSP = Arrays.copyOf(arrSP, ++soLuong);
-                    arrSP[soLuong-1] = tu;
+                    arrSP[soLuong - 1] = tu;
                     return;
                 default:
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");
@@ -116,28 +115,28 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
 
     public void themSanPham(ThucAn a) {
         arrSP = Arrays.copyOf(arrSP, ++soLuong);
-        arrSP[soLuong-1] = a;
+        arrSP[soLuong - 1] = a;
         // a.xuatSanPham();
     }
+
     public void themSanPham(ThucUong a) {
         arrSP = Arrays.copyOf(arrSP, ++soLuong);
-        arrSP[soLuong-1] = a;
+        arrSP[soLuong - 1] = a;
     }
 
     // in danh sách sản phẩm
     public void xuatDSSP() {
         if (soLuong <= 0) {
-            System.out.println("Danh sách sản phẩm trống!");            
+            System.out.println("Danh sách sản phẩm trống!");
             return;
         }
         System.out.println("DANH SÁCH SẢN PHẨM");
-        System.out.printf("%-13s%-25s%-9s%-40s%-15s%-6s\n", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Mô tả", "Loại/Kích cỡ", "Còn lại" );
+        System.out.printf("%-13s%-25s%-9s%-40s%-15s%-6s\n", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Mô tả",
+                "Loại/Kích cỡ", "Còn lại");
         for (int i = 0; i < soLuong; i++) {
             arrSP[i].xuatSanPham();
         }
     }
-
-   
 
     // Phương thức tìm kiếm sản phẩm theo mã sản phẩm
     public static SanPham timKiemSanPhamTheoMaSP(String maSPCanTim) {
@@ -160,34 +159,34 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
     }
 
     public static SanPham[] timKiemSanPhamTheoPham(String tenSP) {
-        if (soLuong == 0 ) {
+        if (soLuong == 0) {
             return null;
-        }
-        else {
+        } else {
             SanPham[] arr = new SanPham[0];
-            for (int i=0, c=0; i<soLuong; i++) {
+            for (int i = 0, c = 0; i < soLuong; i++) {
                 if (arrSP[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) == true) {
                     c++;
                     arr = Arrays.copyOf(arr, c);
-                    arr[c-1] = arrSP[i];
-                } 
+                    arr[c - 1] = arrSP[i];
+                }
             }
-            if (arr.length == 0) return null;
-            else return arr;
+            if (arr.length == 0)
+                return null;
+            else
+                return arr;
         }
     }
 
     // Phương thức cập nhật thông tin sản phẩm theo masp
-    public void capNhatThongTinSanPham(String masp) {
-        if (timKiemSanPhamTheoMaSP(masp) == null) {
-            System.out.println("Sản phẩm không tồn tại. Thoát!");
-            return;
-        }
-        for (int i = 0; i < soLuong; i++) {
-            arrSP[i].suaSanPham();
-        }
-    }
-    
+    // public void capNhatThongTinSanPham(String masp) {
+    // if (timKiemSanPhamTheoMaSP(masp) == null) {
+    // System.out.println("Sản phẩm không tồn tại. Thoát!");
+    // return;
+    // }
+    // for (int i = 0; i < soLuong; i++) {
+    // arrSP[i].suaSanPham();
+    // }
+    // }
 
     // Xóa sản phẩm ra khỏi danh sách theo mã sản phẩm
     public void xoaSanPham(String masp) {
@@ -196,7 +195,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
         if (opt == 1) {
             int i, j;
             SanPham[] arrSP_new = Arrays.copyOf(arrSP, soLuong);
-            arrSP = new SanPham[soLuong-1];
+            arrSP = new SanPham[soLuong - 1];
             for (i = 0, j = 0; i < soLuong; i++) {
                 if (!arrSP_new[i].getMaSP().equalsIgnoreCase(masp)) {
                     arrSP[j] = arrSP_new[i];
@@ -204,9 +203,43 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                 }
             }
             soLuong--;
-        }
-        else {
+        } else {
             return;
+        }
+    }
+
+    @Override
+    public void xoa() {
+        System.out.print("Nhập mã sản phẩm cần xóa: ");
+        String masp = KiemTra.kiemTraNhapMaSP();
+        System.out.print("Bạn có muốn xóa sản phẩm?(1. Có - 2. Không)");
+        int opt = KiemTra.kiemTraNhapSoNguyen();
+        if (opt == 1) {
+            int i, j;
+            SanPham[] arrSP_new = Arrays.copyOf(arrSP, soLuong);
+            arrSP = new SanPham[soLuong - 1];
+            for (i = 0, j = 0; i < soLuong; i++) {
+                if (!arrSP_new[i].getMaSP().equalsIgnoreCase(masp)) {
+                    arrSP[j] = arrSP_new[i];
+                    j++;
+                }
+            }
+            soLuong--;
+        } else {
+            return;
+        }
+    }
+
+    @Override
+    public void sua() {
+        System.out.print("Nhập mã sản phẩm cần sửa: ");
+        String masp = KiemTra.kiemTraNhapMaSP();
+        if (timKiemSanPhamTheoMaSP(masp) == null) {
+            System.out.println("Sản phẩm không tồn tại. Thoát!");
+            return;
+        }
+        for (int i = 0; i < soLuong; i++) {
+            arrSP[i].suaSanPham();
         }
     }
 
@@ -218,22 +251,20 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
             arrSP = Arrays.copyOf(arrSP, 0);
             soLuong = 0;
             System.out.println("Đã xóa toàn bộ sản phẩm hiện có.");
-        }
-        else return;
+        } else
+            return;
     }
 
     @Override
     public long thongKeSoLuong() {
         long s = 0;
-        for (int i=0; i<soLuong; i++) {
+        for (int i = 0; i < soLuong; i++) {
             s += arrSP[i].getSoLuong();
         }
         return s;
     }
 
-
-// Start: Menu quản lý sản phẩm
-    @Override
+    // Start: Menu quản lý sản phẩm
     public void quanLiDS() {
         String tiepTuc;
         do {
@@ -253,7 +284,7 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
 
             switch (luaChon) {
                 case 1:
-                    themSanPham();
+                    them();
                     break;
                 case 2:
                     xuatDSSP();
@@ -271,14 +302,10 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                     b.xuatSanPham();
                     break;
                 case 5:
-                    System.out.print("Nhập mã sản phẩm mà bạn muốn cập nhật: ");
-                    masp = KiemTra.kiemTraNhapChuoi();
-                    capNhatThongTinSanPham(masp);
+                    sua();
                     break;
                 case 6:
-                    System.out.print("Nhập mã sản phẩm mà bạn muốn xóa: ");
-                    masp = KiemTra.kiemTraNhapChuoi();
-                    xoaSanPham(masp);
+                    xoa();
                     break;
                 case 7:
                     xoaDanhSachSanPham();
@@ -287,12 +314,11 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong{
                 default:
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");
             }
-        
+
             System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();
-        }
-        while (tiepTuc.equals("y"));
+        } while (tiepTuc.equals("y"));
     }
     // End: Menu quản lý sản phẩm
 

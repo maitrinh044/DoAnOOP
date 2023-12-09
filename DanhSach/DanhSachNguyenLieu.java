@@ -11,12 +11,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-
-public class DanhSachNguyenLieu implements QuanLiDS{
+public class DanhSachNguyenLieu implements QuanLiDS {
     private static int soLuongNL;
     private static NguyenLieu[] arrNL;
 
-    public int getN(){
+    public int getN() {
         return soLuongNL;
     }
 
@@ -28,8 +27,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 auto();
                 ghiFile();
             }
@@ -58,7 +56,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
         try {
             FileOutputStream fos = new FileOutputStream("./input/NguyenLieu.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (int i=0; i<soLuongNL; i++) {
+            for (int i = 0; i < soLuongNL; i++) {
                 oos.writeObject(arrNL[i]);
             }
             oos.close();
@@ -85,11 +83,46 @@ public class DanhSachNguyenLieu implements QuanLiDS{
         arrNL[9] = new NguyenLieu("NL010", "Xúc Xích", 100, 10000, "Cái");
     }
 
-    public void themNhieuNguyenLieu() {
+    @Override
+    public void them() {
         System.out.print("Nhập số lượng nguyên liệu cần nhập: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i=0; i<c; i++) {
+        for (int i = 0; i < c; i++) {
             themNguyenLieu();
+        }
+    }
+
+    @Override
+    public void xoa() {
+        System.out.print("Nhập mã nguyên liệu cần xóa: ");
+        String maNL = KiemTra.kiemTraNhapMaNL();
+        if (soLuongNL == 0) {
+            System.out.println("Danh sách nguyên liệu rỗng.");
+            return;
+        } else if (timKiemNguyenLieu(maNL) == null) {
+            System.out.println("Không tìm thấy nguyên liệu.");
+            return;
+        }
+        NguyenLieu[] arr = Arrays.copyOf(arrNL, soLuongNL);
+        arrNL = new NguyenLieu[soLuongNL - 1];
+        for (int i = 0, j = 0; i < soLuongNL; i++) {
+            if (arr[i].getMaNL().equals(maNL) == false) {
+                arrNL[j++] = arr[i];
+            }
+        }
+        soLuongNL--;
+        System.out.println("Đã xóa nguyên liệu!");
+
+    }
+
+    @Override
+    public void sua() {
+        System.out.print("Nhập mã nguyên liệu cần sửa: ");
+        String manl = KiemTra.kiemTraNhapMaNL();
+        if (timKiemNguyenLieu(manl) != null) {
+            timKiemNguyenLieu(manl).suaNguyenLieu();
+        } else {
+            System.out.println("Không tìm thấy mã nguyên liệu.");
         }
     }
 
@@ -104,34 +137,36 @@ public class DanhSachNguyenLieu implements QuanLiDS{
             arrNL[i].xuatNguyenLieu();
         }
     }
+
     // thêm 1 nguyên liệu
     public void themNguyenLieu() {
         NguyenLieu a = new NguyenLieu();
         a.nhapNguyenLieu();
         arrNL = Arrays.copyOf(arrNL, ++soLuongNL);
-        arrNL[soLuongNL-1] = a;
+        arrNL[soLuongNL - 1] = a;
     }
-    public void themNguyenLieu(NguyenLieu a){
+
+    public void themNguyenLieu(NguyenLieu a) {
         arrNL = Arrays.copyOf(arrNL, ++soLuongNL);
-        arrNL[soLuongNL-1] = a;
+        arrNL[soLuongNL - 1] = a;
     }
 
     // xóa 1 nguyên liệu theo mã nguyên liệu
-    public void xoaNguyenLieu(String maNL) {
-        NguyenLieu[] arr = Arrays.copyOf(arrNL, soLuongNL);
-        arrNL = new NguyenLieu[soLuongNL-1];
-        for (int i=0, j=0; i<soLuongNL; i++) {
-            if (arr[i].getMaNL().equals(maNL) == false) {
-                arrNL[j++] = arr[i];
-            }
-        }
-        soLuongNL--;
-    }
+    // public void xoaNguyenLieu(String maNL) {
+    // NguyenLieu[] arr = Arrays.copyOf(arrNL, soLuongNL);
+    // arrNL = new NguyenLieu[soLuongNL - 1];
+    // for (int i = 0, j = 0; i < soLuongNL; i++) {
+    // if (arr[i].getMaNL().equals(maNL) == false) {
+    // arrNL[j++] = arr[i];
+    // }
+    // }
+    // soLuongNL--;
+    // }
 
     // tìm kiếm 1 nguyên liệu
     public static NguyenLieu timKiemNguyenLieu(String nguyenLieu) {
         if (soLuongNL != 0) {
-            for (int i=0; i<soLuongNL; i++) {
+            for (int i = 0; i < soLuongNL; i++) {
                 if (arrNL[i].getMaNL().equals(nguyenLieu) || arrNL[i].getTenNL().equals(nguyenLieu)) {
                     return arrNL[i];
                 }
@@ -141,10 +176,7 @@ public class DanhSachNguyenLieu implements QuanLiDS{
     }
 
     // sửa 1 nguyên liệu theo mã nguyên liệu
-    
 
-
-    @Override
     public void quanLiDS() {
         int opt;
         String maNL;
@@ -167,40 +199,32 @@ public class DanhSachNguyenLieu implements QuanLiDS{
                     xuatDSNL();
                     break;
                 case 2:
-                    themNhieuNguyenLieu();
+                    them();
                     break;
                 case 3:
                     themNguyenLieu();
                     break;
                 case 4:
-                    System.out.print("Nhập mã nguyên liệu muốn xóa: ");
-                    maNL = KiemTra.kiemTraNhapMaNL();
-                    if (timKiemNguyenLieu(maNL) == null) {
-                        System.out.println("Không tồn tại nguyên liệu. Thoát!");
-                        break;
-                    }
-                    xoaNguyenLieu(maNL);        
-                    System.out.println("Đã xóa nguyên liệu!");
+                    xoa();
                     break;
                 case 5:
                     System.out.print("Nhập mã nguyên liệu hoặc tên nguyên liệu muốn tìm kiếm");
                     maNL = KiemTra.kiemTraNhapChuoi();
                     if (timKiemNguyenLieu(maNL) == null) {
                         System.out.println("Không tồn tại nguyên liệu.");
-                    }
-                    else {
+                    } else {
                         timKiemNguyenLieu(maNL).xuatNguyenLieu();
                     }
                     break;
                 case 6:
-                    
+                    sua();
+                    break;
                 default:
                     break;
             }
 
-        } while (opt!=0);
+        } while (opt != 0);
 
     }
 
 }
-

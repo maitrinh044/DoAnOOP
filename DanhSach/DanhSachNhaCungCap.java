@@ -11,8 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-
-public class DanhSachNhaCungCap implements QuanLiDS{
+public class DanhSachNhaCungCap implements QuanLiDS {
     private static int soLuongNCC;
     private static NhaCungCap[] arrNCC;
 
@@ -24,8 +23,7 @@ public class DanhSachNhaCungCap implements QuanLiDS{
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 auto();
                 ghiFile();
             }
@@ -53,7 +51,7 @@ public class DanhSachNhaCungCap implements QuanLiDS{
         try {
             FileOutputStream fos = new FileOutputStream("./input/NhaCungCap.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (int i=0; i<soLuongNCC; i++) {
+            for (int i = 0; i < soLuongNCC; i++) {
                 oos.writeObject(arrNCC[i]);
             }
             oos.close();
@@ -63,14 +61,49 @@ public class DanhSachNhaCungCap implements QuanLiDS{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-    public void themNhieuNhaCungCap() {
+    @Override
+    public void them() {
         System.out.print("Nhập số lượng nhà cung cấp cần thêm: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i=0; i<c; i++) {
+        for (int i = 0; i < c; i++) {
             themNhaCungCap();
+        }
+    }
+
+    @Override
+    public void xoa() {
+        System.out.print("Nhập mã nhà cung cấp cần xóa: ");
+        String maNCC = KiemTra.kiemTraNhapMaNhaCC();
+        if (soLuongNCC == 0) {
+            System.out.println("Danh sách nhà cung cấp rỗng!");
+        } else if (timKiemNhaCungCap(maNCC) == null) {
+            System.out.println("Không tìm thấy nhà cung cấp.");
+        } else {
+            NhaCungCap[] arr = Arrays.copyOf(arrNCC, soLuongNCC);
+            arrNCC = new NhaCungCap[soLuongNCC - 1];
+            for (int i = 0, j = 0; i < soLuongNCC; i++) {
+                if (arrNCC[i].getMaNCC().equals(maNCC) == false) {
+                    arrNCC[j] = arr[i];
+                    j++;
+                }
+            }
+            soLuongNCC--;
+            System.out.println("Đã xóa nhà cung cấp!");
+
+        }
+    }
+
+    @Override
+    public void sua() {
+        System.out.print("Nhập mã hoặc tên nhà cung cấp muốn chỉnh sửa: ");
+        String maNCC = KiemTra.kiemTraNhapChuoi();
+        if (timKiemNhaCungCap(maNCC) == null) {
+            System.out.println("Không tồn tại nhà cung cấp!");
+        } else {
+            timKiemNhaCungCap(maNCC).suaNhaCungCap();
         }
     }
 
@@ -85,39 +118,39 @@ public class DanhSachNhaCungCap implements QuanLiDS{
             arrNCC[i].xuatNhaCungCap();
         }
     }
-   
+
     public void themNhaCungCap() {
         NhaCungCap a = new NhaCungCap();
         a.nhapNhaCungCap();
         arrNCC = Arrays.copyOf(arrNCC, ++soLuongNCC);
-        arrNCC[soLuongNCC-1] = a;
+        arrNCC[soLuongNCC - 1] = a;
     }
-    public void themNhaCungCap(NhaCungCap a){
+
+    public void themNhaCungCap(NhaCungCap a) {
         arrNCC = Arrays.copyOf(arrNCC, ++soLuongNCC);
-        arrNCC[soLuongNCC-1] = a;
+        arrNCC[soLuongNCC - 1] = a;
     }
 
-    public void xoaNhaCungCap(String maNCC) {
-        if (soLuongNCC == 0) {
-            System.out.println("Nhà cung cấp không tồn tại!");
-            return;
-        }
-        else {
-            NhaCungCap[] arr = Arrays.copyOf(arrNCC, soLuongNCC);
-            arrNCC = new NhaCungCap[soLuongNCC-1];
-            for (int i=0, j=0; i<soLuongNCC; i++) {
-                if (arrNCC[i].getMaNCC().equals(maNCC) == false) {
-                    arrNCC[j] = arr[i];
-                }
-            }
-            soLuongNCC--;
-        }
-    }
+    // public void xoaNhaCungCap(String maNCC) {
+    // if (soLuongNCC == 0) {
+    // System.out.println("Nhà cung cấp không tồn tại!");
+    // return;
+    // } else {
+    // NhaCungCap[] arr = Arrays.copyOf(arrNCC, soLuongNCC);
+    // arrNCC = new NhaCungCap[soLuongNCC - 1];
+    // for (int i = 0, j = 0; i < soLuongNCC; i++) {
+    // if (arrNCC[i].getMaNCC().equals(maNCC) == false) {
+    // arrNCC[j] = arr[i];
+    // }
+    // }
+    // soLuongNCC--;
+    // }
+    // }
 
-    
     public static NhaCungCap timKiemNhaCungCap(String maNCC) {
-        if (soLuongNCC == 0) return null;
-        for (int i=0; i<soLuongNCC; i++) {
+        if (soLuongNCC == 0)
+            return null;
+        for (int i = 0; i < soLuongNCC; i++) {
             if (arrNCC[i].getMaNCC().equals(maNCC) == true || arrNCC[i].getTenNCC().equals(maNCC)) {
                 return arrNCC[i];
             }
@@ -125,7 +158,7 @@ public class DanhSachNhaCungCap implements QuanLiDS{
         return null;
     }
 
-    public void quanLiDS(){
+    public void quanLiDS() {
         int opt;
         String tiepTuc;
         String maNCC;
@@ -135,78 +168,65 @@ public class DanhSachNhaCungCap implements QuanLiDS{
             System.out.println("1. Xuất danh sách nhà cung cấp.");
             System.out.println("2. Thêm nhiều nhà cung cấp.");
             System.out.println("3. Thêm một nhà cung cấp.");
-            System.out.println("4. Xóa một nhà cung cấp.");        
+            System.out.println("4. Xóa một nhà cung cấp.");
             System.out.println("5. Tìm kiếm nhà cung cấp.");
             System.out.println("6. Chỉnh sửa nhà cung cấp.");
             System.out.print("Lựa chọn: ");
             opt = KiemTra.kiemTraNhapSoNguyen();
 
-            switch (opt){
+            switch (opt) {
                 case 1:
                     xuatDSNCC();
                     break;
                 case 2:
-                    themNhieuNhaCungCap();
+                    them();
                     break;
                 case 3:
                     themNhaCungCap();
                     break;
                 case 4:
-                    System.out.print("Nhập mã nhà cung cấp muốn xóa: ");
-                    maNCC = KiemTra.kiemTraNhapMaNhaCC();
-                    if (timKiemNhaCungCap(maNCC) == null) {
-                        System.out.println("Không tồn tại nhà cung cấp!");
-                        break;
-                    }
-                    xoaNhaCungCap(maNCC);
-                    System.out.println("Đã xóa nhà cung cấp!");
+                    xoa();
                     break;
                 case 5:
                     System.out.print("Nhập mã hoặc tên nhà cung cấp muốn tìm kiếm: ");
                     maNCC = KiemTra.kiemTraNhapChuoi();
                     if (timKiemNhaCungCap(maNCC) == null) {
                         System.out.println("Không tồn tại nhà cung cấp!");
-                    }
-                    else {
+                    } else {
                         timKiemNhaCungCap(maNCC).xuatNhaCungCap();
                     }
                     break;
                 case 6:
-                    System.out.print("Nhập mã hoặc tên nhà cung cấp muốn chỉnh sửa: ");
-                    maNCC = KiemTra.kiemTraNhapChuoi();
-                    if (timKiemNhaCungCap(maNCC) == null) {
-                        System.out.println("Không tồn tại nhà cung cấp!");
-                    }
-                    else {
-                        timKiemNhaCungCap(maNCC).suaNhaCungCap();
-                    }
+                    sua();
                     break;
                 case 0:
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại!");
-                    break;                   
+                    break;
             }
             System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();
-    }
-    while (tiepTuc.equals("y"));
+        } while (tiepTuc.equals("y"));
 
     }
 
     public void auto() {
-            soLuongNCC = 10;
-            arrNCC = new NhaCungCap[soLuongNCC];
-            arrNCC[0] = new NhaCungCap("NCC001", "Nhà cung cấp thịt gà tươi", "292, QL50, Phường 6, Quận 8, TPHCM");
-            arrNCC[1] = new NhaCungCap("NCC002", "Nhà cung cấp thịt bò tươi", "133, Số 30, Phường 6, Gò Vấp, TPHCM");
-            arrNCC[2] = new NhaCungCap("NCC003", "Nhà cung cấp bánh mì", "6, Lê Văn Lương, Tân Phong, Quận 7, TPHCM");
-            arrNCC[3] = new NhaCungCap("NCC004", "Nhà cung cấp sợi mì Spaghetti", "42 Vĩnh Hội, Phường 4, Quận 4, TPHCM");
-            arrNCC[4] = new NhaCungCap("NCC005", "Nhà cung cấp rau củ", "Số 93 Trần Não, Phường Bình An, Quận 2, TPHCM");
-            arrNCC[5] = new NhaCungCap("NCC006", "Nhà cung cấp hải sản", "268 Đỗ Xuân Hợp, Quận 9, TPHCM");
-            arrNCC[6] = new NhaCungCap("NCC007", "Nhà cung cấp bách hóa xanh (cung cấp gia vị)", "286 Trần Hưng Đạo, Phường 11, Quận 5, TPHCM");
-            arrNCC[7] = new NhaCungCap("NCC008", "Nhà cung cấp phô mai", "620 Sư Vạn Hạnh, Phường 10, Quận 10, TPHCM");
-            arrNCC[8] = new NhaCungCap("NCC009", "Nhà cung cấp nước tinh khiết", "Số 48 Nguyễn Thị Huỳnh, P. 11, Q. Phú Nhuận, TPHCM" );
-            arrNCC[9] = new NhaCungCap("NCC010", "Nhà cung cấp nước giải khát", "Số 48 Nguyễn Thị Huỳnh, P. 11, Q. Phú Nhuận, TPHCM");
+        soLuongNCC = 10;
+        arrNCC = new NhaCungCap[soLuongNCC];
+        arrNCC[0] = new NhaCungCap("NCC001", "Nhà cung cấp thịt gà tươi", "292, QL50, Phường 6, Quận 8, TPHCM");
+        arrNCC[1] = new NhaCungCap("NCC002", "Nhà cung cấp thịt bò tươi", "133, Số 30, Phường 6, Gò Vấp, TPHCM");
+        arrNCC[2] = new NhaCungCap("NCC003", "Nhà cung cấp bánh mì", "6, Lê Văn Lương, Tân Phong, Quận 7, TPHCM");
+        arrNCC[3] = new NhaCungCap("NCC004", "Nhà cung cấp sợi mì Spaghetti", "42 Vĩnh Hội, Phường 4, Quận 4, TPHCM");
+        arrNCC[4] = new NhaCungCap("NCC005", "Nhà cung cấp rau củ", "Số 93 Trần Não, Phường Bình An, Quận 2, TPHCM");
+        arrNCC[5] = new NhaCungCap("NCC006", "Nhà cung cấp hải sản", "268 Đỗ Xuân Hợp, Quận 9, TPHCM");
+        arrNCC[6] = new NhaCungCap("NCC007", "Nhà cung cấp bách hóa xanh (cung cấp gia vị)",
+                "286 Trần Hưng Đạo, Phường 11, Quận 5, TPHCM");
+        arrNCC[7] = new NhaCungCap("NCC008", "Nhà cung cấp phô mai", "620 Sư Vạn Hạnh, Phường 10, Quận 10, TPHCM");
+        arrNCC[8] = new NhaCungCap("NCC009", "Nhà cung cấp nước tinh khiết",
+                "Số 48 Nguyễn Thị Huỳnh, P. 11, Q. Phú Nhuận, TPHCM");
+        arrNCC[9] = new NhaCungCap("NCC010", "Nhà cung cấp nước giải khát",
+                "Số 48 Nguyễn Thị Huỳnh, P. 11, Q. Phú Nhuận, TPHCM");
     }
 }

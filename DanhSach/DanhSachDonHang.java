@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachDonHang implements QuanLiDS {
+public class DanhSachDonHang {
     public static int soDH;
     private DonHang[] DS_DonHang;
 
@@ -31,7 +31,6 @@ public class DanhSachDonHang implements QuanLiDS {
             e.printStackTrace();
         }
     }
-
 
     public void docFile(FileInputStream fis) {
         try {
@@ -75,12 +74,15 @@ public class DanhSachDonHang implements QuanLiDS {
     }
 
     // 1. Phương thức thêm đơn hàng
-    public void themDonHang() {
-       DonHang a = new DonHang();
-       a.nhapThongTinDonHang();
-       DS_DonHang = Arrays.copyOf(DS_DonHang, ++soDH);
-       DS_DonHang[soDH-1] = a;
-       DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH());
+    public void them() {
+        System.out.print("Nhập số lượng đơn hàng cần thêm: ");
+        int n = KiemTra.kiemTraNhapSoNguyen();
+        for (int i = 0; i < n; i++) {
+            DonHang a = new DonHang();
+            a.nhapThongTinDonHang();
+            themDonHang(a);
+            DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH());
+        }
     }
 
     public void themDonHang(DonHang tmp) {
@@ -109,10 +111,10 @@ public class DanhSachDonHang implements QuanLiDS {
         System.out.printf("%-15s%-20s%-10s%-10s%-10s\n\n",
                 "Mã đơn hàng", "Ngày lập đơn", "Mã NV", "Mã KH", "Tổng tiền");
         for (DonHang donHang : DS_DonHang) {
-            if (donHang!=null) donHang.inThongTinDonHang();
-        } 
+            if (donHang != null)
+                donHang.inThongTinDonHang();
+        }
     }
-    
 
     // 3. Phương thức tìm kiếm đơn hàng theo mã đơn hàng
     public DonHang timKiemDonHangTheoMaDH(String maDH) {
@@ -131,60 +133,62 @@ public class DanhSachDonHang implements QuanLiDS {
     // 4. Phương thức tìm kiếm (các) đơn hàng theo mã nhân viên
     public DonHang[] timKiemDonHangTheoMaNV(String manv) {
         DonHang[] arr = new DonHang[0];
-        int c=0;
+        int c = 0;
         for (DonHang donHang : DS_DonHang) {
             if (donHang.getMaNV().equalsIgnoreCase(manv)) {
                 c++;
                 arr = Arrays.copyOf(arr, c);
-                arr[c-1] = donHang;
+                arr[c - 1] = donHang;
             }
         }
-        if (arr.length > 0) return arr;
+        if (arr.length > 0)
+            return arr;
         return null;
     }
 
     // 5. Phương thức tìm kiếm (các) đơn hàng theo mã khách hàng
     public DonHang[] timKiemDonHangTheoMaKH(String makh) {
         DonHang[] arr = new DonHang[0];
-        int c=0;
+        int c = 0;
         for (DonHang donHang : DS_DonHang) {
             if (donHang.getMaKH().equalsIgnoreCase(makh)) {
                 c++;
                 arr = new DonHang[c];
-                arr[c-1] = donHang;
+                arr[c - 1] = donHang;
             }
         }
-        if (arr.length > 0) return arr;
+        if (arr.length > 0)
+            return arr;
         return null;
     }
 
     // // 6. Phương thức cập nhật thông tin đơn hàng
     // public void capNhatThongTinDonHang(String madh) {
-    //     for (DonHang tmp : DS_DonHang) {
-    //         if (tmp.getMaDH().equalsIgnoreCase(madh)) {
-    //             tmp.suaDonHang();
-    //         }
-    //     }
+    // for (DonHang tmp : DS_DonHang) {
+    // if (tmp.getMaDH().equalsIgnoreCase(madh)) {
+    // tmp.suaDonHang();
+    // }
+    // }
     // }
 
     // // 7. Phương thức xóa một đơn hàng khỏi danh sách
     // public void xoaMotDonHang(String madh) {
-    //     int newCount = soDH - 1;
-    //     DonHang[] newArr = new DonHang[newCount];
-    //     for (int i = 0, j = 0; i < soDH; i++) {
-    //         if (!DS_DonHang[i].getMaDH().equalsIgnoreCase(madh)) {
-    //             newArr[j] = DS_DonHang[i];
-    //             j++;
-    //         }
-    //     }
-    //     DS_DonHang = newArr;
-    //     soDH = newCount;
+    // int newCount = soDH - 1;
+    // DonHang[] newArr = new DonHang[newCount];
+    // for (int i = 0, j = 0; i < soDH; i++) {
+    // if (!DS_DonHang[i].getMaDH().equalsIgnoreCase(madh)) {
+    // newArr[j] = DS_DonHang[i];
+    // j++;
+    // }
+    // }
+    // DS_DonHang = newArr;
+    // soDH = newCount;
     // }
 
     // // 8. Phương thức xóa tất cả đơn hàng trong danh sách
     // public void xoaTatCaDonHang() {
-    //     DS_DonHang = Arrays.copyOf(DS_DonHang, 0);
-    //     soDH = 0;
+    // DS_DonHang = Arrays.copyOf(DS_DonHang, 0);
+    // soDH = 0;
     // }
 
     public void tongTien(String madh) {
@@ -196,7 +200,6 @@ public class DanhSachDonHang implements QuanLiDS {
     }
 
     // Start: Menu
-    @Override
     public void quanLiDS() {
         DonHang tmp;
         DonHang[] arr;
@@ -215,7 +218,7 @@ public class DanhSachDonHang implements QuanLiDS {
 
             switch (luaChon) {
                 case 1:
-                    themDonHang();
+                    them();
                     break;
                 case 2:
                     inDanhSachDonHang();
@@ -238,8 +241,7 @@ public class DanhSachDonHang implements QuanLiDS {
                         for (DonHang donHang : arr) {
                             donHang.inThongTinDonHang();
                         }
-                    } 
-                    else {
+                    } else {
                         System.out.println("Không có đơn hàng.");
                     }
                     break;
@@ -251,8 +253,7 @@ public class DanhSachDonHang implements QuanLiDS {
                         for (DonHang donHang : arr) {
                             donHang.inThongTinDonHang();
                         }
-                    } 
-                    else {
+                    } else {
                         System.out.println("Không có đơn hàng.");
                     }
                     break;

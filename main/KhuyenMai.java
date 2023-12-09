@@ -89,8 +89,7 @@ public class KhuyenMai implements Serializable {
         ngayBatDau = KiemTra.kiemTraNgayThangNam();
         System.out.print("Nhập ngày mà mã khuyến mãi hết hiệu lực: ");
         ngayKetThuc = KiemTra.kiemTraNgayThangNam();
-        
-        
+
         System.out.print("Nhập mô tả của mã khuyến mãi: ");
         moTa = KiemTra.kiemTraNhapChuoi();
         System.out.println();
@@ -100,6 +99,10 @@ public class KhuyenMai implements Serializable {
         System.out.printf("|%-15s|%-15s|%-10s|%-20s|%-20s|%-40s|\n", getMaKM(), getMaSP(), getGiaTri(),
                 getNgayBatDau(), getNgayKetThuc(), getMoTa());
         System.out.println();
+    }
+
+    public void suaMaKM() {
+
     }
 
     public static void main(String[] args) {

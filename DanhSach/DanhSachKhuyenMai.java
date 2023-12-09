@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DanhSachKhuyenMai implements QuanLiDS{
+public class DanhSachKhuyenMai implements QuanLiDS {
     private int soKM;
     private KhuyenMai DS_KhuyenMai[];
     transient Scanner inp = new Scanner(System.in);
@@ -98,6 +98,7 @@ public class DanhSachKhuyenMai implements QuanLiDS{
         }
         DS_KhuyenMai = newArr;
         soKM = newCount;
+        System.out.println("Đã xóa!");
     }
 
     public void xoaMaKMTheoMASP(String masp) {
@@ -210,6 +211,42 @@ public class DanhSachKhuyenMai implements QuanLiDS{
     }
 
     @Override
+    public void them() {
+        System.out.print("Nhập số mã khuyến mãi cần nhập: ");
+        int n = KiemTra.kiemTraNhapSoNguyen();
+        for (int i = 0; i < n; i++) {
+            KhuyenMai a = new KhuyenMai();
+            a.nhapThongTinKhuyenMai();
+            themKhuyenMai(a);
+        }
+    }
+
+    @Override
+    public void xoa() {
+        System.out.print("Nhập mã khuyến mãi cần xóa: ");
+        String makm = KiemTra.kiemTraNhapMaKM();
+        if (timMaKM(makm) == null) {
+            System.out.println("Không tìm thấy mã khuyến mãi.");
+            return;
+        } else if (soKM == 0) {
+            System.out.println("Danh sách khuyến mãi rỗng");
+            return;
+        }
+        xoaMaKM(makm);
+    }
+
+    @Override
+    public void sua() {
+        System.out.print("Nhập mã khuyến mãi cần xóa: ");
+        String makm = KiemTra.kiemTraNhapMaKM();
+        if (timMaKM(makm) != null) {
+            KhuyenMai a = timMaKM(makm);
+            suaMaKM(a.getMaKM());
+        } else {
+            System.out.println("Không tìm thấy mã khuyến mãi.");
+        }
+    }
+
     public void quanLiDS() {
         String maKM, maSP;
         System.out.println("\t=====Quản lí danh sách khuyến mãi:=====");
@@ -237,10 +274,7 @@ public class DanhSachKhuyenMai implements QuanLiDS{
                     System.out.println("Đã thêm!");
                     break;
                 case 2:
-                    System.out.print("Nhập mã khuyến mãi cần xóa: ");
-                    maKM = KiemTra.kiemTraNhapMaKM();
-                    xoaMaKM(maKM);
-                    System.out.println("Đã xóa!");
+                    xoa();
                     break;
                 case 3:
                     System.out.print("Nhập mã sản phẩm có trong mã khuyến mãi cần xóa: ");
@@ -253,10 +287,7 @@ public class DanhSachKhuyenMai implements QuanLiDS{
                     System.out.println("Đã xóa danh sách mã khuyến mãi.");
                     break;
                 case 5:
-                    System.out.print("Nhập mã khuyến mãi cần sửa lại thông tin: ");
-                    maKM = KiemTra.kiemTraNhapMaKM();
-                    suaMaKM(maKM);
-                    System.out.println("Đã cập nhật!");
+                    sua();
                     break;
                 case 6:
                     inDanhSach();

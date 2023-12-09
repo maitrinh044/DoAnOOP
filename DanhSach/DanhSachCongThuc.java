@@ -11,7 +11,7 @@ import java.util.Arrays;
 import KiemTra.KiemTra;
 import main.*;
 
-public class DanhSachCongThuc implements QuanLiDS{
+public class DanhSachCongThuc implements QuanLiDS {
     private static int soLuong;
     private static CongThuc[] arrCT;
 
@@ -22,8 +22,7 @@ public class DanhSachCongThuc implements QuanLiDS{
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 auto();
                 ghiFile();
             }
@@ -54,7 +53,7 @@ public class DanhSachCongThuc implements QuanLiDS{
         try {
             FileOutputStream fos = new FileOutputStream("./input/CongThuc.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (int i=0; i<soLuong; i++) {
+            for (int i = 0; i < soLuong; i++) {
                 oos.writeObject(arrCT[i]);
             }
             oos.close();
@@ -64,30 +63,38 @@ public class DanhSachCongThuc implements QuanLiDS{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-    public void themCongThuc() {
-        CongThuc a = new CongThuc();
-        a.nhapCongThuc();
-        arrCT = Arrays.copyOf(arrCT, soLuong++);
-        arrCT[soLuong-1] = a;
+    @Override
+    public void them() {
+        // CongThuc a = new CongThuc();
+        // a.nhapCongThuc();
+        // arrCT = Arrays.copyOf(arrCT, soLuong++);
+        // arrCT[soLuong-1] = a;
+        System.out.print("Nhập số công thức cần thêm vào: ");
+        int n = KiemTra.kiemTraNhapSoNguyen();
+        for (int i = 0; i < n; i++) {
+            CongThuc a = new CongThuc();
+            a.nhapCongThuc();
+            themCongThuc(a);
+            DanhSachChiTietCongThuc.themNhieuCTCT();
+        }
     }
 
     public void themCongThuc(CongThuc a) {
         arrCT = Arrays.copyOf(arrCT, ++soLuong);
-        arrCT[soLuong-1] = a;
+        arrCT[soLuong - 1] = a;
     }
 
     public void xoaCongThuc(String maCT) {
         if (DanhSachSanPham.timKiemSanPhamTheoMaSP(timKiemCongThuc(maCT).getMaSP()) != null) {
-                System.out.println("Sản phẩm đang tồn tại. Không thể xóa công thức.");
-                return;
-            }
-        else {
+            System.out.println("Sản phẩm đang tồn tại. Không thể xóa công thức.");
+            return;
+        } else {
             CongThuc[] arr = Arrays.copyOf(arrCT, soLuong);
-            arrCT = new CongThuc[soLuong-1];
-            for (int i=0, j=0; i<soLuong; i++) {
+            arrCT = new CongThuc[soLuong - 1];
+            for (int i = 0, j = 0; i < soLuong; i++) {
                 if (arrCT[i].getMaCT().equals(maCT) == true) {
                     arrCT[j++] = arr[i];
                 }
@@ -96,12 +103,42 @@ public class DanhSachCongThuc implements QuanLiDS{
         }
     }
 
+    @Override
+    public void xoa() {
+        System.out.print("Nhập mã công thức cần xóa: ");
+        String mact = KiemTra.kiemTraNhapChuoi();
+        if (DanhSachSanPham.timKiemSanPhamTheoMaSP(timKiemCongThuc(mact).getMaSP()) != null) {
+            System.out.println("Sản phẩm đang tồn tại. Không thể xóa công thức.");
+            return;
+        } else {
+            CongThuc[] arr = Arrays.copyOf(arrCT, soLuong);
+            arrCT = new CongThuc[soLuong - 1];
+            for (int i = 0, j = 0; i < soLuong; i++) {
+                if (arrCT[i].getMaCT().equals(mact) == true) {
+                    arrCT[j++] = arr[i];
+                }
+            }
+            System.out.println("Đã xóa công thức.\n");
+        }
+    }
+
+    @Override
+    public void sua() {
+        System.out.print("Nhập mã công thức hoặc mã sản phẩm muốn sửa: ");
+        String input = KiemTra.kiemTraNhapChuoi();
+        if (timKiemCongThuc(input) == null) {
+            System.out.println("Không tồn tại công thức.");
+        } else {
+            timKiemCongThuc(input).suaCongThuc();
+        }
+    }
+
     public void xuatDSCT() {
         if (soLuong == 0) {
             System.out.println("Danh sách công thức trống!\n");
             return;
         }
-        for (int i=0; i<soLuong; i++) {
+        for (int i = 0; i < soLuong; i++) {
             arrCT[i].xuatCongThuc();
         }
     }
@@ -109,9 +146,8 @@ public class DanhSachCongThuc implements QuanLiDS{
     public static CongThuc timKiemCongThuc(String ma) {
         if (soLuong == 0) {
             System.out.println("Không tồn tại công thức.");
-        }
-        else {
-            for (int i=0; i<soLuong; i++) {
+        } else {
+            for (int i = 0; i < soLuong; i++) {
                 if (arrCT[i].getMaCT().equals(ma) == true || arrCT[i].getMaSP().equals(ma) == true) {
                     return arrCT[i];
                 }
@@ -120,16 +156,15 @@ public class DanhSachCongThuc implements QuanLiDS{
         return null;
     }
 
-    @Override
     public void quanLiDS() {
         int opt;
         String input;
         String tieptuc;
-         do{
+        do {
             System.out.println("Các thao tác: ");
             System.out.println("1. Hiển thị danh sách công thức.");
             System.out.println("2. Thêm 1 công thức.");
-            System.out.println("3. Xóa 1 công thức. ");        
+            System.out.println("3. Xóa 1 công thức. ");
             System.out.println("4. Tìm kiếm công thức.");
             System.out.println("5. Chỉnh sửa công thức.");
             System.out.print("Lựa chọn: ");
@@ -139,39 +174,24 @@ public class DanhSachCongThuc implements QuanLiDS{
                     xuatDSCT();
                     break;
                 case 2:
-                    themCongThuc();
+                    them();
                     DanhSachChiTietCongThuc.themNhieuCTCT();
                     break;
                 case 3:
-                    System.out.print("Nhập mã công thức hoặc mã sản phẩm muốn xóa công thức: ");
-                    input = KiemTra.kiemTraNhapChuoi();
-                    if (timKiemCongThuc(input) == null) {
-                        System.out.println("Không tồn tại công thức.");
-                    }
-                    else {
-                        xoaCongThuc(timKiemCongThuc(input).getMaCT());
-                    }
+                    xoa();
                     break;
                 case 4:
                     System.out.print("Nhập mã công thức hoặc mã sản phẩm muốn tìm kiếm: ");
                     input = KiemTra.kiemTraNhapChuoi();
                     if (timKiemCongThuc(input) == null) {
                         System.out.println("Không tồn tại công thức.");
-                    }
-                    else {
+                    } else {
                         timKiemCongThuc(input).xuatCongThuc();
                         DanhSachChiTietCongThuc.xuatChiTiet1CT(timKiemCongThuc(input).getMaCT());
                     }
                     break;
                 case 5:
-                    System.out.print("Nhập mã công thức hoặc mã sản phẩm muốn sửa: ");
-                    input = KiemTra.kiemTraNhapChuoi();
-                    if (timKiemCongThuc(input) == null) {
-                        System.out.println("Không tồn tại công thức.");
-                    }
-                    else {
-                        timKiemCongThuc(input).suaCongThuc();
-                    }
+                    sua();
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Thoát!");
@@ -181,8 +201,7 @@ public class DanhSachCongThuc implements QuanLiDS{
             System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
             System.out.print("Lựa chọn: ");
             tieptuc = KiemTra.tiepTuc();
-        }
-        while (tieptuc.equals("y")); 
+        } while (tieptuc.equals("y"));
     }
 
     public void auto() {
@@ -195,9 +214,3 @@ public class DanhSachCongThuc implements QuanLiDS{
         arrCT[4] = new CongThuc("SP005", "CT005");
     }
 }
-    
-
-
-
-
-
