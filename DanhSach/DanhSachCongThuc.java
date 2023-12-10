@@ -11,7 +11,7 @@ import java.util.Arrays;
 import KiemTra.KiemTra;
 import main.*;
 
-public class DanhSachCongThuc implements QuanLiDS {
+public class DanhSachCongThuc implements DanhSach {
     private static int soLuong;
     private static CongThuc[] arrCT;
 

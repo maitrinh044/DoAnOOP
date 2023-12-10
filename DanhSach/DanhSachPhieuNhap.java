@@ -11,7 +11,7 @@ import java.util.Arrays;
 import main.*;
 import KiemTra.KiemTra;
 
-public class DanhSachPhieuNhap implements QuanLiDS {
+public class DanhSachPhieuNhap implements DanhSach {
     private static int soluongPN;
     private static PhieuNhap[] arrPN;
 

@@ -11,7 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachNhaCungCap implements QuanLiDS {
+public class DanhSachNhaCungCap implements DanhSach {
     private static int soLuongNCC;
     private static NhaCungCap[] arrNCC;
 

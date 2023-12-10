@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong {
+public class DanhSachSanPham implements DanhSach {
     private static int soLuong;
     private static SanPham[] arrSP;
 
@@ -255,8 +255,8 @@ public class DanhSachSanPham implements QuanLiDS, ThongKeSoLuong {
             return;
     }
 
-    @Override
-    public long thongKeSoLuong() {
+    
+    public long thongKeTongSoLuong() {
         long s = 0;
         for (int i = 0; i < soLuong; i++) {
             s += arrSP[i].getSoLuong();

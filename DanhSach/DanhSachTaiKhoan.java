@@ -11,7 +11,7 @@ import java.util.Arrays;
 import KiemTra.KiemTra;
 import main.*;
 
-public class DanhSachTaiKhoan implements QuanLiDS {
+public class DanhSachTaiKhoan implements DanhSach {
     private int soluongTK = 0;
     protected static TaiKhoan arrTK[];
 
