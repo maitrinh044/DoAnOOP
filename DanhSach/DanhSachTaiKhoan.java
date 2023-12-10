@@ -17,7 +17,7 @@ public class DanhSachTaiKhoan implements QuanLiDS {
 
     public void ghiFile() {
         try {
-            FileOutputStream fos = new FileOutputStream("input/TaiKhoan.txt");
+            FileOutputStream fos = new FileOutputStream("./input/TaiKhoan.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             for (int i = 0; i < soluongTK; i++) {
@@ -54,7 +54,7 @@ public class DanhSachTaiKhoan implements QuanLiDS {
 
     public DanhSachTaiKhoan() {
         try {
-            FileInputStream fis = new FileInputStream("input/TaiKhoan.txt");
+            FileInputStream fis = new FileInputStream("./input/TaiKhoan.txt");
             if (fis.available() > 0) {
                 docFile(fis);
             } else {
