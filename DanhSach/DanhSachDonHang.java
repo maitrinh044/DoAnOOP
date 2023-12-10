@@ -75,14 +75,11 @@ public class DanhSachDonHang {
 
     // 1. Phương thức thêm đơn hàng
     public void them() {
-        System.out.print("Nhập số lượng đơn hàng cần thêm: ");
-        int n = KiemTra.kiemTraNhapSoNguyen();
-        for (int i = 0; i < n; i++) {
-            DonHang a = new DonHang();
-            a.nhapThongTinDonHang();
-            themDonHang(a);
-            DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH());
-        }
+        System.out.print("Nhập đơn hàng cần thêm: ");
+        DonHang a = new DonHang();
+        a.nhapThongTinDonHang();
+        themDonHang(a);
+        DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH());
     }
 
     public void themDonHang(DonHang tmp) {
