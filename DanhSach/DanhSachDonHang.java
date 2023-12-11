@@ -77,7 +77,7 @@ public class DanhSachDonHang {
 
     // 1. Phương thức thêm đơn hàng
     public void them() {
-        System.out.print("Nhập đơn hàng cần thêm: ");
+        System.out.println("Nhập đơn hàng cần thêm: ");
         DonHang a = new DonHang();
         a.nhapThongTinDonHang();
         themDonHang(a);

@@ -78,39 +78,25 @@ public class DanhSachChiTietDonHang {
     public static void themNhieuChiTietDonHang(String maDH) {
         System.out.print("Nhập số lượng chi tiết đơn hàng: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
-        ArrayList<ChiTietDonHang> arr = new ArrayList<>();
         for (int i = 0; i < c; i++) {
             ChiTietDonHang ctdh = new ChiTietDonHang();
             ctdh.nhapThongTinCTDH();
+            ctdh.setMaDH(maDH);
             themChiTietDonHang(ctdh);
-            arr.add(ctdh);
-        }
-        for (int i = 0; i < c; i++) {
-            if (DanhSachSanPham.timKiemSanPhamTheoMaSP(arr.get(i).getMaSP()).getSoLuong() > 0) {
-                int a = DanhSachSanPham.timKiemSanPhamTheoMaSP(arr.get(i).getMaSP()).getSoLuong()
-                        - arr.get(i).getSoLuong();
-                DanhSachSanPham.timKiemSanPhamTheoMaSP(arr.get(i).getMaSP()).setSoLuong(a);
-            }
+            SanPham a = DanhSachSanPham.timKiemSanPhamTheoTenSP(ctdh.getMaSP());
+            if (a!=null) a.setSoLuong(a.getSoLuong()-ctdh.getSoLuong());
         }
     }
 
     public static void themNhieuChiTietDonHang(String maDH, String maTK) {
         ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
         for (ChiTietGioHang i : arrGH) {
-            String makh = KiemTra.kiemTraNhapMaKH();
-            ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), makh);
-            String masp = ctdh.getMaSP();
-            if (DanhSachSanPham.timKiemSanPhamTheoMaSP(masp).getSoLuong() > 0) {
-                masp = ctdh.getMaSP();
-                int soluong = ctdh.getSoLuong();
-                int tmp = DanhSachSanPham.timKiemSanPhamTheoMaSP(masp).getSoLuong();
-                int a = tmp - soluong;
-                DanhSachSanPham.timKiemSanPhamTheoMaSP(masp).setSoLuong(a);
-                themChiTietDonHang(ctdh);
-            } else {
-                System.out.println("Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác.");
-                return;
-            }
+            ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), maTK);
+            themChiTietDonHang(ctdh);
+        }
+        for (ChiTietGioHang chiTietGioHang : arrGH) {
+            SanPham a = DanhSachSanPham.timKiemSanPhamTheoTenSP(chiTietGioHang.getMaSP());
+            if (a!=null) a.setSoLuong(a.getSoLuong()-chiTietGioHang.getSoLuong());
         }
     }
 

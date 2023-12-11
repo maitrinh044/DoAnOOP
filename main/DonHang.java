@@ -74,8 +74,9 @@ public class DonHang implements Serializable {
 
     // Phương thức tính tổng tiền của 1 đơn hàng
     public int tongTienHoaDon() {
-        ArrayList<ChiTietDonHang> dsCTDH = DanhSachChiTietDonHang.timKiemCTDH(getMaDH());
+        ArrayList<ChiTietDonHang> dsCTDH = DanhSachChiTietDonHang.timKiemCTDH(maDH);
         int tongTien = 0;
+        if (dsCTDH == null) return tongTien;
         for (ChiTietDonHang ctDH : dsCTDH) {
             if (ctDH != null) {
                 if (ctDH.getMaDH().equals(maDH)) {
@@ -98,11 +99,14 @@ public class DonHang implements Serializable {
     // Phương thức in thông tin đơn hàng
     public void inThongTinDonHang() {
         ArrayList<ChiTietDonHang> arr = DanhSachChiTietDonHang.timKiemCTDH(maDH);
+        
         System.out.printf("%-15s%-20s%-10s%-10s%-10s\n",
                 maDH, ngayLapDon, maNV, maKH, tongTienHoaDon());
         System.out.println();
-        for (ChiTietDonHang chiTietDonHang : arr) {
-            chiTietDonHang.inCTDonHang();
+        if (arr != null) {
+            for (ChiTietDonHang chiTietDonHang : arr) {
+                chiTietDonHang.inCTDonHang();
+            }
         }
         System.out.println("----------------------------------------------------------------------------------");
     }

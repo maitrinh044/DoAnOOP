@@ -79,8 +79,8 @@ public class DanhSachTaiKhoan implements DanhSach {
 
     private void xuatDSTK() {
         System.out.println("Danh sách tài khoản");
-        System.out.printf("%-15s%-15s%-15s%-15s%-15s\n", "Ma Tai Khoan", "Mat khau", "Ngay Tao TK", "Quyen Han",
-                "Tinh Trang TK");
+        System.out.printf("%-15s%-15s%-15s%-15s%-15s\n", "Mã tài khoản", "Mật khẩu", "Ngày Tạo TK", "Quyền hạn",
+                "Tình Trạng TK");
         for (int i = 0; i < soluongTK; i++) {
             arrTK[i].xuatThongTinTaiKhoan();
         }
