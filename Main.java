@@ -1,6 +1,4 @@
 
-import java.sql.Date;
-
 import DanhSach.run;
 import KiemTra.KiemTra;
 
