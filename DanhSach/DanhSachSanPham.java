@@ -337,7 +337,7 @@ public class DanhSachSanPham implements DanhSach {
                 default:
                     break;
             }
-            System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
+            System.out.println("Bạn có muốn tiếp tục các thao tác thống kê? (y/n)");
             System.out.print("Lựa chọn: ");
             tieptuc = KiemTra.tiepTuc();
         } while (tieptuc.equals("y"));
@@ -400,7 +400,7 @@ public class DanhSachSanPham implements DanhSach {
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");
             }
 
-            System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
+            System.out.println("Bạn có muốn tiếp tục các thao tác trên sản phẩm? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();
         } while (tiepTuc.equals("y"));

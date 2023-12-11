@@ -83,7 +83,7 @@ public class DanhSachChiTietDonHang {
             ctdh.nhapThongTinCTDH();
             ctdh.setMaDH(maDH);
             themChiTietDonHang(ctdh);
-            SanPham a = DanhSachSanPham.timKiemSanPhamTheoTenSP(ctdh.getMaSP());
+            SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(ctdh.getMaSP());
             if (a!=null) a.setSoLuong(a.getSoLuong()-ctdh.getSoLuong());
         }
     }
@@ -95,7 +95,7 @@ public class DanhSachChiTietDonHang {
             themChiTietDonHang(ctdh);
         }
         for (ChiTietGioHang chiTietGioHang : arrGH) {
-            SanPham a = DanhSachSanPham.timKiemSanPhamTheoTenSP(chiTietGioHang.getMaSP());
+            SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietGioHang.getMaSP());
             if (a!=null) a.setSoLuong(a.getSoLuong()-chiTietGioHang.getSoLuong());
         }
     }
