@@ -10,7 +10,7 @@ import DanhSach.DanhSachChiTietDonHang;
 import DanhSach.DanhSachChiTietGioHang;
 import DanhSach.DanhSachDonHang;
 
-public class DonHang implements Serializable{
+public class DonHang implements Serializable {
     private String maDH;
     private Date ngayLapDon;
     private String maNV;
@@ -18,7 +18,7 @@ public class DonHang implements Serializable{
 
     // Constructor
     public DonHang() {
-        maDH = String.format("DH%03d", DanhSachDonHang.soDH+1);
+        maDH = String.format("DH%03d", DanhSachDonHang.soDH + 1);
         long millis = System.currentTimeMillis();
         ngayLapDon = new Date(millis);
         maNV = "";
@@ -77,8 +77,10 @@ public class DonHang implements Serializable{
         ArrayList<ChiTietDonHang> dsCTDH = DanhSachChiTietDonHang.timKiemCTDH(getMaDH());
         int tongTien = 0;
         for (ChiTietDonHang ctDH : dsCTDH) {
-            if (ctDH.getMaDH().equals(maDH)) {
-                tongTien += ctDH.thanhTien();
+            if (ctDH != null) {
+                if (ctDH.getMaDH().equals(maDH)) {
+                    tongTien += ctDH.thanhTien();
+                }
             }
         }
         return tongTien;
@@ -88,10 +90,10 @@ public class DonHang implements Serializable{
         ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
         int tongTien = 0;
         for (ChiTietGioHang ctDH : arrGH) {
-            tongTien = ctDH.getDonGia()*ctDH.getSoLuong();
+            tongTien = ctDH.getDonGia() * ctDH.getSoLuong();
         }
         return tongTien;
-    } 
+    }
 
     // Phương thức in thông tin đơn hàng
     public void inThongTinDonHang() {

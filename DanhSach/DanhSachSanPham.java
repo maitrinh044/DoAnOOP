@@ -255,7 +255,6 @@ public class DanhSachSanPham implements DanhSach {
             return;
     }
 
-    
     public long thongKeTongSoLuong() {
         long s = 0;
         for (int i = 0; i < soLuong; i++) {
