@@ -27,7 +27,7 @@ public class DonHang implements Serializable {
     }
 
     public DonHang(String maNV, String maKH) {
-        maDH = String.format("DH%03d", DanhSachDonHang.soDH++);
+        maDH = String.format("DH%03d", DanhSachDonHang.soDH+1);
         long millis = System.currentTimeMillis();
         ngayLapDon = new Date(millis);
         this.maNV = maNV;
