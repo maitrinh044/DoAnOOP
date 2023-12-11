@@ -10,7 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.sql.Date;
 
 public class DanhSachDonHang {
     public static int soDH;
@@ -82,7 +84,7 @@ public class DanhSachDonHang {
         DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH());
     }
 
-    public void themDonHang(DonHang tmp) {
+    private void themDonHang(DonHang tmp) {
         DS_DonHang = Arrays.copyOf(DS_DonHang, soDH + 1);
         DS_DonHang[soDH] = tmp;
         soDH++;
@@ -99,7 +101,7 @@ public class DanhSachDonHang {
 
     // 2. Phương thức in danh sách đơn hàng
 
-    public void inDanhSachDonHang() {
+    private void inDanhSachDonHang() {
         if (DS_DonHang.length == 0) {
             System.out.println("Danh sách đơn hàng trống!");
             return;
@@ -114,7 +116,7 @@ public class DanhSachDonHang {
     }
 
     // 3. Phương thức tìm kiếm đơn hàng theo mã đơn hàng
-    public DonHang timKiemDonHangTheoMaDH(String maDH) {
+    private DonHang timKiemDonHangTheoMaDH(String maDH) {
         for (DonHang donHang : DS_DonHang) {
             if (donHang.getMaDH().equalsIgnoreCase(maDH)) {
                 return donHang;
@@ -128,7 +130,7 @@ public class DanhSachDonHang {
     // }
 
     // 4. Phương thức tìm kiếm (các) đơn hàng theo mã nhân viên
-    public DonHang[] timKiemDonHangTheoMaNV(String manv) {
+    private DonHang[] timKiemDonHangTheoMaNV(String manv) {
         DonHang[] arr = new DonHang[0];
         int c = 0;
         for (DonHang donHang : DS_DonHang) {
@@ -144,7 +146,7 @@ public class DanhSachDonHang {
     }
 
     // 5. Phương thức tìm kiếm (các) đơn hàng theo mã khách hàng
-    public DonHang[] timKiemDonHangTheoMaKH(String makh) {
+    private DonHang[] timKiemDonHangTheoMaKH(String makh) {
         DonHang[] arr = new DonHang[0];
         int c = 0;
         for (DonHang donHang : DS_DonHang) {
@@ -188,13 +190,172 @@ public class DanhSachDonHang {
     // soDH = 0;
     // }
 
-    public void tongTien(String madh) {
-        for (DonHang tmp : DS_DonHang) {
-            if (tmp.getMaDH().equalsIgnoreCase(madh)) {
-                System.out.println("Tổng tiền của đơn hàng: " + tmp.tongTienHoaDon());
+    private long thongKeTongDoanhThu() {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang!=null) s += donHang.tongTienHoaDon();
+        }
+        return s;
+    }
+
+    private long thongKeDoanhThuTheoNgay(Date ngay) {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang != null) {
+                if (donHang.getNgayLapDon().getDate() == ngay.getDate()) 
+                    s += donHang.tongTienHoaDon();
             }
         }
+        return s;
     }
+
+    private long thongKeDoanhThuTheoThang(String thang, String nam) {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang != null) {
+                System.out.println(donHang.getNgayLapDon().getMonth()+1);
+                if (((donHang.getNgayLapDon().getMonth()+1) == Integer.parseInt(thang)) && (donHang.getNgayLapDon().getYear()+1900 == Integer.parseInt(nam))) {
+                    s += donHang.tongTienHoaDon();
+                }
+            }
+        }
+        return s;
+    }
+
+    private long thongKeDoanhThuTheoNam(String nam) {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang != null) {
+                if (donHang.getNgayLapDon().getYear()+1900 == Integer.parseInt(nam)) {
+                    s += donHang.tongTienHoaDon();
+                }
+            }
+        }
+        return s;
+    }
+
+    private long thongKeDoanhThuTheoThucAn() {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang!=null) {
+                ArrayList<ChiTietDonHang> arr = DanhSachChiTietDonHang.timKiemCTDH(donHang.getMaDH());
+                for (ChiTietDonHang chiTietDonHang : arr) {
+                    SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietDonHang.getMaSP());
+                    if (a != null) {
+                        if (a instanceof ThucAn) {
+                            s += chiTietDonHang.thanhTien();
+                        }
+                    }
+                }
+            }
+        }
+        return s;
+    }
+
+    private long thongKeDoanhThuTheoThucUong() {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang!=null) {
+                ArrayList<ChiTietDonHang> arr = DanhSachChiTietDonHang.timKiemCTDH(donHang.getMaDH());
+                for (ChiTietDonHang chiTietDonHang : arr) {
+                    SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietDonHang.getMaSP());
+                    if (a != null) {
+                        if (a instanceof ThucUong) {
+                            s += chiTietDonHang.thanhTien();
+                        }
+                    }
+                }
+            }
+        }
+        return s;
+    }
+
+    private long thongKeDoanhThuTheoSanPham(SanPham a) {
+        long s=0;
+        for (DonHang donHang : DS_DonHang) {
+            if (donHang!=null) {
+                ArrayList<ChiTietDonHang> arr = DanhSachChiTietDonHang.timKiemCTDH(donHang.getMaDH());
+                for (ChiTietDonHang chiTietDonHang : arr) {
+                    if (chiTietDonHang.getMaSP().equals(a.getMaSP()) == true) {
+                        s += chiTietDonHang.thanhTien();
+                    }
+                }
+            }
+        }
+        return s;
+    }
+
+    public void thongKeDoanhThu() {
+        int opt;
+        String tiepTuc, input, input1;
+        do {
+            System.out.println("Các thao tác: ");
+            System.out.println("1. Thống kê tổng doanh thu.");
+            System.out.println("2. Thống kê tổng doanh thu theo ngày.");
+            System.out.println("3. Thống kê tổng doanh thu theo tháng.");
+            System.out.println("4. Thống kê tổng doanh thu theo năm.");
+            System.out.println("5. Thống kê tổng doanh thu theo loại sản phẩm(thức ăn/thức uống).");
+            System.out.println("6. Thống kê tổng doanh thu theo từng sản phẩm.");
+            System.out.print("Lựa chọn: ");
+            opt = KiemTra.kiemTraNhapSoNguyen();
+            System.out.println();
+
+            switch (opt) {
+                case 1:
+                    System.out.println("Tổng doanh thu: "+thongKeTongDoanhThu());
+                    break;
+                case 2: 
+                    System.out.print("Nhập ngày muốn thống kê: (dd/mm/yyyy)");
+                    Date ngay = KiemTra.sqlDate();
+                    System.out.println("Tổng doanh thu trong ngày "+ngay+": "+thongKeDoanhThuTheoNgay(ngay));
+                    break;
+                case 3:
+                    System.out.print("Nhập tháng muốn thống kê: ");
+                    input = KiemTra.kiemTraNhapThang();
+                    System.out.print("Nhập năm của tháng muốn thống kê: ");
+                    input1 = KiemTra.kiemTraNhapNam();
+                    System.out.println("Doanh thu theo tháng "+input+"-"+input1+": "+thongKeDoanhThuTheoThang(input, input1));
+                    break;
+                case 4:
+                    System.out.print("Nhập năm: ");
+                    input = KiemTra.kiemTraNhapChuoi();
+                    System.out.println("Doanh thu theo năm "+input+": "+thongKeDoanhThuTheoNam(input));
+                    break;
+                case 5:
+                    System.out.println("Chọn loại sản phẩm: (1. Thức ăn - 2. Thức uống)");
+                    opt = KiemTra.kiemTraNhapSoNguyen();
+                    if (opt == 1) {
+                        System.out.println("Tổng doanh thu thức ăn: "+thongKeDoanhThuTheoThucAn());
+                    }
+                    else if (opt == 2) {
+                        System.out.println("Tổng doanh thu thức uống: "+thongKeDoanhThuTheoThucUong());
+                    }
+                    else System.out.println("Lựa chọn không hợp lệ. Quay lại!");
+                    break;
+                case 6:
+                    System.out.print("Nhập mã hoặc tên sản phẩm muốn thống kê: ");
+                    input = KiemTra.kiemTraNhapChuoi();
+                    SanPham sp = DanhSachSanPham.timKiemSanPhamTheoMaSP(input);
+                    if (sp != null) {
+                        System.out.println("Doanh thu theo sản phẩm "+sp.getTenSP()+": "+thongKeDoanhThuTheoSanPham(sp));
+                    }
+                    else {
+                        if (DanhSachSanPham.timKiemSanPhamTheoTenSP(input) != null) {
+                            sp = DanhSachSanPham.timKiemSanPhamTheoTenSP(input);
+                            System.out.println("Doanh thu theo sản phẩm "+sp.getTenSP()+": "+thongKeDoanhThuTheoSanPham(sp));
+                        }
+                        else System.out.println("Sản phẩm không tồn tại!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+            System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
+            System.out.print("Lựa chọn: ");
+            tiepTuc = KiemTra.tiepTuc();
+        } while (tiepTuc.equals("y"));
+    }
+
 
     // Start: Menu
     public void quanLiDS() {

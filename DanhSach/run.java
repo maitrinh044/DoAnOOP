@@ -1,7 +1,6 @@
 package DanhSach;
 
 import main.*;
-import DanhSach.*;
 import KiemTra.KiemTra;
 
 public class run {
@@ -337,7 +336,7 @@ public class run {
             System.out.println("9. Quản lí tài khoản.");
             System.out.println("10. Quản lí nhân viên.");
             System.out.println("11. Quản lí nhà cung cấp");
-
+            System.out.println("12. Thống kê doanh thu.");
             System.out.print("Lựa chọn: ");
             opt = KiemTra.kiemTraNhapSoNguyen();
             System.out.println();
@@ -378,6 +377,8 @@ public class run {
                 case 11:  
                     listNhaCungCap.quanLiDS();
                     break;
+                case 12:
+                    listDonHang.thongKeDoanhThu();
                 default:                
                     System.out.println("Lựa chọn không hợp lệ.");
                     break;

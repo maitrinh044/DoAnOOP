@@ -49,7 +49,7 @@ public class DanhSachSanPham implements DanhSach {
     }
 
     // ghi danh sách vào file DanhSachSanPham
-    public void ghiFile() {
+    protected void ghiFile() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./input/SanPham.txt"))) {
             for (int i = 0; i < soLuong; i++) {
                 oos.writeObject(arrSP[i]);
@@ -62,7 +62,7 @@ public class DanhSachSanPham implements DanhSach {
     }
 
     // đọc danh sách từ file DanhSachSanPham
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (true) {
@@ -113,13 +113,13 @@ public class DanhSachSanPham implements DanhSach {
         } while (true);
     }
 
-    public void themSanPham(ThucAn a) {
+    private void themSanPham(ThucAn a) {
         arrSP = Arrays.copyOf(arrSP, ++soLuong);
         arrSP[soLuong - 1] = a;
         // a.xuatSanPham();
     }
 
-    public void themSanPham(ThucUong a) {
+    private void themSanPham(ThucUong a) {
         arrSP = Arrays.copyOf(arrSP, ++soLuong);
         arrSP[soLuong - 1] = a;
     }
@@ -189,7 +189,7 @@ public class DanhSachSanPham implements DanhSach {
     // }
 
     // Xóa sản phẩm ra khỏi danh sách theo mã sản phẩm
-    public void xoaSanPham(String masp) {
+    private void xoaSanPham(String masp) {
         System.out.print("Bạn có muốn xóa sản phẩm?(1. Có - 2. Không)");
         int opt = KiemTra.kiemTraNhapSoNguyen();
         if (opt == 1) {
@@ -244,7 +244,7 @@ public class DanhSachSanPham implements DanhSach {
     }
 
     // Xóa tất cả các sản phẩm trong danh sách
-    public void xoaDanhSachSanPham() {
+    private void xoaDanhSachSanPham() {
         System.out.print("Bạn có muốn xóa tất cả sản phẩm?(1. Có - 2. Không)");
         int opt = KiemTra.kiemTraNhapSoNguyen();
         if (opt == 1) {
@@ -255,13 +255,93 @@ public class DanhSachSanPham implements DanhSach {
             return;
     }
 
-    
-    public long thongKeTongSoLuong() {
-        long s = 0;
-        for (int i = 0; i < soLuong; i++) {
-            s += arrSP[i].getSoLuong();
-        }
+    private int thongKeThucAn() {
+        int s=0;
+            for (SanPham sanPham : arrSP) {
+                if (sanPham instanceof ThucAn) {
+                    s++;
+                }
+            }
         return s;
+    }
+
+    private int thongKeThucUong() {
+        int s=0;
+            for (SanPham sanPham : arrSP) {
+                if (sanPham instanceof ThucUong) {
+                    s++;
+                }
+            }
+        return s;
+    }
+
+    private int thongKeTongSoLuong(int opt) {
+        int s=0;
+        switch (opt) {
+            case 1:
+                for (SanPham sanPham : arrSP) {
+                    s += sanPham.getSoLuong();
+                }
+                break;
+            case 2:
+                for (SanPham sanPham : arrSP) {
+                    if (sanPham instanceof ThucAn) {
+                        s += sanPham.getSoLuong();
+                    }
+                }
+            case 3:
+                for (SanPham sanPham : arrSP) {
+                    if (sanPham instanceof ThucUong) {
+                        s += sanPham.getSoLuong();
+                    }
+                }
+            default:
+                break;
+        }
+        
+        return s;
+    }
+
+    private void thongKeSanPham() {
+        int opt;
+        String tieptuc;
+        do {
+            System.out.println("Cấc thao tác:");
+            System.out.println("1. Thống kê tổng số sản phẩm đang có.");
+            System.out.println("2. Thống kê tổng số thức ăn đang có.");
+            System.out.println("3. Thống kê tổng số thức uống đang có.");
+            System.out.println("4. Thống kê tổng số lượng sản phẩm đang có.");
+            System.out.println("5. Thống kê tổng số lượng thức ăn đang có.");
+            System.out.println("6. Thống kê tổng số lượng thức uống đang có.");
+            System.out.print("Lựa chọn: ");
+            opt = KiemTra.kiemTraNhapSoNguyen();
+            switch (opt) {
+                case 1:
+                    System.out.println("Tổng số sản phẩm: "+soLuong);
+                    break;
+                case 2:
+                    System.out.println("Tổng số thức ăn đang có: "+thongKeThucAn());
+                    break;
+                case 3:
+                    System.out.println("Tổng số thức uống đang có: "+thongKeThucUong());
+                    break;
+                case 4:
+                    System.out.println("Tổng số lượng sản phẩm: "+thongKeTongSoLuong(1));
+                    break;
+                case 5:
+                    System.out.println("Tổng số lượng thức ăn: "+thongKeTongSoLuong(2));
+                    break;
+                case 6:
+                    System.out.println("Tổng số lượng thức uống: "+thongKeTongSoLuong(3));
+                    break;
+                default:
+                    break;
+            }
+            System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
+            System.out.print("Lựa chọn: ");
+            tieptuc = KiemTra.tiepTuc();
+        } while (tieptuc.equals("y"));
+        System.out.println();
     }
 
     // Start: Menu quản lý sản phẩm
@@ -277,6 +357,8 @@ public class DanhSachSanPham implements DanhSach {
             System.out.println("\t\t\t5. Cập nhật thông tin sản phẩm sản phẩm.");
             System.out.println("\t\t\t6. Xóa một sản phẩm khỏi danh sách theo mã sản phẩm.");
             System.out.println("\t\t\t7. Xóa tất cả sản phẩm khỏi danh sách.");
+            System.out.println("\t\t\t8. Thống kê sản phẩm theo số lượng.");
+
             System.out.println("======================================================");
 
             System.out.print("Nhập lựa chọn của bạn: ");
@@ -310,6 +392,9 @@ public class DanhSachSanPham implements DanhSach {
                 case 7:
                     xoaDanhSachSanPham();
                     System.out.println("Đã xóa danh sách sản phẩm.");
+                    break;
+                case 8:
+                    thongKeSanPham();
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");

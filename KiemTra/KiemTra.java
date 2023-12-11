@@ -1,5 +1,6 @@
 package KiemTra;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -172,6 +173,29 @@ public class KiemTra {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static java.sql.Date sqlDate() {
+        String dateString = KiemTra.kiemTraNgayThangNam(); // Định dạng yyyy-MM-dd
+        String[] ngayThangNam = dateString.split("/");
+        int ngay = Integer.parseInt(ngayThangNam[0]);
+        int thang = Integer.parseInt(ngayThangNam[1]);
+        int nam = Integer.parseInt(ngayThangNam[2]);
+        dateString = nam+"-"+(thang)+"-"+ngay;
+        java.sql.Date sqlDate = new java.sql.Date(0);
+        // Định dạng để chuyển đổi
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            // Chuyển đổi chuỗi thành java.util.Date
+            java.util.Date utilDate = dateFormat.parse(dateString);
+
+            // Chuyển đổi java.util.Date thành java.sql.Date
+            sqlDate = new java.sql.Date(utilDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return sqlDate;
     }
 
     public static Date chuyenChuoiThanhDate() {
@@ -359,5 +383,34 @@ public class KiemTra {
         //kiểm tra số ngày của tháng có 31 ngày
         return (ngay >= 1 && ngay <= 31);
     }
+
+    public static String kiemTraNhapThang() {
+        String input;
+        do {
+            input = sc.nextLine();
+            int thang = Integer.parseInt(input);
+            if (thang<0 || thang >13) {
+                System.out.println("Tháng phải nhỏ hơn 13 và lớn hơn 0. Vui lòng nhập lại");
+            }
+            else break;
+        } while (true);
+        return input;
+    }
+
+    public static String kiemTraNhapNam() {
+        String input;
+        do {
+            input = sc.nextLine();
+            int nam = Integer.parseInt(input);
+            if (nam<1) {
+                System.out.println("Năm phải lớn hơn 0. Vui lòng nhập lại!");
+            }
+            else break;
+        } while (true);
+        return input;
+    }
+
+    
+
     //End: DATE CHECK
 }
