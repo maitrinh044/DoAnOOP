@@ -45,23 +45,23 @@ public class NguyenLieu implements Serializable{
         this.donViTinh = donViTinh;
     }
     private void setMaNL(){
-        System.out.println("Nhập mã nguyên liệu: ");
+        System.out.print("Nhập mã nguyên liệu: ");
         maNL = KiemTra.kiemTraNhapMaNL();
     }
     private void setTenNL(){
-        System.out.println("Nhập tên nguyên liệu: ");
+        System.out.print("Nhập tên nguyên liệu: ");
         tenNL = KiemTra.kiemTraNhapChuoi();
     }
     private void setSoLuong(){
-        System.out.println("Nhập số lượng nguyên liệu: ");
+        System.out.print("Nhập số lượng nguyên liệu: ");
         soLuong = KiemTra.kiemTraSoNguyenDuong();
     }
     private void setDonGia(){
-        System.out.println("Nhập đơn giá nguyên liệu: ");
+        System.out.print("Nhập đơn giá nguyên liệu: ");
         donGia = KiemTra.kiemTraSoNguyenDuong();
     }
     private void setDonViTinh(){
-        System.out.println("Nhập đơn vị tính nguyên liệu: ");
+        System.out.print("Nhập đơn vị tính nguyên liệu: ");
         donViTinh = KiemTra.kiemTraNhapChuoi();
     }
     public String getMaNL(){
