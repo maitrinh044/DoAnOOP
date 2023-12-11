@@ -80,6 +80,8 @@ public class DanhSachChiTietPN {
     protected static void themChiTietPN(String maPN) {
         ChiTietPhieuNhap a = new ChiTietPhieuNhap();
         a.nhapChiTietPN(maPN);
+        NguyenLieu nl = DanhSachNguyenLieu.timKiemNguyenLieu(a.getMaNL());
+        nl.setSoLuong(nl.getSoLuong()+a.getSoLuong());
         arrCTPN.add(a);
     }
 

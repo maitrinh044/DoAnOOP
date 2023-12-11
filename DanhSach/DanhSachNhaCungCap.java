@@ -85,10 +85,11 @@ public class DanhSachNhaCungCap implements DanhSach {
             NhaCungCap[] arr = Arrays.copyOf(arrNCC, soLuongNCC);
             arrNCC = new NhaCungCap[soLuongNCC - 1];
             for (int i = 0, j = 0; i < soLuongNCC; i++) {
-                if (arrNCC[i].getMaNCC().equals(maNCC) == false) {
-                    arrNCC[j] = arr[i];
-                    j++;
-                }
+                    if (arr[i].getMaNCC().equals(maNCC) == false) {
+                        arrNCC[j] = arr[i];
+                        j++;
+                    }
+                
             }
             soLuongNCC--;
             System.out.println("Đã xóa nhà cung cấp!");
@@ -150,9 +151,12 @@ public class DanhSachNhaCungCap implements DanhSach {
     public static NhaCungCap timKiemNhaCungCap(String maNCC) {
         if (soLuongNCC == 0)
             return null;
-        for (int i = 0; i < soLuongNCC; i++) {
-            if (arrNCC[i].getMaNCC().equals(maNCC) == true || arrNCC[i].getTenNCC().equals(maNCC)) {
-                return arrNCC[i];
+        if (arrNCC != null) {
+            for (int i = 0; i < soLuongNCC; i++) {
+                if (arrNCC[i] != null)
+                    if (arrNCC[i].getMaNCC().equals(maNCC) == true || arrNCC[i].getTenNCC().equals(maNCC)) {
+                        return arrNCC[i];
+                    }
             }
         }
         return null;
