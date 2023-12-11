@@ -7,14 +7,11 @@ import DanhSach.*;
 import KiemTra.KiemTra;
 
 public class TaiKhoan implements Serializable {
-    // private static final long serialVersionUID = -8300082938577114147L;
     private String maTK;
     private String matKhau;
     private Date ngayTao;
     private int tinhTrangTK;
     private int maQuyen;
-    // private KiemTra kiemTra = new KiemTra();
-    // transient Scanner inp = new Scanner(System.in);
 
     public TaiKhoan()
     {
