@@ -96,6 +96,7 @@ public class DanhSachDonHang {
         a.setMaNV("NV001");
         themDonHang(a);
         DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH(), maTK);
+
         return a;
     }
 

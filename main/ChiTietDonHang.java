@@ -5,7 +5,7 @@ import java.io.Serializable;
 import DanhSach.DanhSachSanPham;
 import KiemTra.KiemTra;
 
-public class ChiTietDonHang implements Serializable{
+public class ChiTietDonHang implements Serializable {
     private String maDH;
     private String maSP;
     private int soLuong;

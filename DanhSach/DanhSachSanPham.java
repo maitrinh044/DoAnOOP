@@ -256,27 +256,27 @@ public class DanhSachSanPham implements DanhSach {
     }
 
     private int thongKeThucAn() {
-        int s=0;
-            for (SanPham sanPham : arrSP) {
-                if (sanPham instanceof ThucAn) {
-                    s++;
-                }
+        int s = 0;
+        for (SanPham sanPham : arrSP) {
+            if (sanPham instanceof ThucAn) {
+                s++;
             }
+        }
         return s;
     }
 
     private int thongKeThucUong() {
-        int s=0;
-            for (SanPham sanPham : arrSP) {
-                if (sanPham instanceof ThucUong) {
-                    s++;
-                }
+        int s = 0;
+        for (SanPham sanPham : arrSP) {
+            if (sanPham instanceof ThucUong) {
+                s++;
             }
+        }
         return s;
     }
 
     private int thongKeTongSoLuong(int opt) {
-        int s=0;
+        int s = 0;
         switch (opt) {
             case 1:
                 for (SanPham sanPham : arrSP) {
@@ -298,7 +298,7 @@ public class DanhSachSanPham implements DanhSach {
             default:
                 break;
         }
-        
+
         return s;
     }
 
@@ -317,22 +317,22 @@ public class DanhSachSanPham implements DanhSach {
             opt = KiemTra.kiemTraNhapSoNguyen();
             switch (opt) {
                 case 1:
-                    System.out.println("Tổng số sản phẩm: "+soLuong);
+                    System.out.println("Tổng số sản phẩm: " + soLuong);
                     break;
                 case 2:
-                    System.out.println("Tổng số thức ăn đang có: "+thongKeThucAn());
+                    System.out.println("Tổng số thức ăn đang có: " + thongKeThucAn());
                     break;
                 case 3:
-                    System.out.println("Tổng số thức uống đang có: "+thongKeThucUong());
+                    System.out.println("Tổng số thức uống đang có: " + thongKeThucUong());
                     break;
                 case 4:
-                    System.out.println("Tổng số lượng sản phẩm: "+thongKeTongSoLuong(1));
+                    System.out.println("Tổng số lượng sản phẩm: " + thongKeTongSoLuong(1));
                     break;
                 case 5:
-                    System.out.println("Tổng số lượng thức ăn: "+thongKeTongSoLuong(2));
+                    System.out.println("Tổng số lượng thức ăn: " + thongKeTongSoLuong(2));
                     break;
                 case 6:
-                    System.out.println("Tổng số lượng thức uống: "+thongKeTongSoLuong(3));
+                    System.out.println("Tổng số lượng thức uống: " + thongKeTongSoLuong(3));
                     break;
                 default:
                     break;
