@@ -301,7 +301,6 @@ public class DanhSachKhachHang {
     public void ghiFile() {
         String tenFile = "./input/KhachHang.txt";
         if(DS_KhachHang.isEmpty()) {
-            System.out.println("Danh sách khách hàng đang rỗng!");
             return;
         }
         try {

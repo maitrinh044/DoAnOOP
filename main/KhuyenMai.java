@@ -105,18 +105,4 @@ public class KhuyenMai implements Serializable {
 
     }
 
-    public static void main(String[] args) {
-        // KhuyenMai km = new KhuyenMai();
-        // km.nhapThongTinKhuyenMai();
-        // km.xuatKhuyenMai();
-        KhuyenMai[] list = new KhuyenMai[2];
-        list[0] = new KhuyenMai("KM001", "SP001", 100000, "01/11/2923", "20/11/2023",
-                "Giảm 100.000VND cho đơn 500.000VND.");
-        list[1] = new KhuyenMai("KM002", "SP002", 200000, "2/12/2023", "4/12/2023",
-                "SDGFSDFGSDF");
-        for (int i = 0; i < 2; i++) {
-            list[i].xuatKhuyenMai();
-        }
-    }
-
 }

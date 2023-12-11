@@ -1,6 +1,9 @@
 package DanhSach;
 
 import main.*;
+
+import java.util.ArrayList;
+
 import KiemTra.KiemTra;
 
 public class run {
@@ -116,7 +119,19 @@ public class run {
         int opt;
         if (DanhSachChiTietGioHang.timKiemCTGioHang(maTK) == null) {
             System.out.println("Giỏ hàng của bạn đang trống. Vui lòng mua thêm sản phẩm để có thể đặt hàng.");
-        } else {
+        } 
+        else {
+            boolean flag = true;
+            ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
+            for (ChiTietGioHang chiTietGioHang : arrGH) {
+                if (chiTietGioHang.getSoLuong() > DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietGioHang.getMaSP()).getSoLuong()) {
+                    flag = false;
+                }
+            }
+            if (flag == false) {
+                System.out.println("Số lượng sản phẩm đặt mua lớn số lượng sản phẩm còn lại.");
+                return;
+            }
             System.out.println("Vui lòng nhập thông tin của bạn: ");
             System.out.print("Nhập họ tên: ");
             ten = KiemTra.kiemTraNhapChuoi();
@@ -203,7 +218,10 @@ public class run {
                         if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) == null) {
                             System.out.println("Không tồn tại sản phẩm.");
                         } else {
-                            listCTietGioHang.themCTGioHang(a.getMaTK(), input);
+                            if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input).getSoLuong() < 1) {
+                                System.out.println("Sản phẩm đã hết. Vui lòng chọn mua sản phẩm khác!");
+                            }
+                            else listCTietGioHang.themCTGioHang(a.getMaTK(), input);
                         }
                         System.out.print("Bạn có muốn tiếp tục mua hàng?(y/n): ");
                         tieptuc1 = KiemTra.tiepTuc();

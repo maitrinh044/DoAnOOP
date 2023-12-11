@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import DanhSach.DanhSachChiTietDonHang;
 import DanhSach.DanhSachChiTietGioHang;
 import DanhSach.DanhSachDonHang;
+import DanhSach.DanhSachSanPham;
 
 public class DonHang implements Serializable {
     private String maDH;
@@ -91,7 +92,7 @@ public class DonHang implements Serializable {
         ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
         int tongTien = 0;
         for (ChiTietGioHang ctDH : arrGH) {
-            tongTien = ctDH.getDonGia() * ctDH.getSoLuong();
+            tongTien += ctDH.getDonGia() * ctDH.getSoLuong();
         }
         return tongTien;
     }
@@ -117,8 +118,12 @@ public class DonHang implements Serializable {
         System.out.printf("|%-5s|%-20s|%-5s|%-5s|%-10s\n",
                 maDH, ngayLapDon, maNV, maKH, tongTienHoaDon(maTK));
         for (ChiTietGioHang i : arrGH) {
-            ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), "");
-            ctdh.inCTDonHang();
+            if (i.getSoLuong()>DanhSachSanPham.timKiemSanPhamTheoMaSP(i.getMaSP()).getSoLuong()) {
+                System.out.println("Số lượng sản phẩm đặt mua lớn hơn số lượng sản phẩm còn lại. Vui lòng thay đổi số lượng sản phẩm!");
+                return;
+            }
+                ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), "");
+                ctdh.inCTDonHang();
         }
     }
 
