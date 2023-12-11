@@ -38,7 +38,7 @@ public class DanhSachNguyenLieu implements DanhSach {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -68,7 +68,7 @@ public class DanhSachNguyenLieu implements DanhSach {
         }
     }
 
-    public void auto() {
+    private void auto() {
         soLuongNL = 10;
         arrNL = new NguyenLieu[soLuongNL];
         arrNL[0] = new NguyenLieu("NL001", "Bánh Mì", 100, 5000, "Cái");
@@ -126,7 +126,7 @@ public class DanhSachNguyenLieu implements DanhSach {
         }
     }
 
-    public void xuatDSNL() {
+    private void xuatDSNL() {
         if (soLuongNL == 0) {
             System.out.println("Danh sách nguyên liệu trống!");
             return;
@@ -139,14 +139,14 @@ public class DanhSachNguyenLieu implements DanhSach {
     }
 
     // thêm 1 nguyên liệu
-    public void themNguyenLieu() {
+    private void themNguyenLieu() {
         NguyenLieu a = new NguyenLieu();
         a.nhapNguyenLieu();
         arrNL = Arrays.copyOf(arrNL, ++soLuongNL);
         arrNL[soLuongNL - 1] = a;
     }
 
-    public void themNguyenLieu(NguyenLieu a) {
+    private void themNguyenLieu(NguyenLieu a) {
         arrNL = Arrays.copyOf(arrNL, ++soLuongNL);
         arrNL[soLuongNL - 1] = a;
     }

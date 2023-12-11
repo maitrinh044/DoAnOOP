@@ -32,11 +32,10 @@ public class DanhSachChiTietGioHang {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-    public void docFile(FileInputStream fis)
-    {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -50,15 +49,14 @@ public class DanhSachChiTietGioHang {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-    public void ghiFile()
-    {
+    public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/ChiTietGioHang.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (ChiTietGioHang i: arrCTGioHang) {
+            for (ChiTietGioHang i : arrCTGioHang) {
                 oos.writeObject(i);
             }
             oos.close();
@@ -71,8 +69,7 @@ public class DanhSachChiTietGioHang {
         }
     }
 
-    public static ArrayList<ChiTietGioHang> timKiemCTGioHang(String maGioHang)
-    {
+    public static ArrayList<ChiTietGioHang> timKiemCTGioHang(String maGioHang) {
         if (arrCTGioHang != null) {
             ArrayList<ChiTietGioHang> arr = new ArrayList<>();
             for (ChiTietGioHang i : arrCTGioHang) {
@@ -81,47 +78,44 @@ public class DanhSachChiTietGioHang {
             }
             if (arr.size() > 0) {
                 return arr;
-            }
-            else return null;
-        }
-        else return null;
+            } else
+                return null;
+        } else
+            return null;
     }
 
-    public ChiTietGioHang timKiemChiTietGioHangTheoMaSPMaGH(String maGH, String maSP) {
+    private ChiTietGioHang timKiemChiTietGioHangTheoMaSPMaGH(String maGH, String maSP) {
         for (ChiTietGioHang i : arrCTGioHang) {
-                if ((i.getMaGioHang()).equalsIgnoreCase(maGH) == true && i.getMaSP().equals(maSP) == true)
-                    return i;
-            }
+            if ((i.getMaGioHang()).equalsIgnoreCase(maGH) == true && i.getMaSP().equals(maSP) == true)
+                return i;
+        }
         return null;
     }
 
-    public void themCTGioHang(ChiTietGioHang ct)
-    {
+    public void themCTGioHang(ChiTietGioHang ct) {
         arrCTGioHang.add(ct);
     }
 
-    public void themCTGioHang(String maGH, String maSP)
-    {
-        if (timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP)!=null) {
+    protected void themCTGioHang(String maGH, String maSP) {
+        if (timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP) != null) {
             System.out.print("Nhập số lượng: ");
             int c = KiemTra.kiemTraSoNguyenDuong();
-            timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP).setSoLuong(timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP).getSoLuong()+c);
-        }
-        else {
-        ChiTietGioHang ct = new ChiTietGioHang(maGH, maSP, 0, DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).getDonGia());
-        ct.setSoLuong();
+            timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP)
+                    .setSoLuong(timKiemChiTietGioHangTheoMaSPMaGH(maGH, maSP).getSoLuong() + c);
+        } else {
+            ChiTietGioHang ct = new ChiTietGioHang(maGH, maSP, 0,
+                    DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).getDonGia());
+            ct.setSoLuong();
 
-        arrCTGioHang.add(ct);
+            arrCTGioHang.add(ct);
         }
     }
 
-    public static void xoaCTGioHang(ChiTietGioHang ct)
-    {
+    public static void xoaCTGioHang(ChiTietGioHang ct) {
         arrCTGioHang.remove(ct);
     }
 
-    public void xuatDSCTGioHang() 
-    {
+    public void xuatDSCTGioHang() {
         for (ChiTietGioHang i : arrCTGioHang) {
             i.xuatCTGioHang();
         }

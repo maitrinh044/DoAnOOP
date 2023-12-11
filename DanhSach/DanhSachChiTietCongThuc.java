@@ -14,10 +14,10 @@ import main.*;
 public class DanhSachChiTietCongThuc {
     private static ArrayList<ChiTietCongThuc> arrCTCT;
 
-    public static int getSoLuong() {
+    protected static int getSoLuong() {
         return arrCTCT.size();
     }
-    
+
     public DanhSachChiTietCongThuc() {
         arrCTCT = new ArrayList<>();
         try {
@@ -25,8 +25,7 @@ public class DanhSachChiTietCongThuc {
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 auto();
                 ghiFile();
             }
@@ -37,7 +36,7 @@ public class DanhSachChiTietCongThuc {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -51,7 +50,7 @@ public class DanhSachChiTietCongThuc {
         }
     }
 
-    public static void ghiFile() {
+    private static void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/ChiTietCongThuc.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -67,31 +66,30 @@ public class DanhSachChiTietCongThuc {
         }
     }
 
-    public static void themNhieuCTCT() {
+    protected static void themNhieuCTCT() {
         System.out.print("Nhập số lượng chi tiết công thức muốn thêm: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i=0; i<c; i++) {
+        for (int i = 0; i < c; i++) {
             themCTCT();
         }
         System.out.println("Đã thêm toàn bộ chi tiết công thức.\n");
     }
 
-    public static void themCTCT() {
+    protected static void themCTCT() {
         ChiTietCongThuc a = new ChiTietCongThuc();
         a.nhapCTCT();
         arrCTCT.add(a);
     }
 
-    public void themCTCT(ChiTietCongThuc a) {
+    private void themCTCT(ChiTietCongThuc a) {
         arrCTCT.add(a);
     }
 
-    public void xoaCTCT(String nguyenLieu) {
+    private void xoaCTCT(String nguyenLieu) {
         if (getSoLuong() == 0) {
             System.out.println("Không tồn tại chi tiết công thức.");
             return;
-        }
-        else {
+        } else {
             for (ChiTietCongThuc i : arrCTCT) {
                 if (i.getMaNL().equals(nguyenLieu) == true || i.toStringMaNL().equals(nguyenLieu) == true)
                     break;
@@ -107,18 +105,18 @@ public class DanhSachChiTietCongThuc {
         System.out.println("Không tồn tại công thức.\n");
     }
 
-    public static ArrayList<ChiTietCongThuc> timKiemCTCT(String maCT) {
+    protected static ArrayList<ChiTietCongThuc> timKiemCTCT(String maCT) {
         if (getSoLuong() == 0) {
             return null;
-        }
-        else {
+        } else {
             ArrayList<ChiTietCongThuc> arr = new ArrayList<>();
             for (ChiTietCongThuc i : arrCTCT) {
                 if (i.getMaCT().equals(maCT) == true) {
                     arr.add(i);
                 }
             }
-            if (arr.size() == 0) return null;
+            if (arr.size() == 0)
+                return null;
             return arr;
         }
     }
@@ -126,8 +124,7 @@ public class DanhSachChiTietCongThuc {
     public static ChiTietCongThuc timkiemCTCT(String nguyenLieu) {
         if (getSoLuong() == 0) {
             return null;
-        }
-        else {
+        } else {
             for (ChiTietCongThuc i : arrCTCT) {
                 if (i.getMaNL().equals(nguyenLieu) == true || i.toStringMaNL().equals(nguyenLieu) == true)
                     return i;
@@ -136,11 +133,10 @@ public class DanhSachChiTietCongThuc {
         return null;
     }
 
-    public static void xuatChiTiet1CT(String maCT) {
+    protected static void xuatChiTiet1CT(String maCT) {
         if (timKiemCTCT(maCT) == null) {
             System.out.println("Công thức không có chi tiết");
-        }
-        else {
+        } else {
             ArrayList<ChiTietCongThuc> arr = timKiemCTCT(maCT);
             for (ChiTietCongThuc i : arr) {
                 i.xuatCTCT1();
@@ -148,7 +144,7 @@ public class DanhSachChiTietCongThuc {
         }
     }
 
-    public void auto() {
+    private void auto() {
         ChiTietCongThuc a = new ChiTietCongThuc("CT001", "NL001", 2);
         arrCTCT.add(a);
         a = new ChiTietCongThuc("CT001", "NL002", 20);

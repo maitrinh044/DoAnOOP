@@ -62,7 +62,7 @@ public class DanhSachChiTietDonHang {
         }
     }
 
-    public static void themChiTietDonHang(String maDH) {
+    protected static void themChiTietDonHang(String maDH) {
         ChiTietDonHang a = new ChiTietDonHang();
         a.setMaDH(maDH);
         a.nhapThongTinCTDH();
@@ -71,11 +71,11 @@ public class DanhSachChiTietDonHang {
         arrCTDH.add(a);
     }
 
-    public static void themChiTietDonHang(ChiTietDonHang a) {
+    protected static void themChiTietDonHang(ChiTietDonHang a) {
         arrCTDH.add(a);
     }
 
-    public static void themNhieuChiTietDonHang(String maDH) {
+    protected static void themNhieuChiTietDonHang(String maDH) {
         System.out.print("Nhập số lượng chi tiết đơn hàng: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
         for (int i = 0; i < c; i++) {
@@ -84,11 +84,12 @@ public class DanhSachChiTietDonHang {
             ctdh.setMaDH(maDH);
             themChiTietDonHang(ctdh);
             SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(ctdh.getMaSP());
-            if (a!=null) a.setSoLuong(a.getSoLuong()-ctdh.getSoLuong());
+            if (a != null)
+                a.setSoLuong(a.getSoLuong() - ctdh.getSoLuong());
         }
     }
 
-    public static void themNhieuChiTietDonHang(String maDH, String maTK) {
+    protected static void themNhieuChiTietDonHang(String maDH, String maTK) {
         ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
         for (ChiTietGioHang i : arrGH) {
             ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), maTK);
@@ -96,7 +97,8 @@ public class DanhSachChiTietDonHang {
         }
         for (ChiTietGioHang chiTietGioHang : arrGH) {
             SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietGioHang.getMaSP());
-            if (a!=null) a.setSoLuong(a.getSoLuong()-chiTietGioHang.getSoLuong());
+            if (a != null)
+                a.setSoLuong(a.getSoLuong() - chiTietGioHang.getSoLuong());
         }
     }
 

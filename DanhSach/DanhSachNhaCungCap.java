@@ -34,7 +34,7 @@ public class DanhSachNhaCungCap implements DanhSach {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -107,7 +107,7 @@ public class DanhSachNhaCungCap implements DanhSach {
         }
     }
 
-    public void xuatDSNCC() {
+    private void xuatDSNCC() {
         if (soLuongNCC == 0) {
             System.out.println("Danh sách nhà cung cấp trống!");
             return;
@@ -119,14 +119,14 @@ public class DanhSachNhaCungCap implements DanhSach {
         }
     }
 
-    public void themNhaCungCap() {
+    private void themNhaCungCap() {
         NhaCungCap a = new NhaCungCap();
         a.nhapNhaCungCap();
         arrNCC = Arrays.copyOf(arrNCC, ++soLuongNCC);
         arrNCC[soLuongNCC - 1] = a;
     }
 
-    public void themNhaCungCap(NhaCungCap a) {
+    private void themNhaCungCap(NhaCungCap a) {
         arrNCC = Arrays.copyOf(arrNCC, ++soLuongNCC);
         arrNCC[soLuongNCC - 1] = a;
     }
@@ -212,7 +212,7 @@ public class DanhSachNhaCungCap implements DanhSach {
 
     }
 
-    public void auto() {
+    private void auto() {
         soLuongNCC = 10;
         arrNCC = new NhaCungCap[soLuongNCC];
         arrNCC[0] = new NhaCungCap("NCC001", "Nhà cung cấp thịt gà tươi", "292, QL50, Phường 6, Quận 8, TPHCM");

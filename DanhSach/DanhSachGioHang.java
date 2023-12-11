@@ -15,14 +15,13 @@ public class DanhSachGioHang {
     private static GioHang[] arrGioHang;
 
     public DanhSachGioHang() {
-        
+
         try {
             FileInputStream fis = new FileInputStream("./input/GioHang.txt");
             if (fis.available() > 0) {
                 docFile(fis);
                 fis.close();
-            }
-            else {
+            } else {
                 for (TaiKhoan i : DanhSachTaiKhoan.arrTK) {
                     if (i.getMaQuyen() == 2) {
                         themGioHang(i.getMaTK());
@@ -34,11 +33,10 @@ public class DanhSachGioHang {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-    public void docFile(FileInputStream fis)
-    {
+    public void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -54,12 +52,11 @@ public class DanhSachGioHang {
         }
     }
 
-    public void ghiFile()
-    {
+    public void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/GioHang.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (int i=0; i<soLuongGioHang; i++) {
+            for (int i = 0; i < soLuongGioHang; i++) {
                 oos.writeObject(arrGioHang[i]);
             }
             oos.close();
@@ -73,38 +70,32 @@ public class DanhSachGioHang {
 
     }
 
-    public void themGioHang(String maTK) {
+    private void themGioHang(String maTK) {
         GioHang a = new GioHang(maTK);
         themGioHang(a);
     }
 
-    public static void themGioHang(GioHang a)
-    {
+    protected static void themGioHang(GioHang a) {
         if (arrGioHang == null) {
             arrGioHang = new GioHang[++soLuongGioHang];
             arrGioHang[0] = a;
-        }
-        else {
+        } else {
             arrGioHang = Arrays.copyOf(arrGioHang, ++soLuongGioHang);
-            arrGioHang[soLuongGioHang-1] = a;
+            arrGioHang[soLuongGioHang - 1] = a;
         }
     }
 
-    public static GioHang timKiemGioHang(String maGioHang) 
-    {
+    protected static GioHang timKiemGioHang(String maGioHang) {
         if (arrGioHang.length == 0) {
             System.out.println("null");
             return null;
         }
-        for (int i=0; i<soLuongGioHang; i++)
-        {
-            if (arrGioHang[i].getMaGioHang().equals(maGioHang) == true)
-            {
+        for (int i = 0; i < soLuongGioHang; i++) {
+            if (arrGioHang[i].getMaGioHang().equals(maGioHang) == true) {
                 return arrGioHang[i];
             }
         }
         return null;
     }
 
-    
 }

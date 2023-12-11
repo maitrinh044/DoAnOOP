@@ -23,14 +23,12 @@ public class DanhSachNhanVien {
         return this.DS_NhanVien;
     }
 
-    //Phương thức trả về số lượng nhân viên trong danh sách
+    // Phương thức trả về số lượng nhân viên trong danh sách
     private int soLuongNhanVien() {
         return this.DS_NhanVien.size();
     }
 
-
-
-    //Start: Menu
+    // Start: Menu
     public void quanLyNhanVien() {
         String tiepTuc;
         do {
@@ -47,7 +45,7 @@ public class DanhSachNhanVien {
             System.out.print("Nhập lựa chọn của bạn: ");
             int luaChon = KiemTra.kiemTraSoNguyenDuong();
 
-            switch(luaChon) {
+            switch (luaChon) {
                 case 1:
                     themNhanVien();
                     break;
@@ -68,7 +66,7 @@ public class DanhSachNhanVien {
                     break;
                 case 7:
                     xoaTatCaNhanVien();
-                    
+
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");
@@ -78,25 +76,24 @@ public class DanhSachNhanVien {
             System.out.println("Bạn có muốn tiếp tục các thao tác trên? (y/n)");
             System.out.print("Lựa chọn: ");
             tiepTuc = KiemTra.tiepTuc();
-        }
-        while (tiepTuc.equals("y"));
+        } while (tiepTuc.equals("y"));
     }
-    //End: Menu
+    // End: Menu
 
-    //1. Phương thức thêm (các) nhân viên mới vào danh sách
+    // 1. Phương thức thêm (các) nhân viên mới vào danh sách
     private void themNhanVien() {
         System.out.print("\nNhập số lượng nhân viên cần thêm: ");
         int soLuong = KiemTra.kiemTraSoNguyenDuong();
 
         int soNhanVienDaNhap = 0;
 
-        while(soNhanVienDaNhap < soLuong) {
+        while (soNhanVienDaNhap < soLuong) {
             System.out.println("\nThêm nhân viên thứ " + (soNhanVienDaNhap + 1) + "/" + soLuong);
 
-            //khởi tạo một đối tượng nhân viên mới
+            // khởi tạo một đối tượng nhân viên mới
             NhanVien nv;
 
-            //Hiện menu
+            // Hiện menu
             System.out.println("--------------- Thêm Nhân Viên ---------------");
             System.out.println("\t\t1. Nhân viên quản lý.");
             System.out.println("\t\t2. Nhân viên bán hàng.");
@@ -122,54 +119,52 @@ public class DanhSachNhanVien {
         }
     }
 
-    //Phương thức kiểm tra chức vụ và in nhân viên
+    // Phương thức kiểm tra chức vụ và in nhân viên
     private void inNhanVien(NhanVien nhanVien) {
-        if(nhanVien instanceof NVQuanLy) {
+        if (nhanVien instanceof NVQuanLy) {
             NVQuanLy ql = (NVQuanLy) nhanVien;
             ql.inHoSoNhanVien();
-        }
-        else if(nhanVien instanceof NVBanHang) {
+        } else if (nhanVien instanceof NVBanHang) {
             NVBanHang bh = (NVBanHang) nhanVien;
             bh.inHoSoNhanVien();
         }
     }
 
-    //2. Phương thức in danh sách nhân viên
-    public void inDanhSachNhanVien() {
-        if(DS_NhanVien.isEmpty()) {
+    // 2. Phương thức in danh sách nhân viên
+    private void inDanhSachNhanVien() {
+        if (DS_NhanVien.isEmpty()) {
             System.out.println("Hiện không có nhân viên nào trong danh sách!");
-        }
-        else {
-                System.out.println("DANH SÁCH NHÂN VIÊN: (" + soLuongNhanVien() + " nhân viên)");
-                System.out.printf("|%-5s|%-30s|%-10s|%-10s|%-10s|Lương\n",
-                                  "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
-                for (NhanVien nhanVien : DS_NhanVien) {
-                    inNhanVien(nhanVien);
-                }
+        } else {
+            System.out.println("DANH SÁCH NHÂN VIÊN: (" + soLuongNhanVien() + " nhân viên)");
+            System.out.printf("|%-5s|%-30s|%-10s|%-10s|%-10s|Lương\n",
+                    "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
+            for (NhanVien nhanVien : DS_NhanVien) {
+                inNhanVien(nhanVien);
+            }
         }
     }
 
-    //3a. Phương thức tìm kiếm nhân viên theo mã NV được truyền qua tham số đầu vào
+    // 3a. Phương thức tìm kiếm nhân viên theo mã NV được truyền qua tham số đầu vào
     private NhanVien timKiemNhanVienTheoMaNV(String maNVCanTim) {
         for (NhanVien nhanVien : DS_NhanVien) {
-            if(nhanVien.getMaNV().equalsIgnoreCase(maNVCanTim)) {
+            if (nhanVien.getMaNV().equalsIgnoreCase(maNVCanTim)) {
                 return nhanVien;
             }
         }
         return null;
     }
 
-    //3b. Phương thức tìm kiếm nhân viên theo mã NV được nhập vào từ bàn phím
+    // 3b. Phương thức tìm kiếm nhân viên theo mã NV được nhập vào từ bàn phím
     private void timKiemNhanVienTheoMaNV() {
         System.out.print("Nhập mã nhân viên cần tìm: ");
         String maNVCanTim = KiemTra.kiemTraNhapMaNV();
 
         for (NhanVien nhanVien : DS_NhanVien) {
-            if(nhanVien.getMaNV().equalsIgnoreCase(maNVCanTim)) {
+            if (nhanVien.getMaNV().equalsIgnoreCase(maNVCanTim)) {
                 System.out.println("------------------------------");
                 System.out.println("Thông tin nhân viên cần tìm:");
                 System.out.printf("|%-5s|%-30s|%-10s|%-10s|%-10s|Lương\n",
-                                  "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
+                        "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
                 inNhanVien(nhanVien);
                 return;
             }
@@ -177,7 +172,7 @@ public class DanhSachNhanVien {
         System.out.println("Không tìm thấy nhân viên có mã " + maNVCanTim + " trong danh sách!");
     }
 
-    //4. Phương thức tìm kiếm nhân viên theo tên NV
+    // 4. Phương thức tìm kiếm nhân viên theo tên NV
     private void timKiemNhanVienTheoTenNV() {
         System.out.print("Nhập tên nhân viên cần tìm: ");
         String tenNVCanTim = KiemTra.kiemTraNhapTen();
@@ -185,28 +180,28 @@ public class DanhSachNhanVien {
         boolean timThay = false;
 
         for (NhanVien nhanVien : DS_NhanVien) {
-            if(nhanVien.getTenNV().contains(tenNVCanTim)) {
+            if (nhanVien.getTenNV().contains(tenNVCanTim)) {
                 System.out.println("------------------------------");
                 System.out.println("Thông tin (các) nhân viên cần tìm:");
                 System.out.printf("|%-5s|%-30s|%-10s|%-10s|%-10s|Lương\n",
-                                  "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
+                        "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
                 inNhanVien(nhanVien);
                 timThay = true;
             }
         }
-        if(!timThay)
+        if (!timThay)
             System.out.println("Không tìm thấy nhân viên có tên \"" + tenNVCanTim + "\" trong danh sách!");
     }
 
-    //5. Phương thức cập nhật thông tin nhân viên
+    // 5. Phương thức cập nhật thông tin nhân viên
     private void capNhatThongTinNhanVien() {
         System.out.print("Nhập mã nhân viên cần cập nhật: ");
         String maNVCanCapNhat = KiemTra.kiemTraNhapMaNV();
 
         NhanVien nhanVien = timKiemNhanVienTheoMaNV(maNVCanCapNhat);
 
-        if(nhanVien != null) {
-            while(true) {
+        if (nhanVien != null) {
+            while (true) {
                 System.out.println("--------------- CẬP NHẬT THÔNG TIN NHÂN VIÊN ---------------");
                 System.out.println("\t\t1. Mã nhân viên.");
                 System.out.println("\t\t2. Họ và tên nhân viên.");
@@ -217,7 +212,7 @@ public class DanhSachNhanVien {
                 System.out.print("Chọn thông tin cần sửa: ");
                 int luaChon = KiemTra.kiemTraSoNguyenDuong();
 
-                switch(luaChon) {
+                switch (luaChon) {
                     case 1:
                         System.out.print("Nhập mã nhân viên mới: ");
                         String maNV = KiemTra.kiemTraNhapMaNV();
@@ -239,13 +234,12 @@ public class DanhSachNhanVien {
                         nhanVien.setDienThoai(dienThoai);
                         break;
                     case 5:
-                        if(nhanVien instanceof NVBanHang) {
+                        if (nhanVien instanceof NVBanHang) {
                             NVBanHang bh = (NVBanHang) nhanVien;
                             System.out.print("Nhập tiền thưởng mới: ");
                             double tienThuong = KiemTra.kiemTraTienThuong();
                             bh.setTienThuong(tienThuong);
-                        }
-                        else if(nhanVien instanceof NVQuanLy) {
+                        } else if (nhanVien instanceof NVQuanLy) {
                             NVQuanLy ql = (NVQuanLy) nhanVien;
                             System.out.print("Nhập tiền thưởng mới: ");
                             double tienThuong = KiemTra.kiemTraTienThuong();
@@ -259,7 +253,7 @@ public class DanhSachNhanVien {
                 // * Hỏi người dùng có muốn tiếp tục chọn hay không?
                 System.out.print("\nBạn có muốn tiếp tục cập nhật thông tin nhân viên không? (y/n): ");
                 String tiepTuc = KiemTra.tiepTuc();
-                if(tiepTuc.equals("n")) {
+                if (tiepTuc.equals("n")) {
                     System.out.println("\nHoàn tất cập nhật thông tin nhân viên!");
                     break;
                 }
@@ -269,59 +263,55 @@ public class DanhSachNhanVien {
             System.out.println("------------------------------");
             System.out.println("Thông tin nhân viên sau khi cập nhật:");
             System.out.printf("|%-5s|%-30s|%-10s|%-10s|%-10s|Lương\n",
-                              "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
+                    "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
             inNhanVien(nhanVien);
-        }
-        else {
+        } else {
             System.out.println("Không tìm thấy nhân viên có mã " + maNVCanCapNhat + " trong danh sách!");
         }
     }
 
-    //6. Phương thức xóa một nhân viên khỏi danh sách
+    // 6. Phương thức xóa một nhân viên khỏi danh sách
     private void xoaNhanVien() {
         System.out.print("Nhập mã nhân viên cần xóa: ");
         String maNVCanXoa = KiemTra.kiemTraNhapMaNV();
 
         NhanVien nhanVien = timKiemNhanVienTheoMaNV(maNVCanXoa);
 
-        if(nhanVien != null) {
+        if (nhanVien != null) {
             System.out.println("------------------------------");
             System.out.println("Thông tin nhân viên cần xóa:");
             System.out.printf("|%-5s|%-30s|%-10s|%-10s|%-10s|Lương\n",
-                              "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
+                    "Mã NV", "Tên nhân viên", "Chức vụ", "Ngày sinh", "Điện thoại");
             inNhanVien(nhanVien);
 
             System.out.print("Bạn có chắc chắn muốn xóa nhân viên này khỏi danh sách? (y/n): ");
             String luaChon = KiemTra.tiepTuc();
 
-            if(luaChon.equals("y")) {
+            if (luaChon.equals("y")) {
                 DS_NhanVien.remove(nhanVien);
                 System.out.println("Đã xóa nhân viên có mã " + maNVCanXoa + " khỏi danh sách!");
-            }
-            else {
+            } else {
                 System.out.println("Đã hủy xóa nhân viên có mã " + maNVCanXoa + " khỏi danh sách!");
             }
-        }
-        else {
+        } else {
             System.out.println("Không tìm thấy nhân viên có mã " + maNVCanXoa + " trong danh sách!");
         }
     }
 
-    //7. Phương thức xóa tất cả nhân viên khỏi danh sách
+    // 7. Phương thức xóa tất cả nhân viên khỏi danh sách
     private void xoaTatCaNhanVien() {
         System.out.print("Bạn có chắc chắn muốn xóa tất cả nhân viên khỏi danh sách? (y/n): ");
         String luaChon = KiemTra.tiepTuc();
 
-        if(luaChon.equals("y")) {
+        if (luaChon.equals("y")) {
             DS_NhanVien.clear();
             System.out.println("Đã xóa tất cả nhân viên khỏi danh sách!");
-        }
-        else {
+        } else {
             System.out.println("Đã hủy xóa tất cả nhân viên khỏi danh sách!");
         }
     }
 
-    //8. Phương thức ghi danh sách nhân viên vào file
+    // 8. Phương thức ghi danh sách nhân viên vào file
     public void ghiFile() {
         String tenFile = "./input/NhanVien.txt";
         try {
@@ -329,11 +319,10 @@ public class DanhSachNhanVien {
             BufferedWriter bw = new BufferedWriter(fw);
 
             for (NhanVien nhanVien : DS_NhanVien) {
-                if(nhanVien instanceof NVBanHang) {
+                if (nhanVien instanceof NVBanHang) {
                     NVBanHang bh = (NVBanHang) nhanVien;
                     bw.write(bh.toString());
-                }
-                else if(nhanVien instanceof NVQuanLy) {
+                } else if (nhanVien instanceof NVQuanLy) {
                     NVQuanLy ql = (NVQuanLy) nhanVien;
                     bw.write(ql.toString());
                 }
@@ -342,13 +331,12 @@ public class DanhSachNhanVien {
 
             bw.close();
             fw.close();
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //9. Phương thức đọc danh sách nhân viên từ file
+    // 9. Phương thức đọc danh sách nhân viên từ file
     public void docFile(String tenFile) {
         DS_NhanVien.clear();
         try {
@@ -357,16 +345,17 @@ public class DanhSachNhanVien {
 
             String lines;
 
-            while((lines = br.readLine()) != null) {
+            while ((lines = br.readLine()) != null) {
                 String[] thongTinNV = lines.split("#");
 
                 NhanVien nv;
-                if("Quản lý".equals(thongTinNV[4])) {
-                    nv = new NVQuanLy(thongTinNV[0], thongTinNV[1], thongTinNV[2], thongTinNV[3], Double.parseDouble(thongTinNV[5]));
+                if ("Quản lý".equals(thongTinNV[4])) {
+                    nv = new NVQuanLy(thongTinNV[0], thongTinNV[1], thongTinNV[2], thongTinNV[3],
+                            Double.parseDouble(thongTinNV[5]));
                     DS_NhanVien.add(nv);
-                }
-                else if("Bán hàng".equals(thongTinNV[4])) {
-                    nv = new NVBanHang(thongTinNV[0], thongTinNV[1], thongTinNV[2], thongTinNV[3], Double.parseDouble(thongTinNV[5]));
+                } else if ("Bán hàng".equals(thongTinNV[4])) {
+                    nv = new NVBanHang(thongTinNV[0], thongTinNV[1], thongTinNV[2], thongTinNV[3],
+                            Double.parseDouble(thongTinNV[5]));
                     DS_NhanVien.add(nv);
                 }
             }
@@ -375,8 +364,7 @@ public class DanhSachNhanVien {
             fr.close();
 
             System.out.println("Đã đọc danh sách nhân viên từ file thành công!");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

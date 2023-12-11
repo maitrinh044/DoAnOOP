@@ -15,7 +15,7 @@ public class DanhSachTaiKhoan implements DanhSach {
     private int soluongTK = 0;
     protected static TaiKhoan arrTK[];
 
-    public void ghiFile() {
+    protected void ghiFile() {
         try {
             FileOutputStream fos = new FileOutputStream("./input/TaiKhoan.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -33,7 +33,7 @@ public class DanhSachTaiKhoan implements DanhSach {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             arrTK = new TaiKhoan[0];
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -87,7 +87,7 @@ public class DanhSachTaiKhoan implements DanhSach {
         System.out.println();
     }
 
-    public void themTaiKhoan(TaiKhoan a) {
+    protected void themTaiKhoan(TaiKhoan a) {
         arrTK = Arrays.copyOf(arrTK, ++soluongTK);
         arrTK[soluongTK - 1] = a;
     }
@@ -104,7 +104,7 @@ public class DanhSachTaiKhoan implements DanhSach {
         }
     }
 
-    public void xoaTaiKhoan(String maTK) {
+    private void xoaTaiKhoan(String maTK) {
         TaiKhoan[] tmp = Arrays.copyOf(arrTK, soluongTK);
         arrTK = new TaiKhoan[soluongTK - 1];
         for (int i = 0, j = 0; i < soluongTK; i++) {

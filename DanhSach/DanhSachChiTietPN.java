@@ -3,7 +3,6 @@ package DanhSach;
 import KiemTra.KiemTra;
 import main.*;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,10 +14,10 @@ import java.util.ArrayList;
 public class DanhSachChiTietPN {
     private static ArrayList<ChiTietPhieuNhap> arrCTPN;
 
-    public static int getSoLuong(){
+    protected static int getSoLuong() {
         return arrCTPN.size();
     }
-    
+
     public DanhSachChiTietPN() {
         arrCTPN = new ArrayList<>();
         try {
@@ -31,10 +30,10 @@ public class DanhSachChiTietPN {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -63,33 +62,32 @@ public class DanhSachChiTietPN {
         }
     }
 
-    public static void themNhieuChiTietPN(String maPN) {
+    protected static void themNhieuChiTietPN(String maPN) {
         System.out.print("Nhập số lượng chi tiết phiếu nhập cần nhập: ");
         int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i=0; i<c; i++) {
-            System.out.println("Nhập phiếu nhập thứ "+c+": ");
+        for (int i = 0; i < c; i++) {
+            System.out.println("Nhập phiếu nhập thứ " + c + ": ");
             themChiTietPN(maPN);
         }
     }
 
-    public void xuatDS() {
+    private void xuatDS() {
         for (ChiTietPhieuNhap i : arrCTPN) {
             i.xuatChiTietPN();
         }
     }
-   
-    public static void themChiTietPN(String maPN) {
+
+    protected static void themChiTietPN(String maPN) {
         ChiTietPhieuNhap a = new ChiTietPhieuNhap();
         a.nhapChiTietPN(maPN);
         arrCTPN.add(a);
     }
 
-    public void themChiTietPN(ChiTietPhieuNhap a){
+    private void themChiTietPN(ChiTietPhieuNhap a) {
         arrCTPN.add(a);
     }
 
-    
-    public static ArrayList<ChiTietPhieuNhap> timChiTietPhieuNhap(String maPN) {
+    protected static ArrayList<ChiTietPhieuNhap> timChiTietPhieuNhap(String maPN) {
         ArrayList<ChiTietPhieuNhap> arr = new ArrayList<>();
         for (int i = 0; i < getSoLuong(); i++) {
             if (arrCTPN.get(i).getMaPN().equals(maPN) == true)
@@ -97,18 +95,16 @@ public class DanhSachChiTietPN {
         }
         if (arr.size() > 0) {
             return arr;
-        }
-        else return null;
+        } else
+            return null;
     }
 
-    public static ChiTietPhieuNhap tim1ChiTietPhieuNhap(String nguyenLieu) {
+    protected static ChiTietPhieuNhap tim1ChiTietPhieuNhap(String nguyenLieu) {
         if (getSoLuong() == 0) {
             return null;
-        }
-        else if (DanhSachNguyenLieu.timKiemNguyenLieu(nguyenLieu) == null){
+        } else if (DanhSachNguyenLieu.timKiemNguyenLieu(nguyenLieu) == null) {
             return null;
-        }
-        else {
+        } else {
             for (ChiTietPhieuNhap i : arrCTPN) {
                 if (i.getMaNL().equals(DanhSachNguyenLieu.timKiemNguyenLieu(nguyenLieu).getMaNL()) == true) {
                     return i;
@@ -118,12 +114,10 @@ public class DanhSachChiTietPN {
         return null;
     }
 
-
-    public static void xuatChiTiet1PN(String maPN) {
+    protected static void xuatChiTiet1PN(String maPN) {
         if (timChiTietPhieuNhap(maPN) == null) {
             System.out.println("Phiếu nhập không có chi tiết");
-        }
-        else {
+        } else {
             System.out.println("Chi tiết: ");
             ArrayList<ChiTietPhieuNhap> arr = timChiTietPhieuNhap(maPN);
             for (ChiTietPhieuNhap i : arr) {

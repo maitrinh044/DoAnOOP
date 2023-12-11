@@ -35,7 +35,7 @@ public class DanhSachKhuyenMai implements DanhSach {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -81,13 +81,13 @@ public class DanhSachKhuyenMai implements DanhSach {
         }
     }
 
-    public void themKhuyenMai(KhuyenMai tmp) {
+    private void themKhuyenMai(KhuyenMai tmp) {
         DS_KhuyenMai = Arrays.copyOf(DS_KhuyenMai, soKM + 1);
         DS_KhuyenMai[soKM] = tmp;
         soKM++;
     }
 
-    public void xoaMaKM(String maKM) {
+    private void xoaMaKM(String maKM) {
         int newCount = soKM - 1;
         KhuyenMai[] newArr = new KhuyenMai[newCount];
         for (int i = 0, j = 0; i < soKM; i++) {
@@ -101,7 +101,7 @@ public class DanhSachKhuyenMai implements DanhSach {
         System.out.println("Đã xóa!");
     }
 
-    public void xoaMaKMTheoMASP(String masp) {
+    private void xoaMaKMTheoMASP(String masp) {
         int newCount = soKM - 1;
         KhuyenMai[] newArr = new KhuyenMai[newCount];
         for (int i = 0, j = 0; i < soKM; i++) {
@@ -114,14 +114,14 @@ public class DanhSachKhuyenMai implements DanhSach {
         soKM = newCount;
     }
 
-    public void xoaDanhSachKhuyenMai() {
+    private void xoaDanhSachKhuyenMai() {
         int newCount = 0;
         KhuyenMai[] newArr = new KhuyenMai[newCount];
         DS_KhuyenMai = newArr;
         soKM = newCount;
     }
 
-    public void suaMaKM(String makm) {
+    private void suaMaKM(String makm) {
         String maKM, maSP;
         for (int i = 0; i < soKM; i++) {
             if (DS_KhuyenMai[i].getMaKM().equalsIgnoreCase(makm)) {
@@ -182,7 +182,7 @@ public class DanhSachKhuyenMai implements DanhSach {
         }
     }
 
-    public void inDanhSach() {
+    private void inDanhSach() {
         System.out.println("Danh sách khuyến mãi: ");
         System.out.printf("|%-15s|%-15s|%-10s|%-20s|%-20s|%-40s|\n", "Mã khuyến mãi", "Mã sản phẩm", "Giá trị",
                 "Ngày bắt đầu", "Ngày kết thúc", "Mô tả");
@@ -192,7 +192,7 @@ public class DanhSachKhuyenMai implements DanhSach {
         System.out.println();
     }
 
-    public KhuyenMai timMaKM(String makm) {
+    private KhuyenMai timMaKM(String makm) {
         for (int i = 0; i < soKM; i++) {
             if (DS_KhuyenMai[i].getMaKM().equalsIgnoreCase(makm)) {
                 return DS_KhuyenMai[i];
@@ -202,7 +202,7 @@ public class DanhSachKhuyenMai implements DanhSach {
     }
 
     // 8.Tìm mã khuyến mãi theo mã sản phẩm.
-    public void timMaKMTheoMaSP(String masp) {
+    private void timMaKMTheoMaSP(String masp) {
         for (int i = 0; i < soKM; i++) {
             if (DS_KhuyenMai[i].getMaSP().equalsIgnoreCase(masp)) {
                 DS_KhuyenMai[i].xuatKhuyenMai();

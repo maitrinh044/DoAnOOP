@@ -33,7 +33,7 @@ public class DanhSachCongThuc implements DanhSach {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             soLuong = 0;
             arrCT = new CongThuc[0];
@@ -82,12 +82,12 @@ public class DanhSachCongThuc implements DanhSach {
         }
     }
 
-    public void themCongThuc(CongThuc a) {
+    private void themCongThuc(CongThuc a) {
         arrCT = Arrays.copyOf(arrCT, ++soLuong);
         arrCT[soLuong - 1] = a;
     }
 
-    public void xoaCongThuc(String maCT) {
+    private void xoaCongThuc(String maCT) {
         if (DanhSachSanPham.timKiemSanPhamTheoMaSP(timKiemCongThuc(maCT).getMaSP()) != null) {
             System.out.println("Sản phẩm đang tồn tại. Không thể xóa công thức.");
             return;
@@ -133,7 +133,7 @@ public class DanhSachCongThuc implements DanhSach {
         }
     }
 
-    public void xuatDSCT() {
+    private void xuatDSCT() {
         if (soLuong == 0) {
             System.out.println("Danh sách công thức trống!\n");
             return;
@@ -204,7 +204,7 @@ public class DanhSachCongThuc implements DanhSach {
         } while (tieptuc.equals("y"));
     }
 
-    public void auto() {
+    private void auto() {
         soLuong = 5;
         arrCT = new CongThuc[soLuong];
         arrCT[0] = new CongThuc("SP001", "CT001");

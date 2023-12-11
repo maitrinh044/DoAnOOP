@@ -49,7 +49,7 @@ public class DanhSachSanPham implements DanhSach {
     }
 
     // ghi danh sách vào file DanhSachSanPham
-    protected void ghiFile() {
+    public void ghiFile() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./input/SanPham.txt"))) {
             for (int i = 0; i < soLuong; i++) {
                 oos.writeObject(arrSP[i]);
@@ -125,7 +125,7 @@ public class DanhSachSanPham implements DanhSach {
     }
 
     // in danh sách sản phẩm
-    public void xuatDSSP() {
+    protected void xuatDSSP() {
         if (soLuong <= 0) {
             System.out.println("Danh sách sản phẩm trống!");
             return;
@@ -158,7 +158,7 @@ public class DanhSachSanPham implements DanhSach {
         return null;
     }
 
-    public static SanPham[] timKiemSanPhamTheoPham(String tenSP) {
+    protected static SanPham[] timKiemSanPhamTheoPham(String tenSP) {
         if (soLuong == 0) {
             return null;
         } else {
@@ -189,7 +189,7 @@ public class DanhSachSanPham implements DanhSach {
     // }
 
     // Xóa sản phẩm ra khỏi danh sách theo mã sản phẩm
-    private void xoaSanPham(String masp) {
+    public void xoaSanPham(String masp) {
         System.out.print("Bạn có muốn xóa sản phẩm?(1. Có - 2. Không)");
         int opt = KiemTra.kiemTraNhapSoNguyen();
         if (opt == 1) {

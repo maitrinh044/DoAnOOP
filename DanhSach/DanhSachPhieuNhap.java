@@ -31,7 +31,7 @@ public class DanhSachPhieuNhap implements DanhSach {
         }
     }
 
-    public void docFile(FileInputStream fis) {
+    private void docFile(FileInputStream fis) {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (fis.available() > 0) {
@@ -62,12 +62,12 @@ public class DanhSachPhieuNhap implements DanhSach {
 
     }
 
-    public void themPhieuNhap(PhieuNhap a) {
+    private void themPhieuNhap(PhieuNhap a) {
         arrPN = Arrays.copyOf(arrPN, ++soluongPN);
         arrPN[soluongPN - 1] = a;
     }
 
-    public PhieuNhap themPhieuNhap() {
+    private PhieuNhap themPhieuNhap() {
         PhieuNhap a = new PhieuNhap();
         a.nhapPhieuNhap();
         arrPN = Arrays.copyOf(arrPN, ++soluongPN);
@@ -86,7 +86,7 @@ public class DanhSachPhieuNhap implements DanhSach {
     // soluongPN--;
     // }
 
-    public void xuatDSPN() {
+    private void xuatDSPN() {
         if (soluongPN == 0) {
             System.out.println("Danh sách phiếu nhập trống!");
             return;
