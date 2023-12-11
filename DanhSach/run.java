@@ -26,23 +26,30 @@ public class run {
     DanhSachGiaoHang listGiaoHang = new DanhSachGiaoHang();
 
     public void batDau() {
-        System.out.println("Chào mừng đến với...");
-        System.out.println("Bạn đã có tài khoản? (1. Đăng nhập)");
-        System.out.println("Bạn chưa có tài khoản? (2. Đăng kí tài khoản)");
-        System.out.print("Lựa chọn: ");
-        int opt = KiemTra.kiemTraNhapSoNguyen();
-        switch (opt) {
-            case 1:
-                dangNhap();
-                break;
-            case 2:
-                dangKy();
-                break;
-            default:
-                System.out.println("Lựa chọn không hợp lệ. Thoát!");
-                break;
-        }
-        ghiFile();
+        int opt;
+        System.out.println("Chào mừng đến với cửa hàng bán Thức ăn nhanh.");
+        do {
+            System.out.println("0. Thoát");
+            System.out.println("Bạn đã có tài khoản? (1. Đăng nhập)");
+            System.out.println("Bạn chưa có tài khoản? (2. Đăng kí tài khoản)");
+            System.out.print("Lựa chọn: ");
+            opt = KiemTra.kiemTraNhapSoNguyen();
+            switch (opt) {
+                case 0:
+                    break;
+                case 1:
+                    dangNhap();
+                    break;
+                case 2:
+                    dangKy();
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ. Thoát!");
+                    break;
+            }
+            ghiFile();
+        } while (opt !=0);
+        
     }
 
     private void dangNhap() {
