@@ -33,7 +33,7 @@ public class DanhSachGiaoHang {
     }
 
     // Start: Menu quản lý danh sách giao hàng
-    public void quanLyGiaoHang() {
+    public void quanLiDS() {
         while (true) {
             System.out.println("==================== QUẢN LÝ DANH SÁCH ĐƠN GIAO HÀNG ====================");
             System.out.println("\t\t\t1. Thêm (các) đơn giao hàng mới vào danh sách.");

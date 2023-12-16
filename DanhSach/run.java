@@ -341,7 +341,7 @@ public class run {
             System.out.println("5. Quản lí đơn hàng.");
             System.out.println("6. Quản lí công thức.");
             System.out.println("7. Quản lí khách hàng.");
-            System.out.println("8. Quản lí phiếu nhập.");
+            System.out.println("8. Quản lí các đơn giao hàng.");
             System.out.println("9. Quản lí tài khoản.");
             System.out.println("10. Quản lí nhân viên.");
             System.out.println("11. Quản lí nhà cung cấp");
@@ -375,7 +375,7 @@ public class run {
                     listKhachHang.quanLyKhachHang();
                     break;
                 case 8:
-                    listPhieuNhap.quanLiDS();
+                    listGiaoHang.quanLiDS();
                     break;
                 case 9:
                     listTaiKhoan.quanLiDS();
