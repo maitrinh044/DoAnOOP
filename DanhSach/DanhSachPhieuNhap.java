@@ -24,6 +24,10 @@ public class DanhSachPhieuNhap implements DanhSach {
                 docFile(fis);
                 fis.close();
             }
+            else {
+                auto();
+                ghiFile();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -75,23 +79,13 @@ public class DanhSachPhieuNhap implements DanhSach {
         return a;
     }
 
-    // public void xoaPhieuNhap(String maPN) {
-    // PhieuNhap[] arr = Arrays.copyOf(arrPN, soluongPN);
-    // arrPN = new PhieuNhap[soluongPN - 1];
-    // for (int i = 0, j = 0; i < soluongPN; i++) {
-    // if (arrPN[i].getMaPN().equals(maPN) == false) {
-    // arrPN[j++] = arr[i];
-    // }
-    // }
-    // soluongPN--;
-    // }
-
     private void xuatDSPN() {
         if (soluongPN == 0) {
             System.out.println("Danh sách phiếu nhập trống!");
             return;
         }
         System.out.println("DANH SÁCH PHIẾU NHẬP");
+        System.out.printf("%-10s%-10s%-15s%-10s\n", "Mã PN", "Mã NV", "Ngày", "Mã NCC");
         for (int i = 0; i < soluongPN; i++) {
             arrPN[i].xuatPhieuNhap();
         }
@@ -162,6 +156,7 @@ public class DanhSachPhieuNhap implements DanhSach {
                     if (timPhieuNhap(maPN) == null) {
                         System.out.println("Không tồn tại phiếu nhập!");
                     } else {
+                        System.out.printf("%-10s%-10s%-15s%-10s\n", "Mã PN", "Mã NV", "Ngày", "Mã NCC");
                         timPhieuNhap(maPN).xuatPhieuNhap();
                         DanhSachChiTietPN.xuatChiTiet1PN(maPN);
                     }
@@ -177,4 +172,16 @@ public class DanhSachPhieuNhap implements DanhSach {
             tiepTuc = KiemTra.tiepTuc();
         } while (tiepTuc.equals("y"));
     }
+
+    public void auto() {
+        soluongPN = 5;
+        arrPN = new PhieuNhap[soluongPN];
+        arrPN[0] = new PhieuNhap("PN001", "NV002", "13/12/2023", "NCC001");
+        arrPN[1] = new PhieuNhap("PN002", "NV002", "14/12/2023", "NCC002");
+        arrPN[2] = new PhieuNhap("PN003", "NV001", "14/12/2023", "NCC005");
+        arrPN[3] = new PhieuNhap("PN004", "NV001", "15/12/2023", "NCC006");
+        arrPN[4] = new PhieuNhap("PN005", "NV002", "15/12/2023", "NCC003");
+    }
 }
+
+

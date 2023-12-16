@@ -82,8 +82,6 @@ public class NguyenLieu implements Serializable{
     public void nhapNguyenLieu(){
         setMaNL();
         setTenNL();
-        setSoLuong();
-        setDonGia();
         setDonViTinh();
     }
 

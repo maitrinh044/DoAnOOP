@@ -25,6 +25,10 @@ public class DanhSachChiTietPN {
             if (fis.available() > 0) {
                 docFile(fis);
             }
+            else {
+                auto();
+                ghiFile();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -71,7 +75,10 @@ public class DanhSachChiTietPN {
         }
     }
 
-    private void xuatDS() {
+    protected void xuatDS() {
+        if (arrCTPN.size()==0) {
+            System.out.println("Danh sách chi tiết phiếu nhập trống!");
+        }
         for (ChiTietPhieuNhap i : arrCTPN) {
             i.xuatChiTietPN();
         }
@@ -82,6 +89,7 @@ public class DanhSachChiTietPN {
         a.nhapChiTietPN(maPN);
         NguyenLieu nl = DanhSachNguyenLieu.timKiemNguyenLieu(a.getMaNL());
         nl.setSoLuong(nl.getSoLuong()+a.getSoLuong());
+        nl.setDonGia(a.getDonGia());
         arrCTPN.add(a);
     }
 
@@ -121,11 +129,37 @@ public class DanhSachChiTietPN {
             System.out.println("Phiếu nhập không có chi tiết");
         } else {
             System.out.println("Chi tiết: ");
+            System.out.printf("%-10s%-20s%-10s%-10s\n", "Mã NL", "Tên NL", "Số lượng", "Đơn giá");
             ArrayList<ChiTietPhieuNhap> arr = timChiTietPhieuNhap(maPN);
             for (ChiTietPhieuNhap i : arr) {
                 i.xuatChiTietPN1();
             }
         }
+    }
+
+    public void auto() {
+        ChiTietPhieuNhap a = new ChiTietPhieuNhap("PN001", "NL001", 100, 5000);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN001", "NL002", 100, 5000);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN001", "NL003", 10000, 200);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN001", "NL004", 10000, 200);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN002", "NL005", 10000, 400);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN003", "NL006", 10000, 500);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN003", "NL007", 100, 5000);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN004", "NL008", 10000, 20000);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN004", "NL009", 10000, 20000);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN005", "NL010", 10000, 40);
+        arrCTPN.add(a);
+         a = new ChiTietPhieuNhap("PN005", "NL011", 100, 10000);
+        arrCTPN.add(a);
     }
 
 }
