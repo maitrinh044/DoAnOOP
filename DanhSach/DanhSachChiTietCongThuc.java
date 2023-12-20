@@ -105,7 +105,7 @@ public class DanhSachChiTietCongThuc {
         System.out.println("Không tồn tại công thức.\n");
     }
 
-    protected static ArrayList<ChiTietCongThuc> timKiemCTCT(String maCT) {
+    public static ArrayList<ChiTietCongThuc> timKiemCTCT(String maCT) {
         if (getSoLuong() == 0) {
             return null;
         } else {
@@ -147,25 +147,43 @@ public class DanhSachChiTietCongThuc {
     private void auto() {
         ChiTietCongThuc a = new ChiTietCongThuc("CT001", "NL001", 2);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT001", "NL002", 20);
+        a = new ChiTietCongThuc("CT001", "NL005", 200);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT001", "NL004", 20);
+        a = new ChiTietCongThuc("CT001", "NL007", 50);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT001", "NL003", 20);
+        a = new ChiTietCongThuc("CT002", "NL001", 2);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT002", "NL002", 20);
+        a = new ChiTietCongThuc("CT002", "NL010", 200);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT002", "NL004", 20);
+        a = new ChiTietCongThuc("CT002", "NL007", 50);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT003", "NL001", 3);
+        a = new ChiTietCongThuc("CT003", "NL002", 1);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT004", "NL002", 40);
+        a = new ChiTietCongThuc("CT003", "NL007", 70);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT004", "NL001", 2);
+        a = new ChiTietCongThuc("CT003", "NL008", 50);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT004", "NL004", 20);
+        a = new ChiTietCongThuc("CT004", "NL005", 100);
         arrCTCT.add(a);
-        a = new ChiTietCongThuc("CT005", "NL008", 20);
+        a = new ChiTietCongThuc("CT004", "NL006", 100);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT004", "NL003", 200);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT005", "NL007", 90);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT005", "NL003", 200);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT006", "NL010", 1);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT007", "NL003", 50);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT007", "NL007", 50);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT008", "NL008", 200);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT009", "NL008", 200);
+        arrCTCT.add(a);
+        a = new ChiTietCongThuc("CT010", "NL008", 200);
         arrCTCT.add(a);
     }
 }

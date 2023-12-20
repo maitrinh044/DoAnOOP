@@ -63,7 +63,7 @@ public class ChiTietPhieuNhap implements Serializable{
     }
     
     private void setSoLuong(){
-        System.out.println("Nhập số lượng nguyên liệu: ");
+        System.out.print("Nhập số lượng nguyên liệu: ");
         soLuong = KiemTra.kiemTraSoNguyenDuong();
     }
 

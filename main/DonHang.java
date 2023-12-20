@@ -118,7 +118,7 @@ public class DonHang implements Serializable {
         System.out.printf("|%-5s|%-20s|%-5s|%-5s|%-10s\n",
                 maDH, ngayLapDon, maNV, maKH, tongTienHoaDon(maTK));
         for (ChiTietGioHang i : arrGH) {
-            if (i.getSoLuong()>DanhSachSanPham.timKiemSanPhamTheoMaSP(i.getMaSP()).getSoLuong()) {
+            if (i.getSoLuong()>DanhSachSanPham.timKiemSanPhamTheoMaSP(i.getMaSP()).ktraSoLuong()) {
                 System.out.println("Số lượng sản phẩm đặt mua lớn hơn số lượng sản phẩm còn lại. Vui lòng thay đổi số lượng sản phẩm!");
                 return;
             }

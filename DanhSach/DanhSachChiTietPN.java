@@ -67,12 +67,12 @@ public class DanhSachChiTietPN {
     }
 
     protected static void themNhieuChiTietPN(String maPN) {
-        System.out.print("Nhập số lượng chi tiết phiếu nhập cần nhập: ");
-        int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i = 0; i < c; i++) {
-            System.out.println("Nhập phiếu nhập thứ " + c + ": ");
+        String tt;
+        do {
             themChiTietPN(maPN);
-        }
+            System.out.print("Bạn có muốn tiếp tục thêm chi tiết phiếu nhập(y/n): ");
+            tt = KiemTra.tiepTuc();
+        } while (tt.equalsIgnoreCase("y"));
     }
 
     protected void xuatDS() {

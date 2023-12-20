@@ -28,16 +28,16 @@ public class DanhSachSanPham implements DanhSach {
             } else {
                 soLuong = 10;
                 arrSP = new SanPham[soLuong];
-                arrSP[0] = new ThucAn("SP001", "Burger Tôm", 40000, "Burger Tôm - disc", 100, "Món Chính");
-                arrSP[1] = new ThucAn("SP002", "Burger Bò", 40000, "Burger Bò - disc", 100, "Món Chính");
-                arrSP[2] = new ThucAn("SP003", "Mì Ý", 40000, "Mì Ý - disc", 100, "Món Chính");
-                arrSP[3] = new ThucAn("SP004", "Pizza Hải Sản", 70000, "Pizza Hải Sản - disc", 100, "Món Chính");
-                arrSP[4] = new ThucAn("SP005", "Pizza Phô Mai", 60000, "Pizza Phô Mai - disc", 100, "Món Chính");
-                arrSP[5] = new ThucAn("SP006", "Xúc Xích", 20000, "Xúc Xích - disc", 100, "Món Ăn Kèm");
-                arrSP[6] = new ThucAn("SP007", "Phô Mai Que", 20000, "Phô Mai Que - disc", 100, "Món Ăn Kèm");
-                arrSP[7] = new ThucUong("SP008", "Coca", 40000, "Coca - disc", 100, "Lớn");
-                arrSP[8] = new ThucUong("SP009", "Pepsi", 40000, "Pepsi - disc", 100, "Lớn");
-                arrSP[9] = new ThucUong("SP010", "Trà Đào", 40000, "Trà Đào - disc", 100, "Nhỏ");
+                arrSP[0] = new ThucAn("SP001", "Burger Tôm", 40000, "Burger Tôm - disc", "Món Chính");
+                arrSP[1] = new ThucAn("SP002", "Burger Bò", 40000, "Burger Bò - disc", "Món Chính");
+                arrSP[2] = new ThucAn("SP003", "Mì Ý", 40000, "Mì Ý - disc", "Món Chính");
+                arrSP[3] = new ThucAn("SP004", "Pizza Hải Sản", 70000, "Pizza Hải Sản - disc", "Món Chính");
+                arrSP[4] = new ThucAn("SP005", "Pizza Phô Mai", 60000, "Pizza Phô Mai - disc", "Món Chính");
+                arrSP[5] = new ThucAn("SP006", "Xúc Xích", 20000, "Xúc Xích - disc", "Món Ăn Kèm");
+                arrSP[6] = new ThucAn("SP007", "Phô Mai Que", 20000, "Phô Mai Que - disc", "Món Ăn Kèm");
+                arrSP[7] = new ThucUong("SP008", "Coca", 40000, "Coca - disc", "Lớn");
+                arrSP[8] = new ThucUong("SP009", "Pepsi", 40000, "Pepsi - disc", "Lớn");
+                arrSP[9] = new ThucUong("SP010", "Trà Đào", 40000, "Trà Đào - disc", "Nhỏ");
 
                 ghiFile();
             }
@@ -131,8 +131,8 @@ public class DanhSachSanPham implements DanhSach {
             return;
         }
         System.out.println("DANH SÁCH SẢN PHẨM");
-        System.out.printf("%-13s%-25s%-9s%-40s%-15s%-6s\n", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Mô tả",
-                "Loại/Kích cỡ", "Còn lại");
+        System.out.printf("%-13s%-25s%-9s%-40s%-15s\n", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Mô tả",
+                "Loại/Kích cỡ");
         for (int i = 0; i < soLuong; i++) {
             arrSP[i].xuatSanPham();
         }
@@ -275,33 +275,6 @@ public class DanhSachSanPham implements DanhSach {
         return s;
     }
 
-    private int thongKeTongSoLuong(int opt) {
-        int s = 0;
-        switch (opt) {
-            case 1:
-                for (SanPham sanPham : arrSP) {
-                    s += sanPham.getSoLuong();
-                }
-                break;
-            case 2:
-                for (SanPham sanPham : arrSP) {
-                    if (sanPham instanceof ThucAn) {
-                        s += sanPham.getSoLuong();
-                    }
-                }
-            case 3:
-                for (SanPham sanPham : arrSP) {
-                    if (sanPham instanceof ThucUong) {
-                        s += sanPham.getSoLuong();
-                    }
-                }
-            default:
-                break;
-        }
-
-        return s;
-    }
-
     private void thongKeSanPham() {
         int opt;
         String tieptuc;
@@ -310,9 +283,6 @@ public class DanhSachSanPham implements DanhSach {
             System.out.println("1. Thống kê tổng số sản phẩm đang có.");
             System.out.println("2. Thống kê tổng số thức ăn đang có.");
             System.out.println("3. Thống kê tổng số thức uống đang có.");
-            System.out.println("4. Thống kê tổng số lượng sản phẩm đang có.");
-            System.out.println("5. Thống kê tổng số lượng thức ăn đang có.");
-            System.out.println("6. Thống kê tổng số lượng thức uống đang có.");
             System.out.print("Lựa chọn: ");
             opt = KiemTra.kiemTraNhapSoNguyen();
             switch (opt) {
@@ -324,17 +294,6 @@ public class DanhSachSanPham implements DanhSach {
                     break;
                 case 3:
                     System.out.println("Tổng số thức uống đang có: " + thongKeThucUong());
-                    break;
-                case 4:
-                    System.out.println("Tổng số lượng sản phẩm: " + thongKeTongSoLuong(1));
-                    break;
-                case 5:
-                    System.out.println("Tổng số lượng thức ăn: " + thongKeTongSoLuong(2));
-                    break;
-                case 6:
-                    System.out.println("Tổng số lượng thức uống: " + thongKeTongSoLuong(3));
-                    break;
-                default:
                     break;
             }
             System.out.println("Bạn có muốn tiếp tục các thao tác thống kê? (y/n)");

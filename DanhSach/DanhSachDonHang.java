@@ -77,11 +77,12 @@ public class DanhSachDonHang {
 
     // 1. Phương thức thêm đơn hàng
     private void them() {
-        System.out.println("Nhập đơn hàng cần thêm: ");
+        System.out.println("Nhập thông tin đơn hàng: ");
         DonHang a = new DonHang();
         a.nhapThongTinDonHang();
         themDonHang(a);
         DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH());
+        System.out.println("Đã thêm đơn hàng!\n");
     }
 
     private void themDonHang(DonHang tmp) {
@@ -96,7 +97,6 @@ public class DanhSachDonHang {
         a.setMaNV("NV001");
         themDonHang(a);
         DanhSachChiTietDonHang.themNhieuChiTietDonHang(a.getMaDH(), maTK);
-
         return a;
     }
 

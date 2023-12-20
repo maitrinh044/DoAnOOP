@@ -1,7 +1,12 @@
 package main;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
+import DanhSach.DanhSachChiTietCongThuc;
+import DanhSach.DanhSachCongThuc;
+import DanhSach.DanhSachNguyenLieu;
 import KiemTra.KiemTra;
 
 public class ThucAn extends SanPham implements Serializable{
@@ -13,8 +18,8 @@ public class ThucAn extends SanPham implements Serializable{
         loai = "";
     }
 
-    public ThucAn(String MaSP, String TenSP, int DonGia, String MoTa, int SoLuong, String Loai) {
-        super(MaSP, TenSP, DonGia, MoTa, SoLuong);
+    public ThucAn(String MaSP, String TenSP, int DonGia, String MoTa, String Loai) {
+        super(MaSP, TenSP, DonGia, MoTa);
         this.loai = Loai;
     }
 
@@ -66,7 +71,6 @@ public class ThucAn extends SanPham implements Serializable{
             System.out.println("3. Sửa đơn giá sản phẩm.");
             System.out.println("4. Sửa mô tả sản phẩm.");
             System.out.println("5. Sửa loại sản phẩm.");
-            System.out.println("6. Sửa số lượng sản phẩm.");
             System.out.print("Lựa chọn: ");
             opt = KiemTra.kiemTraNhapSoNguyen();
             switch (opt) {
@@ -87,9 +91,6 @@ public class ThucAn extends SanPham implements Serializable{
                 case 5:
                     setLoai();
                     break;
-                case 6:
-                    setSoLuong();
-                    break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Thoát!");
                     break;
@@ -99,7 +100,32 @@ public class ThucAn extends SanPham implements Serializable{
 
     @Override
     public void xuatSanPham() {
-        System.out.printf("%-13s%-25s%-9s%-40s%-15s%-6s\n", getMaSP(), getTenSP(), getDonGia(), getMoTa(), getLoai(), getSoLuong());
+        System.out.printf("%-13s%-25s%-9s%-40s%-15s\n", getMaSP(), getTenSP(), getDonGia(), getMoTa(), getLoai());
     }
 
+    @Override
+    public int ktraSoLuong() {
+        int soLuong = Integer.MAX_VALUE;
+        CongThuc ct = DanhSachCongThuc.timKiemCongThuc(getMaSP());
+        ArrayList<ChiTietCongThuc> chiTiet = DanhSachChiTietCongThuc.timKiemCTCT(ct.getMaCT());
+        if (chiTiet != null) {
+            for (ChiTietCongThuc chiTietCongThuc : chiTiet) {
+                NguyenLieu nguyenLieu = DanhSachNguyenLieu.timKiemNguyenLieu(chiTietCongThuc.getMaNL());
+                if (nguyenLieu.getSoLuong()/chiTietCongThuc.getSoLuong() < soLuong) 
+                    soLuong = nguyenLieu.getSoLuong()/chiTietCongThuc.getSoLuong();
+            }
+        }
+        return soLuong;
+    }
+
+    @Override
+    public void cheBien(int soLuong) {
+        ArrayList<ChiTietCongThuc> chiTiet = DanhSachChiTietCongThuc.timKiemCTCT(DanhSachCongThuc.timKiemCongThuc(getMaSP()).getMaCT());
+        if (chiTiet != null) {
+            for (ChiTietCongThuc chiTietCongThuc : chiTiet) {
+                NguyenLieu nguyenLieu = DanhSachNguyenLieu.timKiemNguyenLieu(chiTietCongThuc.getMaNL());
+                nguyenLieu.setSoLuong(nguyenLieu.getSoLuong()-soLuong*chiTietCongThuc.getSoLuong());
+            }
+        }
+    }
 }

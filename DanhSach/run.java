@@ -131,7 +131,7 @@ public class run {
             boolean flag = true;
             ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
             for (ChiTietGioHang chiTietGioHang : arrGH) {
-                if (chiTietGioHang.getSoLuong() > DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietGioHang.getMaSP()).getSoLuong()) {
+                if (chiTietGioHang.getSoLuong() > DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietGioHang.getMaSP()).ktraSoLuong()) {
                     flag = false;
                 }
             }
@@ -225,7 +225,7 @@ public class run {
                         if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input) == null) {
                             System.out.println("Không tồn tại sản phẩm.");
                         } else {
-                            if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input).getSoLuong() < 1) {
+                            if (DanhSachSanPham.timKiemSanPhamTheoMaSP(input).ktraSoLuong() < 1) {
                                 System.out.println("Sản phẩm đã hết. Vui lòng chọn mua sản phẩm khác!");
                             }
                             else listCTietGioHang.themCTGioHang(a.getMaTK(), input);

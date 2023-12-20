@@ -212,5 +212,10 @@ public class DanhSachCongThuc implements DanhSach {
         arrCT[2] = new CongThuc("SP003", "CT003");
         arrCT[3] = new CongThuc("SP004", "CT004");
         arrCT[4] = new CongThuc("SP005", "CT005");
+        arrCT[4] = new CongThuc("SP006", "CT006");
+        arrCT[4] = new CongThuc("SP007", "CT007");
+        arrCT[4] = new CongThuc("SP008", "CT008");
+        arrCT[4] = new CongThuc("SP009", "CT009");
+        arrCT[4] = new CongThuc("SP010", "CT010");
     }
 }

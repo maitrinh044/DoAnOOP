@@ -10,7 +10,6 @@ public abstract class SanPham implements Serializable{
     private String tenSP;
     private int donGia;
     private String moTa;
-    private int soLuong;
 
 
     public SanPham() {
@@ -18,15 +17,13 @@ public abstract class SanPham implements Serializable{
         tenSP = "";
         donGia = 0;
         moTa = "";
-        soLuong = 0;
     }
 
-    public SanPham(String maSP, String tenSP, int donGia, String moTa, int soLuong) {
+    public SanPham(String maSP, String tenSP, int donGia, String moTa) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.donGia = donGia;
         this.moTa = moTa;
-        this.soLuong = soLuong;
     }
 
     public SanPham(SanPham a) {
@@ -34,7 +31,6 @@ public abstract class SanPham implements Serializable{
         this.tenSP = a.tenSP;
         this.donGia = a.donGia;
         this.moTa = a.moTa;
-        this.soLuong = a.soLuong;
     }
 
     public String getMaSP() {
@@ -95,28 +91,18 @@ public abstract class SanPham implements Serializable{
         moTa = KiemTra.kiemTraNhapChuoi();
     }
 
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int SoLuong) {
-        this.soLuong = SoLuong;
-    }
-
-    public void setSoLuong() {
-        System.out.print("Nhập số lượng của sản phẩm: ");
-        soLuong = KiemTra.kiemTraSoNguyenDuong();
-    }
-
     public void nhapSanPham() {
         setMaSP();
         setTenSP();
         setDonGia();
         setMoTa();
-        setSoLuong();
     }
 
     public abstract void suaSanPham();
 
     public abstract void xuatSanPham();
+
+    public abstract int ktraSoLuong();
+
+    public abstract void cheBien(int soLuong);
 }

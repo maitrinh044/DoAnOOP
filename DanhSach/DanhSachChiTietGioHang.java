@@ -102,7 +102,7 @@ public class DanhSachChiTietGioHang {
             do {
                 System.out.print("Nhập số lượng: ");
                 c = KiemTra.kiemTraSoNguyenDuong();
-                if (c>DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).getSoLuong()) {
+                if (c>DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).ktraSoLuong()) {
                     System.out.println("Số lượng còn lại của sản phẩm không đủ. Vui lòng chọn lại!");
                 }
                 else break;
@@ -114,7 +114,7 @@ public class DanhSachChiTietGioHang {
             ChiTietGioHang ct = new ChiTietGioHang(maGH, maSP, 0, DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).getDonGia());
             do {
                 ct.setSoLuong();
-                if (ct.getSoLuong() > DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).getSoLuong()) {
+                if (ct.getSoLuong() > DanhSachSanPham.timKiemSanPhamTheoMaSP(maSP).ktraSoLuong()) {
                     System.out.println("Số lượng còn lại của sản phẩm không đủ. Vui lòng chọn lại!");
                 }
                 else break;

@@ -102,6 +102,7 @@ public class DanhSachPhieuNhap implements DanhSach {
     @Override
     public void them() {
         DanhSachChiTietPN.themNhieuChiTietPN(themPhieuNhap().getMaPN());
+        System.out.println("Đã thêm phiếu nhập!\n");
     }
 
     @Override

@@ -76,29 +76,30 @@ public class DanhSachChiTietDonHang {
     }
 
     protected static void themNhieuChiTietDonHang(String maDH) {
-        System.out.print("Nhập số lượng chi tiết đơn hàng: ");
-        int c = KiemTra.kiemTraSoNguyenDuong();
-        for (int i = 0; i < c; i++) {
+        System.out.println("Nhập chi tiết đơn hàng: ");
+        String tt;
+        do {
             ChiTietDonHang ctdh = new ChiTietDonHang();
             ctdh.nhapThongTinCTDH();
-            ctdh.setMaDH(maDH);
-            themChiTietDonHang(ctdh);
             SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(ctdh.getMaSP());
-            if (a != null)
-                a.setSoLuong(a.getSoLuong() - ctdh.getSoLuong());
-        }
+            if (a.ktraSoLuong() < ctdh.getSoLuong()) {
+                System.out.println("Số lượng còn lại của sản phẩm không đủ. Vui lòng chọn lại!");
+            }
+            else {
+                ctdh.setMaDH(maDH);
+                themChiTietDonHang(ctdh);
+            }
+            System.out.print("Bạn có muốn thêm chi tiết đơn hàng?(y/n): ");
+            tt = KiemTra.tiepTuc();
+        } while (tt.equalsIgnoreCase("y"));     
     }
 
     protected static void themNhieuChiTietDonHang(String maDH, String maTK) {
         ArrayList<ChiTietGioHang> arrGH = DanhSachChiTietGioHang.timKiemCTGioHang(maTK);
         for (ChiTietGioHang i : arrGH) {
             ChiTietDonHang ctdh = new ChiTietDonHang(maDH, i.getMaSP(), i.getSoLuong(), maTK);
+            DanhSachSanPham.timKiemSanPhamTheoMaSP(ctdh.getMaSP()).cheBien(ctdh.getSoLuong());
             themChiTietDonHang(ctdh);
-        }
-        for (ChiTietGioHang chiTietGioHang : arrGH) {
-            SanPham a = DanhSachSanPham.timKiemSanPhamTheoMaSP(chiTietGioHang.getMaSP());
-            if (a != null)
-                a.setSoLuong(a.getSoLuong() - chiTietGioHang.getSoLuong());
         }
     }
 
